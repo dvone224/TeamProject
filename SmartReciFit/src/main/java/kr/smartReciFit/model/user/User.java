@@ -30,6 +30,12 @@ public class User {
 	public String getUserImg() {
 		return userImg;
 	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
+	}
 	
 	
 }
