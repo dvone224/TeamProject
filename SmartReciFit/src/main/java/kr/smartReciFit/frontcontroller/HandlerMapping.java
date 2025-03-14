@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
+import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.IdCheckController;
 import kr.smartReciFit.controller.user.UserJoinController;
@@ -30,6 +31,9 @@ public class HandlerMapping {
 				return null;
 			}
 		});
+		
+		// 게시판 작업(명보)
+		mappings.put("/ranking.do", new RankingController());
 	}
 
 	public Controller getController(String key) {

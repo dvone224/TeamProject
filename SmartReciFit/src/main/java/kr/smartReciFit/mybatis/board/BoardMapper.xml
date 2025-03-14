@@ -5,4 +5,8 @@
 
 <mapper namespace="kr.smartReciFit.mybatis.board.BoardMapper">
 
+<!--<select id="getTop3RecipesByViews" resultType="kr.smartReciFit.model.board.ReviewBoard">
+    SELECT * FROM review_board ORDER BY review_board_views DESC LIMIT 3
+</select> 아직 오류나서 일단 이렇게 냅둘게요--> 
+
 </mapper>
