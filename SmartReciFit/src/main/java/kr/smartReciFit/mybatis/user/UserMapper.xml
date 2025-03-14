@@ -8,4 +8,10 @@
 	<select id="getUserList" resultType="HashMap">
 		select * from user
 	</select>
+
+	<select id="userLogin" parameterType="User" resultType="String">
+		SELECT user_id FROM users WHERE user_id = #{userid} AND user_password =
+		#{password}
+	</select>
+
 </mapper>

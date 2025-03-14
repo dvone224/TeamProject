@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
+import kr.smartReciFit.controller.user.LoginCheckController;
 
 
 public class HandlerMapping {
@@ -16,16 +17,15 @@ public class HandlerMapping {
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
 		
+		mappings.put("/login", new LoginCheckController());
 		mappings.put("asdasd", new Controller() {
 			
 			@Override
 			public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 					throws ServletException, IOException {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
-		
 	}
 
 	public Controller getController(String key) {
