@@ -15,6 +15,9 @@ import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.IdCheckController;
 import kr.smartReciFit.controller.user.UserJoinController;
 
+import kr.smartReciFit.controller.user.LogOutController;
+import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.MainController;
 
 
 public class HandlerMapping {
@@ -38,6 +41,11 @@ public class HandlerMapping {
 		mappings.put("/ranking.do", new RankingController());
 		mappings.put("/review.do", new ReviewController());
 		mappings.put("/reviewDetail.do", new ReviewDetailController());
+		mappings.put("/login.do", new LoginCheckController());
+		mappings.put("/logout.do", new LogOutController());
+		mappings.put("/main.do", new MainController());		
+			
+			
 	}
 
 	public Controller getController(String key) {

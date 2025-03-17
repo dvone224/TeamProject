@@ -4,14 +4,23 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.smartReciFit.mybatis.user.UserMapper">
+<resultMap id="user" type="kr.smartReciFit.model.user.User">
+  <id property="user_num" column="userNum"/>
+  <result property="user_name" column="userName"/>
+  <result property="user_id" column="userId"/>
+  <result property="user_Nickname" column="userNickname"/>
+  <result property="user_pwd" column="userPw"/>
+  <result property="user_email" column="userEmail"/>
+  <result property="user_phone" column="userPhone"/>
+  <result property="user_phone" column="userImg"/>
+</resultMap>
 
 	<select id="getUserList" resultType="HashMap">
 		select * from user
 	</select>
 
-	<select id="userLogin" parameterType="User" resultType="String">
-		SELECT user_id FROM users WHERE user_id = #{userid} AND user_password =
-		#{password}
+	<select id="userLogin" parameterType="user" resultType="String">
+		SELECT user_id FROM user WHERE user_id = #{userId} AND user_pwd =#{userPw}
 	</select>
 
 	

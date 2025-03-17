@@ -16,29 +16,28 @@ public class LoginCheckController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		
-		UserDAO dao = UserDAO.getInstance();
-		User vo = new User();
-		vo.setUserId(id);
-		vo.setUserPw(pw);
-		
-		String userId = dao.userLogin(vo);
-		System.out.println("userId = "+userId);
-		
-		HttpSession session = request.getSession();
-		if(userId!=null) {
-			session.setAttribute("userId", id);
-			if(userId.equals("admin")) {
-				session.setAttribute("admin", id);
-			}
-			response.getWriter().print(userId);
-		}else {
-			response.getWriter().print("null");
-			
-		}
-		return null;
+			String id = request.getParameter("id");
+	        String pw = request.getParameter("pw");
+
+	        User user = new User();
+	        user.setUserId(id);
+	        user.setUserPw(pw);
+
+	        String result = UserDAO.getInstance().userLogin(user);
+
+	        response.setCharacterEncoding("UTF-8");
+	        response.setContentType("text/plain");
+
+	        if (result != null) {
+	        	  HttpSession session = request.getSession();
+	        	   session.setAttribute("user", id); // 세션에 사용자 아이디 저장
+	            response.getWriter().write("success");
+	        } else {
+	            response.getWriter().write("failure");
+	        }
+
+	        return null; // 응답을 직접 보냈으므로 뷰를 반환하지 않음
+	    }
 	}
 
-}
+
