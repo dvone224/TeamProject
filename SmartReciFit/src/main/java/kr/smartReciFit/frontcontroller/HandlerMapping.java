@@ -9,8 +9,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.controller.user.LoginCheckController;
-import kr.smartReciFit.controller.user.IdCheckController;
+import kr.smartReciFit.controller.user.CheckIdController;
+import kr.smartReciFit.controller.user.CheckNickNameController;
 import kr.smartReciFit.controller.user.UserJoinController;
+import kr.smartReciFit.controller.user.VaildIdAjaxController;
 
 
 
@@ -20,16 +22,12 @@ public class HandlerMapping {
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
 		mappings.put("/userJoin.do",  new UserJoinController());
-		mappings.put("/idChekc.do",  new IdCheckController());
+		mappings.put("/checkId.do",  new CheckIdController());
+		mappings.put("/checkNickName.do",  new CheckNickNameController());
+		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
 		
 		mappings.put("/login", new LoginCheckController());
-		mappings.put("asdasd", new Controller() {
-			@Override
-			public String requestHandler(HttpServletRequest request, HttpServletResponse response)
-					throws ServletException, IOException {
-				return null;
-			}
-		});
+
 	}
 
 	public Controller getController(String key) {

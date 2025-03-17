@@ -10,10 +10,10 @@
 
 <title>Smart ReciFit</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
-<script type="text/javascript" src="${ctx}/js/user/loginOut.js" defer></script>
+<%-- <script type="text/javascript" src="${ctx}/js/user/loginOut.js" defer></script> --%>
 
 </head>
-<body onload="init('${userId}')">
+<body>
 	<header>
 		<a class="login-open"> 로그인을 해볼까용? </a>
 		<p>여기는 헤더 ~~~~~~~~~~~~~<p/>
