@@ -17,6 +17,7 @@
 	<header>
 		<a class="login-open"> 로그인을 해볼까용? </a>
 		<a class="ranking-board" href="${ctx}/ranking.do">랭킹</a>
+		<a class="review-board" href="${ctx}/review.do">리뷰</a>
 		<p>여기는 헤더 ~~~~~~~~~~~~~<p/>
 	</header>
 	<main>

@@ -6,7 +6,7 @@
 
 <properties resource="kr/smartReciFit/mybatis/db.properties" />
 <typeAliases>
-
+	<typeAlias type="kr.smartReciFit.model.board.ReviewBoard" alias="review"></typeAlias>
 </typeAliases>
 
   <environments default="development">
