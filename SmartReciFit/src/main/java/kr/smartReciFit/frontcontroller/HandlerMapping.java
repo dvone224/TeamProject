@@ -11,6 +11,8 @@ import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
+import kr.smartReciFit.controller.board.ReviewWriteController;
+import kr.smartReciFit.controller.board.ReviewWriteProcessController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.IdCheckController;
 import kr.smartReciFit.controller.user.UserJoinController;
@@ -29,23 +31,18 @@ public class HandlerMapping {
 		mappings.put("/idChekc.do",  new IdCheckController());
 		
 		mappings.put("/login", new LoginCheckController());
-		mappings.put("asdasd", new Controller() {
-			@Override
-			public String requestHandler(HttpServletRequest request, HttpServletResponse response)
-					throws ServletException, IOException {
-				return null;
-			}
-		});
 		
-		// 게시판 작업(명보)
+		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());
-		mappings.put("/review.do", new ReviewController());
+		mappings.put("/reviews.do", new ReviewController());
 		mappings.put("/reviewDetail.do", new ReviewDetailController());
 		mappings.put("/login.do", new LoginCheckController());
 		mappings.put("/logout.do", new LogOutController());
 		mappings.put("/main.do", new MainController());		
 			
 			
+		mappings.put("/reviewWrite.do", new ReviewWriteController());
+		mappings.put("/reviewWriteProcess.do",new ReviewWriteProcessController());
 	}
 
 	public Controller getController(String key) {

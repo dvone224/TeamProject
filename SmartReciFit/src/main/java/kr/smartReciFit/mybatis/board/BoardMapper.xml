@@ -4,21 +4,42 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.smartReciFit.mybatis.board.BoardMapper">
+    <resultMap id="reviewBoardMap" type="review">
+        <result column="review_board_num" property="reviewBoardNum" jdbcType="INTEGER" javaType="int"/>
+        <result column="user_num" property="userNum" jdbcType="INTEGER" javaType="int"/>
+        <result column="api_recipe_num" property="apiRecipeNum" jdbcType="INTEGER" javaType="int"/>
+        <result column="review_board_title" property="reviewBoardTitle" jdbcType="VARCHAR" javaType="String"/>
+        <result column="review_board_content" property="reviewBoardContent" jdbcType="LONGVARCHAR" javaType="String"/>
+        <result column="review_board_img" property="reviewBoardImg" jdbcType="VARCHAR" javaType="String"/>
+        <result column="review_board_views" property="reviewBoardViews" jdbcType="INTEGER" javaType="int"/>
+        <result column="review_board_likes" property="reviewBoardLikes" jdbcType="INTEGER" javaType="int"/>
+        <result column="review_board_created_at" property="reviewBoardCreatedAt" jdbcType="TIMESTAMP" javaType="String"/>
+    </resultMap>
 
-<!--<select id="getTop3RecipesByViews" resultType="kr.smartReciFit.model.board.ReviewBoard">
+<select id="getTop3RecipesByViews" resultMap="reviewBoardMap">
     SELECT * FROM review_board ORDER BY review_board_views DESC LIMIT 3
-</select> 아직 오류나서 일단 이렇게 냅둘게요--> 
+</select>  
 
 <!-- 모든 후기글 가져오기 -->
-<select id="getAllReviews" resultType="review">
-	SELECT * FROM review_board ORDER BY review_board_created DESC
+<select id="getAllReviews" resultMap="reviewBoardMap">
+	SELECT * FROM review_board ORDER BY review_board_created_at DESC
 </select>
 
 <!-- 특정 후기글 가져오기 -->
-<select id="getReviewById" parameterType="int" resultType="review">
+<select id="getReviewById" parameterType="int" resultMap="reviewBoardMap">
     SELECT * FROM review_board WHERE review_board_num = #{reviewBoardNum}
 </select>
 
+<!-- 리뷰 게시판 글 가져오기 -->
+<select id="getAllReviewsAndUser" resultType="HashMap">
+	SELECT review_board_num,user.user_num,review_board_recipe_id,review_board_title,review_board_content,
+	review_board_img,review_board_views,review_board_likes, date_format(CURRENT_TIMESTAMP,'%Y-%m-%d') as review_board_created_at,
+	user_name
+	from review_board rb
+	inner join user
+	on rb.user_num = user.user_num
+	order by review_board_num asc;
+</select>
 <!-- 조회수 증가 -->
 <update id="viewCount" parameterType="int">
 	UPDATE review_board SET review_board_views = review_board_views + 1 
