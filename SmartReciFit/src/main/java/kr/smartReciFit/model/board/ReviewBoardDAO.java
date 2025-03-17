@@ -31,7 +31,7 @@ public class ReviewBoardDAO {
 //			e.printStackTrace();
 //		}
 //		return list; 
-//	} 일단 오류나서 보류
+//	} 일단 오류나서 보류 DAO 따로 만들어야함
 	
 	//리뷰 관련
 	
@@ -58,8 +58,8 @@ public class ReviewBoardDAO {
 		}
 		return review;
 	}
-	// 조회수 증가하는거
 	
+	// 조회수 증가하는거
 	public void viewCount(int reviewBoardNum) {
 		try (SqlSession session = Config.getSession().openSession()) {
 			session.update("viewCount",reviewBoardNum);
