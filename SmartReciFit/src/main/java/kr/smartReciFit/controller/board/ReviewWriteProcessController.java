@@ -1,6 +1,8 @@
 package kr.smartReciFit.controller.board;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -10,16 +12,15 @@ import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.model.board.ReviewBoard;
 import kr.smartReciFit.model.board.ReviewBoardDAO;
 
-public class RankingController implements Controller {
+public class ReviewWriteProcessController implements Controller {
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("랭킹컨트롤러");
-		ReviewBoardDAO dao = ReviewBoardDAO.getInstance();
-	    List<ReviewBoard> topRecipes = dao.getTop3RecipesByViews();
-	    request.setAttribute("topRecipes", topRecipes);
-	    return "ranking";
+		
+		
+     
+        return "reviews";
 		
 		
 		

@@ -1,25 +1,25 @@
 package kr.smartReciFit.model.board;
 
 public class Comment {
-	private int CommentNum;
-	private int UserNum;
-	private int BoardNum;
-	private String CommentContent;
-	private String CommentCreated;
+	private int commentNum;
+	private int userNum;
+	private int boardNum;
+	private String commentContent;
+	private String commentCreated;
 	public int getCommentNum() {
-		return CommentNum;
+		return commentNum;
 	}
 	public int getUserNum() {
-		return UserNum;
+		return userNum;
 	}
 	public int getBoardNum() {
-		return BoardNum;
+		return boardNum;
 	}
 	public String getCommentContent() {
-		return CommentContent;
+		return commentContent;
 	}
 	public String getCommentCreated() {
-		return CommentCreated;
+		return commentCreated;
 	}
 	
 }

@@ -1,50 +1,53 @@
 package kr.smartReciFit.model.board;
 
 public class ReviewBoard {
-	private int ReviewBoardNum;
-	private int UserNum;
-	private int ApiRecipeNum;
-	private String ReviewBoardTitle;
-	private String ReviewBoardContent;
-	private String ReviewBoardImg;
-	private int ReviewBoardViews;
-	private int ReviewBoardLikes;
-	private String ReviewBoardCreated;
+	private int reviewBoardNum;
+	private int userNum;
+	private int apiRecipeNum;
+	private String reviewBoardTitle;
+	private String reviewBoardContent;
+	private String reviewBoardImg;
+	private int reviewBoardViews;
+	private int reviewBoardLikes;
+	private String reviewBoardCreatedAt;
+	
+	
+
+
 
 	public int getReviewBoardNum() {
-		return ReviewBoardNum;
+		return reviewBoardNum;
 	}
 
 	public int getUserNum() {
-		return UserNum;
+		return userNum;
 	}
 
 	public int getApiRecipeNum() {
-		return ApiRecipeNum;
+		return apiRecipeNum;
 	}
 
 	public String getReviewBoardTitle() {
-		return ReviewBoardTitle;
+		return reviewBoardTitle;
 	}
 
 	public String getReviewBoardContent() {
-		return ReviewBoardContent;
+		return reviewBoardContent;
 	}
 
 	public String getReviewBoardImg() {
-		return ReviewBoardImg;
+		return reviewBoardImg;
 	}
 
 	public int getReviewBoardViews() {
-		return ReviewBoardViews;
+		return reviewBoardViews;
 	}
 
 	public int getReviewBoardLikes() {
-		return ReviewBoardLikes;
+		return reviewBoardLikes;
 	}
 
 	public String getReviewBoardCreated() {
-		return ReviewBoardCreated;
+		return reviewBoardCreatedAt;
 	}
-
 }

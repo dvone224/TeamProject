@@ -10,6 +10,10 @@ public class User {
 	private String userPhone;
 	private String userImg;
 	
+	public User() {
+		
+	}
+	
 	public int getUserNum() {
 		return userNum;
 	}
@@ -70,12 +74,7 @@ public class User {
 		return userImg;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
-	}
+
 	
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;

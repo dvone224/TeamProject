@@ -16,8 +16,8 @@
     height: 250px;
     border: 1px solid #ccc;
     margin: 10px;
-    text-decoration: none; /* 링크의 기본 밑줄 제거 */
-    color: inherit; /* 링크의 기본 색상 제거 */
+    text-decoration: none; 
+    color: inherit;
   }
   .ranking-entry img {
     width: 150px;

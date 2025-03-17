@@ -1,6 +1,8 @@
 package kr.smartReciFit.controller.board;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -15,11 +17,11 @@ public class ReviewController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		ReviewBoardDAO dao = ReviewBoardDAO.getInstance();
-        List<ReviewBoard> reviews = dao.getAllReviews();
+        ArrayList<HashMap<String, Object>> reviews = dao.getAllReviewsAndUser();
         request.setAttribute("reviews", reviews);
-        return "review";
+        return "reviews";
 		
 		
 		
