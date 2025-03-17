@@ -16,5 +16,4 @@
 	<form action="${ctx}/userJoin.do" method="post">
 	<button name=test id=test>test</button>
 	</form>
-
 <%@ include file="./part/footer.jsp" %>

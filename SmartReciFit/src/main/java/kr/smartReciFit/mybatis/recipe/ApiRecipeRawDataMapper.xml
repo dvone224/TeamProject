@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.smartReciFit.mybatis.recipe.ApiRecipeRawDataMapper">
+	<resultMap id="apiRecipeRawDataMap" type="apiRecipeRawData">
+		<result column="api_recipe_id" property="apiRecipeId"
+			jdbcType="INTEGER" javaType="int" />
+		<result column="recipe_num" property="recipeNum"
+			jdbcType="INTEGER" javaType="int" />
+		<result column="recipe_name" property="recipeName"
+			jdbcType="VARCHAR" javaType="String" />
+		<result column="recipe_ingredient" property="recipeIngredient"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="recipe_seasoning" property="recipeSeasoning"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="recipe_manual" property="recipeManual"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="tag_eat_time" property="tagEatTime"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="tag_ingredient" property="tagIngredient"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="tag_cooking_style" property="tagCookingStyle"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="tag_cooking_method" property="tagCookingMethod"
+			jdbcType="LONGVARCHAR" javaType="String" />
+		<result column="recipe_img" property="recipeImg"
+			jdbcType="LONGVARCHAR" javaType="String" />
+	</resultMap>
+	
+	<select id="getApiRecipeRawDataList" resultMap="apiRecipeRawDataMap">
+		select * from recipe_raw_data
+	</select>
+</mapper>

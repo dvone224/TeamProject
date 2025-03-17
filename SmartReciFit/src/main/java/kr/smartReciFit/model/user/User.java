@@ -10,11 +10,6 @@ public class User {
 	private String userEmail;
 	private String userPhone;
 	private String userImg;
-	
-	public User() {
-		
-	}
-	
 	public int getUserNum() {
 		return userNum;
 	}
@@ -43,16 +38,8 @@ public class User {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	public String getUserPw() {
 		return userPw;
-	}
-
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
 	}
 
 	public String getUserEmail() {
@@ -74,8 +61,15 @@ public class User {
 	public String getUserImg() {
 		return userImg;
 	}
-
 	
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public void setUserPw(String userPw) {
+		this.userPw = userPw;
+	}
+
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;
 	}
@@ -84,8 +78,8 @@ public class User {
 		super();
 	}
 
-	public User(String userName, String userNickName, String userId, String userPw, String userEmail,
-			String userPhone, String userImg) {
+	public User(String userName, String userNickName, String userId, String userPw, String userEmail, String userPhone,
+			String userImg) {
 		super();
 		this.userName = userName;
 		this.userNickName = userNickName;
@@ -96,5 +90,4 @@ public class User {
 		this.userImg = userImg;
 	}
 
-	
 }
