@@ -5,6 +5,7 @@
 <configuration>
 
 <properties resource="kr/smartReciFit/mybatis/db.properties" />
+
 <typeAliases>
 
 	<typeAlias type="kr.smartReciFit.model.user.User" alias="user"></typeAlias>

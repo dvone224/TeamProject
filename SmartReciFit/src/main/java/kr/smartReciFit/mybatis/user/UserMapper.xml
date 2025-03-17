@@ -27,12 +27,17 @@
 	<!-- 유저 삽입 -->
 	<insert id="userJoin" parameterType="user">
     insert into user(user_name, user_id, user_nickname, user_pwd, user_email, user_phone, user_img)
-    values (#{name}, #{id}, #{nickName}, #{pw}, #{email}, #{phone}, #{profileImg})
+    values (#{userName}, #{userId}, #{userNickName}, #{userPw}, #{userEmail}, #{userPhone}, #{userImg})
     </insert>
     
     <!-- 아이디로 num 찾기 -->
-    <select id="getUserNum" parameterType="String" resultType="Integer">
-	select num from user where user_id=#{id}
+    <select id="IdGetUserNum" parameterType="String" resultType="Integer">
+	select user_num from user where user_id=#{id}
+	</select>
+	
+    <!-- 닉네임으로 num 찾기 -->
+	<select id="nickNameGetUserNum" parameterType="String" resultType="Integer">
+	select user_num from user where user_nickname=#{nickName}
 	</select>
 	
 	

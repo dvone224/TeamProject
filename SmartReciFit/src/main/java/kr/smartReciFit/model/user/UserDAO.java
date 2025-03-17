@@ -26,21 +26,7 @@ public class UserDAO {
 		return instance;
 	}
 
-	
-	private static SqlSessionFactory sqlSessionFactory;
-	
-	static {
-		try {
-			String resource = "kr/basic/mybatis/config.xml";
-			InputStream inputStream;
-			inputStream = Resources.getResourceAsStream(resource);
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	
+
 	public ArrayList<HashMap<String, Object>> getUserList() {
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		try (SqlSession session = Config.getSession().openSession()) {
@@ -60,43 +46,59 @@ public class UserDAO {
 		return userId;
 	}
 
+
+	//회원가입
+//	public boolean UserJoin(String id, String pw, String name, String nickName, String email, String phone, String profileImg) {
+//		User vo=new User(name, nickName, id, pw, email, phone, profileImg);
+//		try (SqlSession session = sqlSessionFactory.openSession()) {
+//			session.insert("userJoin", vo);
+//			session.commit();
+//			return true;
+//		} catch (Exception e) {
+//			System.out.println("UserJoin에러");
+//			e.printStackTrace();
+//			return false;
+//		}
+//	}
 	
 	//회원가입
 	public boolean UserJoin(String id, String pw, String name, String nickName, String email, String phone, String profileImg) {
 		User vo=new User(name, nickName, id, pw, email, phone, profileImg);
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			session.insert("UserJoin", vo);
-			session.commit();
-			return true;
-		} catch (Exception e) {
-			System.out.println("UserJoin에러");
-			e.printStackTrace();
-			return false;
-		}
+		int cnt=0;
+		SqlSession session = Config.getSession().openSession();
+		cnt=session.insert("userJoin", vo);
+		session.commit();
+		session.close();
+		return cnt>0?true:false;
 	}
+
 
 	//아이디 체크 
 	public Integer checkId(String id) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			Integer num=session.insert("IdGetUserNum", id);
-			System.out.println(num);
-			return num==null?0:num;
-		} catch (Exception e) {
-			System.out.println("checkId에러");
-			e.printStackTrace();
-			return null;
-		}
+		SqlSession session = Config.getSession().openSession();
+		Integer num=session.selectOne("IdGetUserNum", id);
+	    session.close();
+	    System.out.println("아이디 체크 num="+num);
+	    return num;
+	}
+	
+	//닉네임 체크
+	public Integer checkNickName(String nickName) {
+		SqlSession session = Config.getSession().openSession();
+		Integer num=session.selectOne("nickNameGetUserNum", nickName);
+	    session.close();
+	    System.out.println("아이디 체크 num="+num);
+	    return num;
 	}
 
-	public Integer checkNickName(String nickName) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			Integer num=session.insert("nickNameGetUserNum", nickName);
-			System.out.println(num);
-			return num==null?0:num;
+	public boolean isValidId(String id) {
+		try (SqlSession session = Config.getSession().openSession()) {
+            String pass = session.selectOne("isValidId", id);
+            // 비밀번호가 있으면 true, 없어서 null이면 false 반환
+            return pass!=null; 
 		} catch (Exception e) {
-			System.out.println("checkNickName에러");
 			e.printStackTrace();
-			return null;
 		}
+		return false;
 	}
 }

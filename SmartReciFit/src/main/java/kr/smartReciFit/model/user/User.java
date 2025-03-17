@@ -79,6 +79,10 @@ public class User {
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;
 	}
+	
+	public User() {
+		super();
+	}
 
 	public User(String userName, String userNickName, String userId, String userPw, String userEmail,
 			String userPhone, String userImg) {

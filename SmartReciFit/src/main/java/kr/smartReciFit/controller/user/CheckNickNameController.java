@@ -8,21 +8,19 @@ import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.model.user.UserDAO;
 
-public class IdCheckController implements Controller {
+public class CheckNickNameController implements Controller {
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("아이디 중복 검사");
+		System.out.println("닉네임 중복 검사");
 		
-		String id=request.getParameter("id"); // { "id" : id  }
-		Integer userNum = UserDAO.getInstance().checkId(id);
+		String nickName=request.getParameter("nickName"); // { "id" : id  }
+		Integer userNum = UserDAO.getInstance().checkNickName(nickName);
 		String passData=null;
-		if (userNum!=null) {
-			passData = userNum!=0? "valid" : "notValid";
-			System.out.println(passData);
-		}
+		passData = userNum==null? "valid" : "notValid";
+		System.out.println(passData);
 		response.getWriter().print(passData);
 		return null;
 	}

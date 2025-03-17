@@ -151,3 +151,6 @@ header {
   background-color: var(--secondary-color);
 }
 
+table, td{
+	border: 1px solid black;
+}
