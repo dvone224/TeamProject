@@ -5,23 +5,24 @@
 
 <mapper namespace="kr.smartReciFit.mybatis.board.BoardMapper">
 
-<!--<select id="getTop3RecipesByViews" resultType="kr.smartReciFit.model.board.ReviewBoard">
-    SELECT * FROM review_board ORDER BY review_board_views DESC LIMIT 3
-</select> 아직 오류나서 일단 이렇게 냅둘게요--> 
+	<!--<select id="getTop3RecipesByViews" resultType="kr.smartReciFit.model.board.ReviewBoard"> 
+		SELECT * FROM review_board ORDER BY review_board_views DESC LIMIT 3 </select> 
+		아직 오류나서 일단 이렇게 냅둘게요 -->
 
-<!-- 모든 후기글 가져오기 -->
-<select id="getAllReviews" resultType="review">
-	SELECT * FROM review_board ORDER BY review_board_created DESC
-</select>
+	<!-- 모든 후기글 가져오기 -->
+	<select id="getAllReviews" resultType="review">
+		SELECT * FROM review_board ORDER BY review_board_created DESC
+	</select>
 
-<!-- 특정 후기글 가져오기 -->
-<select id="getReviewById" parameterType="int" resultType="review">
-    SELECT * FROM review_board WHERE review_board_num = #{reviewBoardNum}
-</select>
+	<!-- 특정 후기글 가져오기 -->
+	<select id="getReviewById" parameterType="int"
+		resultType="review">
+		SELECT * FROM review_board WHERE review_board_num = #{reviewBoardNum}
+	</select>
 
-<!-- 조회수 증가 -->
-<update id="viewCount" parameterType="int">
-	UPDATE review_board SET review_board_views = review_board_views + 1 
-    WHERE review_board_num = #{reviewBoardNum}
-</update>
+	<!-- 조회수 증가 -->
+	<update id="viewCount" parameterType="int">
+		UPDATE review_board SET review_board_views = review_board_views + 1
+		WHERE review_board_num = #{reviewBoardNum}
+	</update>
 </mapper>

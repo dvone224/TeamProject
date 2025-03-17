@@ -1,17 +1,17 @@
 package kr.smartReciFit.model.user;
 
 public class UserInfo {
-	private int UserNum;
-	private int UserMealSize;
-	private int UserGender;
+	private int userNum;
+	private int userMealSize;
+	private int userGender;
 	public int getUserNum() {
-		return UserNum;
+		return userNum;
 	}
 	public int getUserMealSize() {
-		return UserMealSize;
+		return userMealSize;
 	}
 	public int getUserGender() {
-		return UserGender;
+		return userGender;
 	}
 	
 }

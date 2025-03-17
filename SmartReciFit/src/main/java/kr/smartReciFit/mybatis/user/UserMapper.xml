@@ -9,7 +9,7 @@
 		select * from user
 	</select>
 
-	<select id="userLogin" parameterType="User" resultType="String">
+	<select id="userLogin" parameterType="user" resultType="String">
 		SELECT user_id FROM users WHERE user_id = #{userid} AND user_password =
 		#{password}
 	</select>

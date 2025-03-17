@@ -1,29 +1,29 @@
 package kr.smartReciFit.model.recipe;
 
-public class ApiRecipe {
+import java.util.Set;
+
+import kr.smartReciFit.model.recipe.tags.CookingStyle;
+import kr.smartReciFit.model.recipe.tags.EatTime;
+
+public class ApiRecipe extends Recipe{
+
+
+	public ApiRecipe(String recipeName, String recipeIngredient, String recipeSeasoning, String recipeManual,
+			Set<String> cookingMethods, Set<String> ingredients, EatTime eatTime, CookingStyle cookingStyle) {
+		super(recipeName, recipeIngredient, recipeSeasoning, recipeManual, cookingMethods, ingredients, eatTime, cookingStyle);
+		// TODO Auto-generated constructor stub
+	}
+
 	private int apiRecipeNum;
-	private String apiRecipe;
-	private String apiRecipeIngredient;
-	private String apiRecipeSeasoning;
-	private String apiRecipeManual;
 	private String apiRecipeImg;
+
 	public int getApiRecipeNum() {
 		return apiRecipeNum;
 	}
-	public String getApiRecipe() {
-		return apiRecipe;
-	}
-	public String getApiRecipeIngredient() {
-		return apiRecipeIngredient;
-	}
-	public String getApiRecipeSeasoning() {
-		return apiRecipeSeasoning;
-	}
-	public String getApiRecipeManual() {
-		return apiRecipeManual;
-	}
+
 	public String getApiRecipeImg() {
 		return apiRecipeImg;
 	}
-	
+
+
 }
