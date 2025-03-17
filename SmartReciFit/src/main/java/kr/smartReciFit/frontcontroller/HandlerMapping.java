@@ -8,7 +8,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
+import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.MainController;
 
 
 public class HandlerMapping {
@@ -17,15 +19,11 @@ public class HandlerMapping {
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
 		
-		mappings.put("/login", new LoginCheckController());
-		mappings.put("asdasd", new Controller() {
+		mappings.put("/login.do", new LoginCheckController());
+		mappings.put("/logout.do", new LogOutController());
+		mappings.put("/main.do", new MainController());		
 			
-			@Override
-			public String requestHandler(HttpServletRequest request, HttpServletResponse response)
-					throws ServletException, IOException {
-				return null;
-			}
-		});
+			
 	}
 
 	public Controller getController(String key) {
