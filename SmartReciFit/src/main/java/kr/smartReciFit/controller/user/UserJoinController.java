@@ -27,11 +27,17 @@ public class UserJoinController implements Controller {
 		System.out.println(pw);
 		String name=request.getParameter("name");
 		System.out.println(name);
-		String nickName=request.getParameter("nickname");
+		String nickName=request.getParameter("nickName");
 		System.out.println(nickName);
 		String email=request.getParameter("email");
+		if (email.trim().equals("")) {
+			email=null;
+		}
 		System.out.println(email);
 		String phone=request.getParameter("phone");
+		if (phone.trim().equals("")) {
+			phone=null;
+		}
 		System.out.println(phone);
 		String profileImg=null;
 		

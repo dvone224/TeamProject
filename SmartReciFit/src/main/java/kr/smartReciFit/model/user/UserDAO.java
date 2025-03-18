@@ -64,39 +64,30 @@ public class UserDAO {
 	//회원가입
 	public boolean UserJoin(String id, String pw, String name, String nickName, String email, String phone, String profileImg) {
 		User vo=new User(name, nickName, id, pw, email, phone, profileImg);
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			session.insert("UserJoin", vo);
-			session.commit();
-			return true;
-		} catch (Exception e) {
-			System.out.println("UserJoin에러");
-			e.printStackTrace();
-			return false;
-		}
+		int cnt=0;
+		SqlSession session = Config.getSession().openSession();
+		cnt=session.insert("userJoin", vo);
+		session.commit();
+		session.close();
+		return cnt>0?true:false;
 	}
+
 
 	//아이디 체크 
 	public Integer checkId(String id) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			Integer num=session.insert("IdGetUserNum", id);
-			System.out.println(num);
-			return num==null?0:num;
-		} catch (Exception e) {
-			System.out.println("checkId에러");
-			e.printStackTrace();
-			return null;
-		}
+		SqlSession session = Config.getSession().openSession();
+		Integer num=session.selectOne("IdGetUserNum", id);
+	    session.close();
+	    System.out.println("아이디 체크 num="+num);
+	    return num;
 	}
-
+	
+	//닉네임 체크
 	public Integer checkNickName(String nickName) {
-		try (SqlSession session = sqlSessionFactory.openSession()) {
-			Integer num=session.insert("nickNameGetUserNum", nickName);
-			System.out.println(num);
-			return num==null?0:num;
-		} catch (Exception e) {
-			System.out.println("checkNickName에러");
-			e.printStackTrace();
-			return null;
-		}
+		SqlSession session = Config.getSession().openSession();
+		Integer num=session.selectOne("nickNameGetUserNum", nickName);
+	    session.close();
+	    System.out.println("아이디 체크 num="+num);
+	    return num;
 	}
 }

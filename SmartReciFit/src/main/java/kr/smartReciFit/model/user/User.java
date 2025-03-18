@@ -71,12 +71,6 @@ public class User {
 		return userImg;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
-	}
 	public String getUserNickname() {
 		return userNickname;
 	}
@@ -98,6 +92,9 @@ public class User {
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.userImg = userImg;
+	}
+
+	public User() {
 	}
 
 	

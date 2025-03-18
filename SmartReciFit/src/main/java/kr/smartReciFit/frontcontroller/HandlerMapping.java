@@ -12,9 +12,11 @@ import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
 import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.CheckIdController;
+import kr.smartReciFit.controller.user.CheckNickNameController;
 import kr.smartReciFit.controller.user.IdCheckController;
 import kr.smartReciFit.controller.user.UserJoinController;
-
+import kr.smartReciFit.controller.user.VaildIdAjaxController;
 import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.MainController;
@@ -26,7 +28,9 @@ public class HandlerMapping {
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
 		mappings.put("/userJoin.do",  new UserJoinController());
-		mappings.put("/idChekc.do",  new IdCheckController());
+		mappings.put("/checkId.do",  new CheckIdController());
+		mappings.put("/checkNickName.do",  new CheckNickNameController());
+		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
 		
 		mappings.put("/login", new LoginCheckController());
 		mappings.put("asdasd", new Controller() {
