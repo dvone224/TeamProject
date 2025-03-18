@@ -5,6 +5,7 @@
 <div class="review-page">
 	<form action="${ctx}/reviewWriteProcess.do" method="post"
 		enctype="multipart/form-data">
+		<input type="hidden" name="user" value="${user}">
 		<table class="write-table">
 			<tr class="write-row">
 				<th>후기 제목</th>

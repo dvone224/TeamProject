@@ -5,7 +5,6 @@ public class User {
 	private String userName;
 	private String userNickName;
 	private String userId;
-	private String userNickname;
 	private String userPw;
 	private String userEmail;
 	private String userPhone;

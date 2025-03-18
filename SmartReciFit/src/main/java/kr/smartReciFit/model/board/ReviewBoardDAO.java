@@ -95,6 +95,17 @@ public class ReviewBoardDAO {
 		return name;
 	}
 
+	// 리뷰 추가
+	public void addReview(ReviewBoard vo) {
+		try (SqlSession session = Config.getSession().openSession()) {
+			session.insert("addReview", vo);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println("addReview 에러");
+			e.printStackTrace();
+		}
+	}
+
 	// 유저 이름 가져오기
 
 }

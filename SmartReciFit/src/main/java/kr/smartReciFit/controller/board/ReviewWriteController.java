@@ -1,6 +1,7 @@
 package kr.smartReciFit.controller.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +20,16 @@ public class ReviewWriteController implements Controller {
 			throws ServletException, IOException {
 		
 		
-		
-     
+		if(request.getSession().getAttribute("user") == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('로그인 후 이용가능합니다'); history.back();</script>");
+			writer.close();
+			return null;
+		}
+		String user = request.getParameter("user");
+		request.setAttribute("user", user);
         return "reviewWrite";
-		
-		
 		
 	}
 

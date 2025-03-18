@@ -37,9 +37,9 @@
             <div class="review-item">
         	<td>${review.review_board_num}</td>
         	<td><img src="${review_board_img}" alt="userReview-Image"></td>
-            <td><a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}">
+            <td><a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}">
                	${review.review_board_title}</a></td>
-            <td>${review.user_name}</td>
+            <td>${review.user_nickname}</td>
             <td>${review.review_board_created_at}</td>
             <td>${review.review_board_views}</td>
             <td>${review.review_board_likes}</td>
@@ -51,7 +51,7 @@
     </table>
     <div class="post-area">
     <button type="button" class="review-inventory" onclick="location.href='${ctx}/reviews.do'">목록</button>
-    <button type="button" class="review-write" onclick="location.href='${ctx}/reviewWrite.do'">글쓰기</button>
+    <button type="button" class="review-write" onclick="location.href='${ctx}/reviewWrite.do?user=${user}'">글쓰기</button>
     </div>
 </div>
 
