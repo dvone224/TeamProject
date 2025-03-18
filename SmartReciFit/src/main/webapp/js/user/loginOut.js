@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         if (data === "success") {
           alert("로그인 성공");
-          location.reload();
+          location.href = ctx + "/loginSuccess.do";
         } else {
           alert("아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.");
         }
@@ -61,23 +61,55 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-document.querySelector('.logout-btn').addEventListener('click', () => {
-	event.preventDefault(); // 기본 링크 동작 방지
-	    const logoutUrl = event.target.href; // href 속성 값 가져오기
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) { // 로그아웃 버튼이 존재할 경우에만 이벤트 리스너 추가
+        logoutBtn.addEventListener('click', (event) => {
+            event.preventDefault(); // 기본 링크 동작 방지
+            const logoutUrl = event.target.href; // href 속성 값 가져오기
 
-	    fetch(logoutUrl, {
-	        method: "GET",
-	    })
-	    .then(response => response.text())
-	    .then(data => {
-	        if (data === "done") {
-	            alert("로그아웃 성공");
-	            setTimeout(() => {
-	                location.href = ctx + "/main.do";
-	            }, 500);
-	        } else {
-	            alert("로그아웃 실패");
-	        }
-	    })
-	    .catch(error => console.error('Error:', error));
-	});
+            fetch(logoutUrl, {
+                method: "GET",
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "done") {
+                    alert("로그아웃 성공");
+                    setTimeout(() => {
+                        location.href = ctx + "/main.do";
+                    }, 500);
+                } else {
+                    alert("로그아웃 실패");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+});
+
+window.addEventListener('message', function(event) {
+    if (event.origin !== "http://localhost:8084") return; // 팝업 창의 도메인
+    if (event.data.type === 'naverLogin') {
+        var accessToken = event.data.accessToken;
+        // 네이버 사용자 프로필 정보 가져오기
+        getNaverProfile(accessToken);
+    }
+}, false);
+
+function getNaverProfile(accessToken) {
+    // 네이버 사용자 프로필 정보를 가져오는 코드
+    $.ajax({
+        url: 'https://openapi.naver.com/v1/nid/me',
+        type: 'GET',
+        headers: {
+            "Authorization": "BEARER " + accessToken
+        },
+        success: function(data) {
+            console.log(data);
+            // 사용자 정보를 세션에 저장하거나 데이터베이스에 등록하는 코드
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+    });
+}

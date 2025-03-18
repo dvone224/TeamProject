@@ -11,10 +11,6 @@ public class User {
 	private String userPhone;
 	private String userImg;
 	
-	public User() {
-		
-	}
-	
 	public int getUserNum() {
 		return userNum;
 	}
