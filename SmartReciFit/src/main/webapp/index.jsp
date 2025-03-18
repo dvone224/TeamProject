@@ -12,8 +12,6 @@
 	location.href=contextPath+"/main.do";	
 </script>
 
-	<h1> home 메인 </h1>
-	<form action="${ctx}/userJoin.do" method="post">
-	<button name=test id=test>test</button>
-	</form>
+	<h1> home </h1>
+
 <%@ include file="./part/footer.jsp" %>

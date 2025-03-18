@@ -14,13 +14,13 @@ import kr.smartReciFit.controller.board.ReviewDetailController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
 import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
 import kr.smartReciFit.controller.user.UserJoinController;
 import kr.smartReciFit.controller.user.VaildIdAjaxController;
 
 import kr.smartReciFit.controller.user.LogOutController;
-import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.MainController;
 
 
@@ -33,8 +33,8 @@ public class HandlerMapping {
 		mappings.put("/checkId.do",  new CheckIdController());
 		mappings.put("/checkNickName.do",  new CheckNickNameController());
 		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
+		mappings.put("/mailSend.do",  new MailSend());
 		
-		mappings.put("/login", new LoginCheckController());
 		
 		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());

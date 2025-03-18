@@ -32,7 +32,7 @@
         <c:when test="${empty sessionScope.user}">
           <!-- 로그인 상태가 아닐 때 -->
           <button class="login-open">로그인</button>
-          <button class="signup">회원가입</button>
+          <button class="btn-userJoin" onclick="location.href='${ctx}/userJoin.do'">회원가입</button>
         </c:when>
         <c:otherwise>
           <!-- 로그인 상태일 때 -->
@@ -47,5 +47,5 @@
 
 
 <%@ include file="./loginModal.jsp"%>
-<%@ include file="./msgModal.jsp"%>
+
 

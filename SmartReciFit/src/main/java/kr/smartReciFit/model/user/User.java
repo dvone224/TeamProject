@@ -70,12 +70,16 @@ public class User {
 		this.userPw = userPw;
 	}
 
-	public void setUserImg(String userImg) {
-		this.userImg = userImg;
+
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
 	}
 	
-	public User() {
-		super();
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
 	}
 
 	public User(String userName, String userNickName, String userId, String userPw, String userEmail, String userPhone,
@@ -90,4 +94,8 @@ public class User {
 		this.userImg = userImg;
 	}
 
+	public User() {
+	}
+
+	
 }

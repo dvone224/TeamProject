@@ -90,7 +90,7 @@ public class UserDAO {
 	    System.out.println("아이디 체크 num="+num);
 	    return num;
 	}
-
+	
 	public boolean isValidId(String id) {
 		try (SqlSession session = Config.getSession().openSession()) {
             String pass = session.selectOne("isValidId", id);

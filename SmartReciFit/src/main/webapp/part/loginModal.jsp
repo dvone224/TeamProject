@@ -1,23 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <div class="modal login-modal">
-	<div class="modal-content">
-		<button class="btn-close login-close">&times;</button>
-		<form id="loginForm">
-			<label for="id">아이디</label> <input type="text" id="id" name="id"
-				required placeholder="아이디를 입력하세요."> <label for="pw">비밀번호</label>
-			<input type="password" id="pw" name="pw" required
-				placeholder="비밀번호를 입력하세요.">
-			<button type="submit">로그인</button>
-		</form>
-		
-		<div>
-			<a href="javascript:kakaoLogin()"><img
-				src="<c:url value='/img/kakao_login_large_wide.png'/>"
-				style="width: 200px"></a>
-		</div>
+   <div class="modal-content">
+      <button class="btn-close login-close">&times;</button>
+      <form id="loginForm">
+         <label for="id">아이디</label> <input type="text" id="id" name="id"
+            required placeholder="아이디를 입력하세요."> <label for="pw">비밀번호</label>
+         <input type="password" id="pw" name="pw" required
+            placeholder="비밀번호를 입력하세요.">
+         <button type="submit">로그인</button>
+      </form>
+      
+      <div>
+         <a href="javascript:kakaoLogin()"><img
+            src="<c:url value='/img/kakao_login_large_wide.png'/>"
+            style="width: 200px"></a>
+      </div>
 
-	</div>
+   </div>
 </div>
 
 <div class="overlay"></div>
