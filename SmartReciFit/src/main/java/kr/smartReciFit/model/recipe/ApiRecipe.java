@@ -1,29 +1,35 @@
 package kr.smartReciFit.model.recipe;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import kr.smartReciFit.model.recipe.tags.CookingStyle;
 import kr.smartReciFit.model.recipe.tags.EatTime;
 
-public class ApiRecipe extends Recipe{
+public class ApiRecipe extends Recipe {
 
-
-	public ApiRecipe(String recipeName, String recipeIngredient, String recipeSeasoning, String recipeManual,
-			Set<String> cookingMethods, Set<String> ingredients, EatTime eatTime, CookingStyle cookingStyle) {
-		super(recipeName, recipeIngredient, recipeSeasoning, recipeManual, cookingMethods, ingredients, eatTime, cookingStyle);
-		// TODO Auto-generated constructor stub
+	public ApiRecipe(int recipeNum, String recipeName, String recipeIngredient, String recipeSeasoning, String recipeManual,
+			Set<String> cookingMethods, Set<String> ingredients, EatTime eatTime, CookingStyle cookingStyle,
+			String apiRecipeImg) {
+		super(recipeNum, recipeName, recipeIngredient, recipeSeasoning, recipeManual, cookingMethods, ingredients, eatTime,
+				cookingStyle);
+		this.apiRecipeImg = apiRecipeImg;
 	}
 
-	private int apiRecipeNum;
 	private String apiRecipeImg;
-
-	public int getApiRecipeNum() {
-		return apiRecipeNum;
-	}
 
 	public String getApiRecipeImg() {
 		return apiRecipeImg;
 	}
 
-
+	@Override
+	public String toString() {
+		return "ApiRecipe [recipeNum=" + recipeNum + ", recipeName=" + recipeName
+				+ ",\n recipeIngredient=" + recipeIngredient + ",\n recipeSeasoning=" + recipeSeasoning + ",\n recipeManual="
+				+ recipeManual + ",\n cookingMethods=" + cookingMethods + ", ingredients=" + ingredients + ", eatTime="
+				+ getEatTime() + ", cookingStyle=" + getCookingStyle() + "]";
+	}
+	
+	
+	
 }

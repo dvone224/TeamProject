@@ -1,12 +1,16 @@
 package kr.smartReciFit.model.recipe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.ibatis.session.SqlSession;
 
+import kr.smartReciFit.model.recipe.tags.AllCookkingMethodTags;
 import kr.smartReciFit.model.recipe.tags.AllIngredientTags;
+import kr.smartReciFit.model.recipe.tags.CookingStyle;
+import kr.smartReciFit.model.recipe.tags.EatTime;
 import kr.smartReciFit.util.Config;
 
 public class ApiRecipeRawDataDAO {
@@ -16,35 +20,37 @@ public class ApiRecipeRawDataDAO {
 			int apiRecipeId = rawData.getApiRecipeId();
 			int recipeNum = rawData.getRecipeNum();
 			String recipeName = rawData.getRecipeName();
-			// split nullPoint 오류 해결 해야함
-//			String[] recipeIngredient = rawData.getRecipeIngredient().split("|");
-//			String[] recipeSeasoning = rawData.getRecipeSeasoning().split("|");
-//			String[] recipeManual = rawData.getRecipeManual().split("|");
+			String recipeIngredient = rawData.getRecipeIngredient();
+			String recipeSeasoning = rawData.getRecipeSeasoning();
+			String recipeManual = rawData.getRecipeManual();
 			String tagEatTime = rawData.getTagEatTime();
-			Set<String> tagIngredient = refinerJson(rawData.getTagIngredient(),
-					AllIngredientTags.getInstance().getAllIngredientTags());
 			String tagCookingStyle = rawData.getTagCookingStyle();
-//			Set<String> tagCookingMethod = refinerJson(rawData.getTagCookingMethod());
-			System.out.println("apiRecipeId = " + apiRecipeId);
-			System.out.println("tagIngredient = " + tagIngredient);
-//			System.out.println("tagCookingMethod = " + tagCookingMethod);
-			System.out.println();
-
+			Set<String> tagIngredient = refinerJsonData(rawData.getTagIngredient(),
+					AllIngredientTags.getInstance().getAllIngredientTags());
+			Set<String> tagCookingMethod = refinerJsonData(rawData.getTagCookingMethod(),
+					AllCookkingMethodTags.getInstance().getAllCookkingMethodTags());
+			ApiRecipe apiRecipe = new ApiRecipe(apiRecipeId, recipeName, recipeIngredient, recipeSeasoning, recipeManual,
+					tagCookingMethod, tagIngredient, EatTime.getEatTimeByName(tagEatTime),
+					CookingStyle.getEatTimeByName(tagCookingStyle), null);
+			insertApiRecipe(apiRecipe);
+//			System.out.println(apiRecipe);
+//			System.out.println();
 		}
+		System.out.println("done");
 	}
 
-	private Set<String> refinerJson(String json, Set<String> tagElementals) {
-		if (json == null)
+	private Set<String> refinerJsonData(String data, Set<String> tags) {
+		if (data == null)
 			return null;
-		json = json.replace(":", ",").replace("|", ",");
-
-		String[] temp = json.substring(json.indexOf("\""), json.lastIndexOf("\"") + 1).split(",");
+		String[] temp = data.substring(data.indexOf("\""), data.lastIndexOf("\"") + 1).split(",");
 		Set<String> result = new HashSet<String>();
 
 		for (String str : temp) {
 			String elemental = str.trim().replace("\"", "");
-			if (tagElementals.contains(elemental))
+			if (elemental.matches(".*[가-힣]+.*") && tags.contains(elemental)) {
 				result.add(elemental);
+			}
+
 		}
 		return result;
 	}
@@ -58,6 +64,18 @@ public class ApiRecipeRawDataDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	private void insertApiRecipe(ApiRecipe apiRecipe) {
+		try (SqlSession session = Config.getSession().openSession()){
+			session.insert("insertRecipe", (Recipe) apiRecipe);
+			session.insert("insertApiRecipe", apiRecipe);
+			session.insert("insertTag", (Recipe) apiRecipe);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println("insertApiRecipe()오류");
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
