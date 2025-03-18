@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
+import kr.smartReciFit.controller.board.CommentAddController;
 import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
@@ -46,7 +47,7 @@ public class HandlerMapping {
 		mappings.put("/reviews.do", new ReviewController());
 		mappings.put("/reviewDetail.do", new ReviewDetailController());
 			
-			
+		mappings.put("/commentAdd.do",new CommentAddController());
 		mappings.put("/reviewWrite.do", new ReviewWriteController());
 		mappings.put("/reviewWriteProcess.do",new ReviewWriteProcessController());
 

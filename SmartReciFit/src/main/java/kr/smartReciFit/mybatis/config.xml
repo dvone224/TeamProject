@@ -10,6 +10,7 @@
 
 	<typeAlias type="kr.smartReciFit.model.user.User" alias="user"></typeAlias>
 	<typeAlias type="kr.smartReciFit.model.board.ReviewBoard" alias="review"></typeAlias>
+	<typeAlias type="kr.smartReciFit.model.board.Comment" alias="comment"></typeAlias>
 	<typeAlias type="kr.smartReciFit.model.recipe.ApiRecipeRawData" alias="apiRecipeRawData"/>
 	<typeAlias type="kr.smartReciFit.model.user.User" alias="user"/>
 	<typeAlias type="kr.smartReciFit.model.recipe.Recipe" alias="recipe"/>

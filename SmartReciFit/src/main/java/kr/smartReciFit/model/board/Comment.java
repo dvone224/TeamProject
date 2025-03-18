@@ -6,6 +6,24 @@ public class Comment {
 	private int boardNum;
 	private String commentContent;
 	private String commentCreated;
+	
+	
+	
+	public void setCommentNum(int commentNum) {
+		this.commentNum = commentNum;
+	}
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
+	}
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
+	public void setCommentContent(String commentContent) {
+		this.commentContent = commentContent;
+	}
+	public void setCommentCreated(String commentCreated) {
+		this.commentCreated = commentCreated;
+	}
 	public int getCommentNum() {
 		return commentNum;
 	}

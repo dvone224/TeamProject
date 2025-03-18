@@ -15,6 +15,42 @@ public class ReviewBoard {
 
 
 
+	public void setReviewBoardNum(int reviewBoardNum) {
+		this.reviewBoardNum = reviewBoardNum;
+	}
+
+	public void setUserNum(int userNum) {
+		this.userNum = userNum;
+	}
+
+	public void setApiRecipeNum(int apiRecipeNum) {
+		this.apiRecipeNum = apiRecipeNum;
+	}
+
+	public void setReviewBoardTitle(String reviewBoardTitle) {
+		this.reviewBoardTitle = reviewBoardTitle;
+	}
+
+	public void setReviewBoardContent(String reviewBoardContent) {
+		this.reviewBoardContent = reviewBoardContent;
+	}
+
+	public void setReviewBoardImg(String reviewBoardImg) {
+		this.reviewBoardImg = reviewBoardImg;
+	}
+
+	public void setReviewBoardViews(int reviewBoardViews) {
+		this.reviewBoardViews = reviewBoardViews;
+	}
+
+	public void setReviewBoardLikes(int reviewBoardLikes) {
+		this.reviewBoardLikes = reviewBoardLikes;
+	}
+
+	public void setReviewBoardCreatedAt(String reviewBoardCreatedAt) {
+		this.reviewBoardCreatedAt = reviewBoardCreatedAt;
+	}
+
 	public int getReviewBoardNum() {
 		return reviewBoardNum;
 	}
