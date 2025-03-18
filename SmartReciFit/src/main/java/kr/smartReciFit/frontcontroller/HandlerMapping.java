@@ -12,13 +12,12 @@ import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
 import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
-import kr.smartReciFit.controller.user.IdCheckController;
 import kr.smartReciFit.controller.user.UserJoinController;
 import kr.smartReciFit.controller.user.VaildIdAjaxController;
 import kr.smartReciFit.controller.user.LogOutController;
-import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.MainController;
 
 
@@ -31,15 +30,8 @@ public class HandlerMapping {
 		mappings.put("/checkId.do",  new CheckIdController());
 		mappings.put("/checkNickName.do",  new CheckNickNameController());
 		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
+		mappings.put("/mailSend.do",  new MailSend());
 		
-		mappings.put("/login", new LoginCheckController());
-		mappings.put("asdasd", new Controller() {
-			@Override
-			public String requestHandler(HttpServletRequest request, HttpServletResponse response)
-					throws ServletException, IOException {
-				return null;
-			}
-		});
 		
 		// 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());

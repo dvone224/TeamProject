@@ -14,6 +14,7 @@
         <param-value>utf-8</param-value>
       </init-param>
   </filter>
+  
   <filter-mapping>
     <filter-name>SetCharEncoding</filter-name>
     <url-pattern>/*</url-pattern>
@@ -22,14 +23,20 @@
     <error-page>
     <error-code>404</error-code>
     <location>/errorHandler</location>
-</error-page>
-  
-  
-  
+	</error-page>
+
 	<context-param>
 		<param-name>UPLOAD_DIR</param-name>
 		<param-value>C:\upload</param-value>
 	</context-param>
 	<!--  server.xml 에 값 추가하기   <Context docBase="c:\upload" path="/upload/"  reloadable="true"/>  -->
-  
+<!-- 	<servlet>
+<servlet-name>MailSend</servlet-name>
+<servlet-class>kr.smartReciFit.controller.user.MailSend</servlet-class> </servlet>
+<servlet-mapping>
+<servlet-name>MailSend</servlet-name>
+<url-pattern>/mailSend</url-pattern>
+</servlet-mapping> -->
+
+ 
 </web-app>

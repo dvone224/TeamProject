@@ -14,5 +14,4 @@
 
 	<h1> home </h1>
 
-
 <%@ include file="./part/footer.jsp" %>

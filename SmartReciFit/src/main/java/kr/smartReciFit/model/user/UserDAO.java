@@ -90,4 +90,15 @@ public class UserDAO {
 	    System.out.println("아이디 체크 num="+num);
 	    return num;
 	}
+	
+	public boolean isValidId(String id) {
+		try (SqlSession session = Config.getSession().openSession()) {
+            String pass = session.selectOne("isValidId", id);
+            // 비밀번호가 있으면 true, 없어서 null이면 false 반환
+            return pass!=null; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

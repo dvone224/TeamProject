@@ -61,23 +61,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-document.querySelector('.logout-btn').addEventListener('click', () => {
-	event.preventDefault(); // 기본 링크 동작 방지
-	    const logoutUrl = event.target.href; // href 속성 값 가져오기
+document.addEventListener('DOMContentLoaded', () => {
+    const logoutBtn = document.querySelector('.logout-btn');
+    if (logoutBtn) { // 로그아웃 버튼이 존재할 경우에만 이벤트 리스너 추가
+        logoutBtn.addEventListener('click', (event) => {
+            event.preventDefault(); // 기본 링크 동작 방지
+            const logoutUrl = event.target.href; // href 속성 값 가져오기
 
-	    fetch(logoutUrl, {
-	        method: "GET",
-	    })
-	    .then(response => response.text())
-	    .then(data => {
-	        if (data === "done") {
-	            alert("로그아웃 성공");
-	            setTimeout(() => {
-	                location.href = ctx + "/main.do";
-	            }, 500);
-	        } else {
-	            alert("로그아웃 실패");
-	        }
-	    })
-	    .catch(error => console.error('Error:', error));
-	});
+            fetch(logoutUrl, {
+                method: "GET",
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "done") {
+                    alert("로그아웃 성공");
+                    setTimeout(() => {
+                        location.href = ctx + "/main.do";
+                    }, 500);
+                } else {
+                    alert("로그아웃 실패");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+});
