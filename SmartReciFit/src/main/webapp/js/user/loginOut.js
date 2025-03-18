@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         if (data === "success") {
           alert("로그인 성공");
-          location.reload();
+          location.href = ctx + "/loginSuccess.do";
         } else {
           alert("아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.");
         }
@@ -86,3 +86,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+window.addEventListener('message', function(event) {
+    if (event.origin !== "http://localhost:8084") return; // 팝업 창의 도메인
+    if (event.data.type === 'naverLogin') {
+        var accessToken = event.data.accessToken;
+        // 네이버 사용자 프로필 정보 가져오기
+        getNaverProfile(accessToken);
+    }
+}, false);
+
+function getNaverProfile(accessToken) {
+    // 네이버 사용자 프로필 정보를 가져오는 코드
+    $.ajax({
+        url: 'https://openapi.naver.com/v1/nid/me',
+        type: 'GET',
+        headers: {
+            "Authorization": "BEARER " + accessToken
+        },
+        success: function(data) {
+            console.log(data);
+            // 사용자 정보를 세션에 저장하거나 데이터베이스에 등록하는 코드
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+    });
+}

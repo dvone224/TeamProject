@@ -10,6 +10,7 @@ public class User {
 	private String userEmail;
 	private String userPhone;
 	private String userImg;
+	
 	public int getUserNum() {
 		return userNum;
 	}

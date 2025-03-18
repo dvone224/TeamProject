@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Smart ReciFit</title>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+<main>
+	<div class="inner">
+	</div>
+</main>
+
+<script type="text/javascript">
+  var naver_id_login = new naver_id_login("Kc4oajEGWigub1aElsL9", "http://localhost:8084/SmartReciFit/loginSuccess.do");
+  // 접근 토큰 값 출력
+/*   alert(naver_id_login.oauthParams.access_token);
+ */  // 네이버 사용자 프로필 조회
+  naver_id_login.get_naver_userprofile("naverSignInCallback()");
+  // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+  
+  
+  function naverSignInCallback() {
+    // 부모 창으로 데이터 전달
+    if (window.opener) {
+        window.opener.postMessage({
+            type: 'naverLoginSuccess',
+            nickname: naver_id_login.getProfileData('nickname')
+        }, "http://localhost:8084"); // 부모 창의 도메인
+
+        // 부모 창으로 리다이렉트
+        window.opener.location.href = "http://localhost:8084/SmartReciFit/main.do";
+
+        // 팝업 닫기
+        window.close();
+    } else {
+        // 팝업이 아닌 경우 직접 이동
+        window.location.href = "http://localhost:8084/SmartReciFit/main.do";
+    }
+  }
+  
+</script>
+
+
+<%@ include file="../../part/footer.jsp"%>

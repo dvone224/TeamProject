@@ -15,6 +15,7 @@ import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.MailSend;
+import kr.smartReciFit.controller.user.LoginSuccessController;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
 import kr.smartReciFit.controller.user.UserJoinController;
@@ -35,14 +36,15 @@ public class HandlerMapping {
 		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
 		mappings.put("/mailSend.do",  new MailSend());
 		
+		mappings.put("/login.do", new LoginCheckController());
+		mappings.put("/logout.do", new LogOutController());
+		mappings.put("/main.do", new MainController());		
+		mappings.put("/loginSuccess.do", new LoginSuccessController());
 		
 		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());
 		mappings.put("/reviews.do", new ReviewController());
 		mappings.put("/reviewDetail.do", new ReviewDetailController());
-		mappings.put("/login.do", new LoginCheckController());
-		mappings.put("/logout.do", new LogOutController());
-		mappings.put("/main.do", new MainController());		
 			
 			
 		mappings.put("/reviewWrite.do", new ReviewWriteController());
