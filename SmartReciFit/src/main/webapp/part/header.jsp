@@ -15,7 +15,8 @@
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id" content="231194762579-nbasfr2j9k5nrb2nu78t6r6ou03c3btk.apps.googleusercontent.com">
+<meta name="google-signin-client_id"
+	content="231194762579-nbasfr2j9k5nrb2nu78t6r6ou03c3btk.apps.googleusercontent.com">
 
 </head>
 <header>
@@ -36,24 +37,26 @@
 		</nav>
 		<div class="user-actions">
 			<c:choose>
-    <c:when test="${empty sessionScope.socialLogin and empty sessionScope.user}">
-        <!-- 로그인 상태가 아닐 때 -->
-        <button class="login-open">로그인</button>
-        <button class="btn-userJoin" onclick="location.href='${ctx}/userJoin.do'">회원가입</button>
-    </c:when>
-    <c:otherwise>
-        <!-- 로그인 상태일 때 -->
-        <a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
-        <a href="${ctx}/userInfo.do">
-            <c:if test="${not empty sessionScope.socialLogin.nickname}">
-								<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.socialLogin.nickname}님</a>
-            </c:if>
-            <c:if test="${empty sessionScope.socialLogin.nickname and not empty sessionScope.user}">
-								<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user}님</a>
-            </c:if>
-        </a>
-    </c:otherwise>
-</c:choose>
+				<c:when
+					test="${empty sessionScope.socialLogin and empty sessionScope.user}">
+					<!-- 로그인 상태가 아닐 때 -->
+					<button class="login-open">로그인</button>
+					<button class="btn-userJoin"
+						onclick="location.href='${ctx}/userJoin.do'">회원가입</button>
+				</c:when>
+				<c:otherwise>
+					<!-- 로그인 상태일 때 -->
+					<a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
+					<c:if test="${not empty sessionScope.socialLogin.nickname}">
+						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.socialLogin.nickname}님</a>
+					</c:if>
+					<c:if
+						test="${empty sessionScope.socialLogin.nickname and not empty sessionScope.user}">
+						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user}님</a>
+					</c:if>
+					</a>
+				</c:otherwise>
+			</c:choose>
 
 		</div>
 	</div>
