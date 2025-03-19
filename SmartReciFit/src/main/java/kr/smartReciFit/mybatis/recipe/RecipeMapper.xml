@@ -8,14 +8,66 @@
 		insert into recipe
 		values(#{recipeNum},#{recipeName},#{recipeIngredient},#{recipeSeasoning},#{recipeManual});
 	</insert>
-	
+
 	<insert id="insertApiRecipe" parameterType="apiRecipe">
-		insert into api_recipes
+		insert into
+		api_recipe
 		values(#{recipeNum},#{apiRecipeNum}, null)
 	</insert>
-	
+
 	<insert id="insertTag" parameterType="recipe">
-		insert into tags
+		insert into tag
 		values(#{recipeNum},#{eatTime},#{ingredients},#{cookingStyle},#{cookingMethods})
 	</insert>
+
+<!-- 	<resultMap type="apiRecipe" id="apiRecipeResultMap">
+		Recipe 클래스의 공통 필드 매핑
+		<id property="recipeNum" column="recipe_num" />
+		<result property="recipeName" column="recipe_name" />
+		<result property="recipeIngredient" column="recipe_ingredient" />
+		<result property="recipeSeasoning" column="recipe_seasoning" />
+		<result property="recipeManual" column="recipe_manual" />
+		
+		ApiRecipe 클래스의 고유 필드 매핑
+		<result property="apiRecipeNum" column="api_recipe_num" />
+		<result property="apiRecipeImg" column="api_recipe_img" />
+
+		Enum 타입 매핑
+		<association property="eatTime"
+			javaType="com.example.EatTime">
+			<result property="koreanName" column="tag_eat_time" />
+		</association>
+		<association property="cookingStyle"
+			javaType="com.example.CookingStyle">
+			<result property="koreanName" column="tag_category" />
+		</association>
+		
+
+		Set<String> 타입 필드 매핑
+		<collection property="cookingMethods" ofType="string">
+			<result column="tag_cooking_method" />
+		</collection>
+		<collection property="ingredients" ofType="string">
+			<result column="tag_ingredient" />
+		</collection>
+	</resultMap> -->
+
+<!-- 	<select id="getRecipeListByLimit" parameterType="limit"
+		resultMap="">
+		select *
+		from recipe r
+		inner join api_recipe ar
+		on r.recipe_num = ar.recipe_num
+		inner
+		join tag t
+		on t.tag_recipe_id = r.recipe_num
+		limit #{limit};
+	</select> -->
+	
+	<select id="getEnumTag" resultType="HashMap">
+		select tag_recipe_id, tag_eat_time, tag_category
+		from tag
+	</select>
+	
+	
 </mapper>

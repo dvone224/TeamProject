@@ -2,6 +2,7 @@ package kr.smartReciFit.model.recipe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import kr.smartReciFit.model.recipe.tags.AllCookkingMethodTags;
 import kr.smartReciFit.model.recipe.tags.AllIngredientTags;
 import kr.smartReciFit.model.recipe.tags.CookingStyle;
 import kr.smartReciFit.model.recipe.tags.EatTime;
+import kr.smartReciFit.model.recipe.tags.KoreanNamedEnum;
 import kr.smartReciFit.util.Config;
 
 public class ApiRecipeRawDataDAO {
@@ -30,8 +32,8 @@ public class ApiRecipeRawDataDAO {
 			Set<String> tagCookingMethod = refinerJsonData(rawData.getTagCookingMethod(),
 					AllCookkingMethodTags.getInstance().getAllCookkingMethodTags());
 			ApiRecipe apiRecipe = new ApiRecipe(recipeNum, apiRecipeNum, recipeName, recipeIngredient, recipeSeasoning,
-					recipeManual, tagCookingMethod, tagIngredient, EatTime.getEatTimeByName(tagEatTime),
-					CookingStyle.getEatTimeByName(tagCookingStyle), null);
+					recipeManual, tagCookingMethod, tagIngredient, EatTime.valueOf(tagEatTime),
+					CookingStyle.valueOf(tagCookingStyle), null);
 			insertApiRecipe(apiRecipe);
 //			System.out.println(apiRecipe);
 //			System.out.println();
@@ -77,11 +79,25 @@ public class ApiRecipeRawDataDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	private void updateEnum() {
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
+		try (SqlSession session = Config.getSession().openSession()) {
+			list = (ArrayList) session.selectList("getEnumTag");
+			for(HashMap<String, Object> map : list) {
+				String eatTime = KoreanNamedEnum.getEnumByKoreanName(EatTime.class, (String) map.get("tag_eat_time")).toString();
+				String cookingStyle = KoreanNamedEnum.getEnumByKoreanName(CookingStyle.class, (String) map.get("tag_category")).toString();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 
 	public static void main(String[] args) {
 		ApiRecipeRawDataDAO dao = new ApiRecipeRawDataDAO();
-		ArrayList<ApiRecipeRawData> rawDataList = dao.getApiRecipeRawDataList();
-		dao.refinerRecipeRawData(rawDataList);
+		dao.updateEnum();
+//		ArrayList<ApiRecipeRawData> rawDataList = dao.getApiRecipeRawDataList();
+//		dao.refinerRecipeRawData(rawDataList);
 	}
 
 }

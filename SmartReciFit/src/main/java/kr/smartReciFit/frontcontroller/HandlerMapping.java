@@ -50,7 +50,8 @@ public class HandlerMapping {
 		mappings.put("/commentAdd.do",new CommentAddController());
 		mappings.put("/reviewWrite.do", new ReviewWriteController());
 		mappings.put("/reviewWriteProcess.do",new ReviewWriteProcessController());
-
+		
+		
 	}
 
 	public Controller getController(String key) {
