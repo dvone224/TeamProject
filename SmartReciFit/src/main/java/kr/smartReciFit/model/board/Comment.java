@@ -6,9 +6,17 @@ public class Comment {
 	private int boardNum;
 	private String commentContent;
 	private String commentCreated;
+	private String userNickname;
 	
 	
 	
+	
+	public String getUserNickname() {
+		return userNickname;
+	}
+	public void setUserNickname(String userNickName) {
+		this.userNickname = userNickName;
+	}
 	public void setCommentNum(int commentNum) {
 		this.commentNum = commentNum;
 	}

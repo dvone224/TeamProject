@@ -37,7 +37,7 @@
             <div class="review-item">
         	<td>${review.review_board_num}</td>
         	<td><img src="${review_board_img}" alt="userReview-Image"></td>
-            <td><a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}">
+            <td><a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}&userNickname=${review.user_nickname}">
                	${review.review_board_title}</a></td>
             <td>${review.user_nickname}</td>
             <td>${review.review_board_created_at}</td>
