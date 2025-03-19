@@ -32,13 +32,30 @@
   
   
   function naverSignInCallback() {
+	    const nickname = naver_id_login.getProfileData('nickname'); // 사용자 닉네임
+	    const email = naver_id_login.getProfileData('email'); // 사용자 이메일
+	    
+	    sendUserInfoToServer('naver', nickname, email);
+	    function sendUserInfoToServer(platform, nickname, email) {
+	        $.ajax({
+	            type: 'POST',
+	            url: `${ctx}/saveSocialLoginInfo.do`,
+	            data: { platform, nickname, email },
+	            success: function () {
+	                location.href = `${ctx}/main.do`; // 메인 페이지로 이동
+	            },
+	            error: function (error) {
+	                console.error('Error sending user info:', error);
+	            },
+	        });
+	    }
     // 부모 창으로 데이터 전달
     if (window.opener) {
         window.opener.postMessage({
             type: 'naverLoginSuccess',
             nickname: naver_id_login.getProfileData('nickname')
         }, "http://localhost:8084"); // 부모 창의 도메인
-
+        alert('로그인 성공')
         // 부모 창으로 리다이렉트
         window.opener.location.href = "http://localhost:8084/SmartReciFit/main.do";
 

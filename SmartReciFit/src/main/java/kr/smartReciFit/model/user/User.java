@@ -72,10 +72,10 @@ public class User {
 
 
 	public String getUserNickname() {
-		return userNickname;
+		return userNickName;
 	}
 	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
+		this.userNickName = userNickname;
 	}
 	
 	public void setUserImg(String userImg) {
