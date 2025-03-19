@@ -27,6 +27,7 @@ import kr.smartReciFit.controller.user.VaildIdAjaxController;
 import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.MainController;
 import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
+import kr.smartReciFit.controller.user.UserContentController;
 
 
 public class HandlerMapping {
@@ -34,6 +35,8 @@ public class HandlerMapping {
 
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
+		
+		//회원가입 관련 맵핑
 		mappings.put("/userJoin.do",  new UserJoinController());
 		mappings.put("/checkId.do",  new CheckIdController());
 		mappings.put("/checkNickName.do",  new CheckNickNameController());
@@ -41,6 +44,11 @@ public class HandlerMapping {
 		mappings.put("/mailSend.do",  new MailSend());
 		
 		// 로그인 관련 작업 (나경)
+		//마이페이지 관련 맵핑
+		mappings.put("/userContent.do",  new UserContentController());
+		
+		
+		//로그인아웃 관련 맵핑
 		mappings.put("/login.do", new LoginCheckController());
 		mappings.put("/logout.do", new LogOutController());
 		mappings.put("/main.do", new MainController());		

@@ -1,6 +1,9 @@
 let isIdValid = 0;//아이디 중복검사
 let isNicknameValid = 0;//닉네임 중복검사
-let isidentityValid = 0;//인증 검사
+let isidentityValid = 0;//인증 검사 0 인증검사 전 -1 인증검사 중 1 인증검사 완료
+//나중에 이메일인증검사랑 소셜인증검사랑 분리해야할 것 같으면 소셜검사를 따로 빼야지
+let identityCode = null;//인증번호 저장
+let emailChickTimeout = null;//2분 카운트 저장
 
 //const form = document.querySelector('form');
 const form = document.querySelector('#userJoinForm');
@@ -17,6 +20,8 @@ const checkEmailButton = document.querySelector('#btn-checkEmail');
 const checkcheckEmailOkButton = document.querySelector('#btn-checkEmailOk');
 const submitButton = document.querySelector('#btn-submit');
 
+checkcheckEmailOkButton.disabled=true;
+
 //어떤 이벤트를 명시적으로 처리하지 않은 경우, 해당 이벤트에 대한 사용자 에이전트의 기본 동작을 실행하지 않도록 지정
 form.addEventListener('submit', (event) => {
 	event.preventDefault();
@@ -28,7 +33,7 @@ submitButton.addEventListener('click', (event) => {
 	console.log("모든 입력값 확인 test="+validateAll());
 
 	if (isIdValid !== 1) {
-		swal.fire({
+		swal.fire({ //아이디 중복확인
 			icon: "error",
 			title: "Error!",
 			text:"아이디 중복 확인을 해주세요",
@@ -38,7 +43,7 @@ submitButton.addEventListener('click', (event) => {
 	    idInput.focus();
 	    return;
 	}
-
+	
 	if (isNicknameValid !== 1) { // 닉네임 중복 확인을 하지 않았다면 경고창 표시
 		swal.fire({
 			icon: "error",
@@ -48,6 +53,18 @@ submitButton.addEventListener('click', (event) => {
 		});
 	    console.log("닉네임 중복 확인="+isNicknameValid);
 	    nicknameInput.focus();
+	    return;
+	}
+	
+	if (isidentityValid !== 1) { // 이메일 인증
+		swal.fire({
+			icon: "error",
+			title: "Error!",
+			text:"이메일 인증을 해주세요",
+			confirmButtonColor: "#F7C525",
+		});
+	    console.log("이메일 확인="+isidentityValid);
+	    emailInput.focus();
 	    return;
 	}
 
@@ -223,7 +240,7 @@ function validateAll() {
             isValid = false;
         }
     });
-    return isValid&&isIdValid === 1&&isNicknameValid === 1;
+    return isValid&&isIdValid === 1 && isNicknameValid === 1 && isidentityValid===1;
 }
 
 function handleIdValidationResult(data) {
@@ -307,11 +324,67 @@ function handleNickNameValidationResult(data) {
     }
 }
 
+const countdownDisplay = document.getElementById('countdown');
+let countdownTime;
+let timerInterval;
+
+//카운트 다운 함수
+function startCountdown() {
+    let minutes = 2;
+    let seconds = 0;
+
+    countdownTime = minutes * 60 + seconds;
+
+    timerInterval = setInterval(() => {
+        minutes = Math.floor(countdownTime / 60);
+        seconds = countdownTime % 60;
+
+        // 시간을 00:00 형식으로 표시
+        countdownDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+		
+		// 남은 시간이 30초 이하일 때 글씨색 변경
+		if (countdownTime <= 30) {
+		    countdownDisplay.style.color = 'red';
+		} else {
+		    countdownDisplay.style.color = ''; // 기본 색상으로 복원
+		}
+
+        countdownTime--;
+
+        if (countdownTime < 0) {
+            clearInterval(timerInterval);
+            countdownDisplay.textContent = '시간 종료!';
+        }
+    }, 1000);
+}
 
 function email_ok(str){
 	const ctx = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
 	let num = parseInt(Math.random() * 100000);
 	console.log(num);
+	isidentityValid=-1;//인증검사 진행 중
+	
+	identityCode=num; //인증번호 저장
+	clearTimeout(emailChickTimeout); //이전 타임아웃 제거
+	checkEmailButton.disabled=true; //인증버튼 비활성화
+	checkcheckEmailOkButton.disabled=false; //인증번호 버튼 활성화
+	
+	clearInterval(timerInterval); // 기존 타이머가 실행 중이면 초기화
+	startCountdown();
+	
+	emailChickTimeout = setTimeout(() => {
+	  identityCode = null; // 2분 후 인증번호 초기화
+	  swal.fire({
+	    icon: "error",
+	    title: "인증 시간 초과",
+	    text: "인증 시간이 만료되었습니다. 다시 인증해주세요.",
+	    confirmButtonColor: "#F7C525",
+	  });
+	  isidentityValid=0;//인증검사 진행 전
+	  checkEmailButton.disabled=false; //이메일 인증버튼 활성화
+	  checkcheckEmailOkButton.disabled=true; //인증번호 버튼 활성화
+	}, 120000); // 2분 (120000 밀리초) 후 타임아웃 설정
+
 	$.ajax({
 		url: ctx + "/mailSend.do", //전송받을 페이지 경로 //서블릿
 		type: "post", //데이터 읽어오는 방식 //데이터 전송방식
@@ -319,13 +392,60 @@ function email_ok(str){
 		data: "num="+num+"&email="+str,
 		success:function(text){ //성공일 경우
 			//$("#id_result").html(text);
-			alert("메일인증 확인하세요")
+			swal.fire({
+				icon: "success",
+				title: "Check yout E-mail!",
+				text:"인증번호를 확인해 입력하세요. \n혹시 오지 않았다면 메일 주소를 확인해주세요.",
+				confirmButtonColor: "#F7C525",
+				})
+			
 		},
 		error:function(){ //실패일 경우
-			alert("실패");
+			swal.fire({
+				icon: "error",
+				title: "Error!",
+				text:"메일 발송에 실패했습니다.",
+				confirmButtonColor: "#F7C525",
+				})
+			isidentityValid=0;//인증검사 진행 전
 		}
 	});
 }
+
+
+checkcheckEmailOkButton.addEventListener("click", function () {
+  const enteredCode = document.querySelector('#checkEmailOk');
+  let enterCode =parseInt(enteredCode.value);
+  //이거 일단 input을 number로 해서 int 로 변환하긴 했는데 혹시나 나중에 문자 섞어서 인증할거면 String으로 바꾸기
+  console.log("내가 입력한 인증번호:"+enterCode);
+  console.log("저장한 인증번호:"+identityCode);
+  console.log(enterCode == identityCode);
+  
+  if (identityCode !== null && enterCode == identityCode) {
+    clearTimeout(emailChickTimeout); // 인증 성공 시 타임아웃 제거
+    identityCode = null; // 인증 성공 후 인증번호 초기화
+    swal.fire({
+      icon: "success",
+      title: "인증 성공",
+      text: "이메일 인증이 완료되었습니다.",
+      confirmButtonColor: "#F7C525",
+    });
+	isidentityValid=1;//인증검사 완료
+	
+	clearInterval(timerInterval);
+	countdownDisplay.textContent = '인증완료';
+	
+	checkEmailButton.disabled=false; //이메일 인증버튼 활성화
+	checkcheckEmailOkButton.disabled=true; //인증번호 버튼 활성화
+  } else {
+    swal.fire({
+      icon: "error",
+      title: "인증 실패",
+      text: "인증번호가 일치하지 않습니다.",
+      confirmButtonColor: "#F7C525",
+    });
+  }
+});
 
 
 function showError(input, message) {

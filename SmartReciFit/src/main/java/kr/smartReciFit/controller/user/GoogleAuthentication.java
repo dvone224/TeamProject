@@ -11,9 +11,7 @@ public class GoogleAuthentication extends Authenticator{
 //		passAuth = new PasswordAuthentication("아이디@gmail.com","16자리 비밀번호");
         // 앱 비밀번호 대신 일반 비밀번호 사용 (권장되지 않음)
         passAuth = new PasswordAuthentication("smartrecifit@gmail.com", "dzvc hcxx nnrr owun");
-
 	}
- 
 	public PasswordAuthentication getPasswordAuthentication() {
 		return passAuth;
 	}

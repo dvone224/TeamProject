@@ -7,12 +7,10 @@
 <properties resource="kr/smartReciFit/mybatis/db.properties" />
 
 <typeAliases>
-
-	<typeAlias type="kr.smartReciFit.model.user.User" alias="user"></typeAlias>
-	<typeAlias type="kr.smartReciFit.model.board.ReviewBoard" alias="review"></typeAlias>
-	<typeAlias type="kr.smartReciFit.model.board.Comment" alias="comment"></typeAlias>
-	<typeAlias type="kr.smartReciFit.model.recipe.ApiRecipeRawData" alias="apiRecipeRawData"/>
 	<typeAlias type="kr.smartReciFit.model.user.User" alias="user"/>
+	<typeAlias type="kr.smartReciFit.model.board.ReviewBoard" alias="review"/>
+	<typeAlias type="kr.smartReciFit.model.board.Comment" alias="comment"/>
+	<typeAlias type="kr.smartReciFit.model.recipe.ApiRecipeRawData" alias="apiRecipeRawData"/>
 	<typeAlias type="kr.smartReciFit.model.recipe.Recipe" alias="recipe"/>
 	<typeAlias type="kr.smartReciFit.model.recipe.ApiRecipe" alias="apiRecipe"/>
 </typeAliases>

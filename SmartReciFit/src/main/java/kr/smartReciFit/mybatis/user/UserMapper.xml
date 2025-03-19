@@ -4,15 +4,15 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.smartReciFit.mybatis.user.UserMapper">
-<resultMap id="user" type="kr.smartReciFit.model.user.User">
-  <id property="user_num" column="userNum"/>
-  <result property="user_name" column="userName"/>
-  <result property="user_id" column="userId"/>
-  <result property="user_Nickname" column="userNickname"/>
-  <result property="user_pwd" column="userPw"/>
-  <result property="user_email" column="userEmail"/>
-  <result property="user_phone" column="userPhone"/>
-  <result property="user_phone" column="userImg"/>
+<resultMap id="userResultMap" type="user">
+   <id property="userNum" column="user_num"/>
+  <result property="userName" column="user_name"/>
+  <result property="userId" column="user_id"/>
+  <result property="userNickName" column="user_nickname"/>
+  <result property="userPw" column="user_pwd"/>
+  <result property="userEmail" column="user_email"/>
+  <result property="userPhone" column="user_phone"/>
+  <result property="userImg" column="user_img"/>
 </resultMap>
 
 	<select id="getUserList" resultType="HashMap">
@@ -40,6 +40,14 @@
 	select user_num from user where user_nickname=#{nickName}
 	</select>
 	
+    <!-- num으로 유저찾기 -->
+	<select id="numGetUser" parameterType="Integer" resultMap="userResultMap">
+	select * from user where user_num=#{num2}
+	</select>
 	
+    <!-- num으로 이름찾기 -->
+	<select id="numGetName" parameterType="Integer" resultType="String">
+	select user_name from user where user_num=#{num2}
+	</select>
 	
 </mapper>

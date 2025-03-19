@@ -37,9 +37,9 @@
 	<td><button class="btn-checkEmail" name="btn-checkEmail" id="btn-checkEmail" onclick="email_ok(email.value)">이메일인증</button></td>
 	</tr>
 	<tr>
-	<td></td>
+	<td><div id="countdown"></div></td>
 	<td><input type="text" name="checkEmailOk" id="checkEmailOk"></td>
-	<td><button class="btn-checkEmailOk" name="btn-checkEmailOk" id="btn-checkEmailOk">인증완료</button></td>
+	<td><button class="btn-checkEmailOk" name="btn-checkEmailOk" id="btn-checkEmailOk" placeholder="인증번호를 입력해주세요">인증완료</button></td>
 	</tr>
 	<tr>
 	<td>전화번호</td>

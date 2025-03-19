@@ -1,6 +1,10 @@
 package kr.smartReciFit.controller.user;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
  
@@ -23,18 +27,6 @@ import kr.smartReciFit.controller.Controller;
 //@WebServlet("/mailSend")
 public class MailSend implements Controller {
 	private static final long serialVersionUID = 1L;
-       
-   
-//    public MailSend() {
-//        super();
-//    }
-// 
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//	}
-//	
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-//	}
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
@@ -48,11 +40,32 @@ public class MailSend implements Controller {
 		System.out.println("mailSend num:" + num);
 		String receiver = request.getParameter("email");
 		System.out.println("mailSend email:" + receiver);
+    	
+		//오늘 날짜
+		LocalDate today = LocalDate.now();
+		//지금 시간
+		LocalTime now= LocalTime.now();
+		// 2분 뒤 시간
+		LocalDateTime timeLimitDateTime = LocalDateTime.of(today, now).plusMinutes(2);
+		LocalDate timeLimitDate = timeLimitDateTime.toLocalDate();
+		LocalTime timeLimitTime = timeLimitDateTime.toLocalTime();
+		
+		//형식 정하기
+		DateTimeFormatter dayFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH시 mm분 ss초");
+		
+		String dayForm=today.format(dayFormatter);
+		String timeForm=now.format(timeFormatter);
+		String timeLimitDayForm = timeLimitDate.format(dayFormatter);
+		String timeLimitTimeForm = timeLimitTime.format(timeFormatter);
 		
 		//String subject = request.getParameter("subject");
-		String subject ="테스트 입니다.";
-		String content = "인증번호"+num;
-		
+		String subject ="SmartReciFit 회원가입용 인증번호 "+num;
+		String content2 = "<table style='border-collapse: collapse; width: 100%;'>" +
+		        "<tr><td style='padding: 8px;'>인증번호</td><td style='padding: 8px;'>" + num + "</td></tr>" +
+		        "<tr><td style='padding: 8px;'>발송 시간</td><td style='padding: 8px;'>" + dayForm + " " + timeForm + "</td></tr>" +
+		        "<tr><td style='padding: 8px;'>인증번호 유효 시간</td><td style='padding: 8px;'>" + timeLimitDayForm + " " + timeLimitTimeForm + "</td></tr>" +
+		        "</table>";
 		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -75,7 +88,7 @@ public class MailSend implements Controller {
 			m.setHeader("content-type", "text/html;charset=utf-8");
 			m.addRecipient(Message.RecipientType.TO, receiver_address);
 			m.setSubject(subject);
-			m.setContent(content, "text/html;charset=utf-8");
+			m.setContent(content2, "text/html;charset=utf-8");
 			m.setSentDate(new Date());
 			
 			Transport.send(m); //메세지를 메일로 전송

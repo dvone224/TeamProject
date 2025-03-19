@@ -31,6 +31,10 @@ public class LoginCheckController implements Controller {
 	        if (result != null) {
 	        	  HttpSession session = request.getSession();
 	        	   session.setAttribute("user", id); // 세션에 사용자 아이디 저장
+	        	   int userNum=(int)UserDAO.getInstance().checkId(id);
+	        	   session.setAttribute("log", userNum); // 로그에 사용자 num 저장
+	        	   System.out.println(session.getAttribute("user"));
+	        	   System.out.println(session.getAttribute("log"));
 	            response.getWriter().write("success");
 	        } else {
 	            response.getWriter().write("failure");

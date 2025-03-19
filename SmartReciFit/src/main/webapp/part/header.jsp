@@ -46,10 +46,10 @@
         <a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
         <a href="${ctx}/userInfo.do">
             <c:if test="${not empty sessionScope.socialLogin.nickname}">
-                ${sessionScope.socialLogin.nickname}님
+								<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.socialLogin.nickname}님</a>
             </c:if>
             <c:if test="${empty sessionScope.socialLogin.nickname and not empty sessionScope.user}">
-                ${sessionScope.user}님
+								<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user}님</a>
             </c:if>
         </a>
     </c:otherwise>
