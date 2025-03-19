@@ -71,13 +71,6 @@ public class User {
 	}
 
 
-	public String getUserNickname() {
-		return userNickname;
-	}
-	public void setUserNickname(String userNickname) {
-		this.userNickname = userNickname;
-	}
-	
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;
 	}
@@ -97,5 +90,11 @@ public class User {
 	public User() {
 	}
 
+	@Override
+	public String toString() {
+		return "User [userNum=" + userNum + ", userName=" + userName + ", userNickName=" + userNickName + ", userId="
+				+ userId + ", userPw=" + userPw + ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", userImg="
+				+ userImg + "]";
+	}
 	
 }

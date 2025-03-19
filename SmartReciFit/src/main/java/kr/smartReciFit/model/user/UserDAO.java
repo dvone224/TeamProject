@@ -47,20 +47,7 @@ public class UserDAO {
 	}
 
 
-	//회원가입
-//	public boolean UserJoin(String id, String pw, String name, String nickName, String email, String phone, String profileImg) {
-//		User vo=new User(name, nickName, id, pw, email, phone, profileImg);
-//		try (SqlSession session = sqlSessionFactory.openSession()) {
-//			session.insert("userJoin", vo);
-//			session.commit();
-//			return true;
-//		} catch (Exception e) {
-//			System.out.println("UserJoin에러");
-//			e.printStackTrace();
-//			return false;
-//		}
-//	}
-	
+
 	//회원가입
 	public boolean UserJoin(String id, String pw, String name, String nickName, String email, String phone, String profileImg) {
 		User vo=new User(name, nickName, id, pw, email, phone, profileImg);
@@ -101,4 +88,21 @@ public class UserDAO {
 		}
 		return false;
 	}
+	
+	
+	//num을 넣어서 User 반환하기
+	public User numGetUser(int num) {
+		Integer num2=(Integer)num;
+		SqlSession session = Config.getSession().openSession();
+		User vo=session.selectOne("numGetUser", num2);
+		String test=session.selectOne("numGetName", num2);
+	    session.close();
+	    System.out.println("집어 넣은 num="+num);
+	    System.out.println("가져온 User="+vo);
+	    System.out.println("가져온 testName="+test);
+		return vo;
+	}
+	
+	
+	
 }

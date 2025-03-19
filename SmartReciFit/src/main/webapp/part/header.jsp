@@ -41,7 +41,7 @@
 				<c:otherwise>
 					<!-- 로그인 상태일 때 -->
 					<a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
-					<a href="${ctx}/userInfo.do">${sessionScope.user}님</a>
+					<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user}님</a>
 				</c:otherwise>
 			</c:choose>
 		</div>
