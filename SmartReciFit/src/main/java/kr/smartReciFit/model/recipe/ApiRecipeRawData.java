@@ -1,8 +1,8 @@
 package kr.smartReciFit.model.recipe;
 
 public class ApiRecipeRawData {
-	private int apiRecipeId;
 	private int recipeNum;
+	private int apiRecipeNum;
 	private String recipeName;
 	private String recipeIngredient;
 	private String recipeSeasoning;
@@ -13,8 +13,8 @@ public class ApiRecipeRawData {
 	private String tagCookingMethod;
 	private String recipeImg;
 
-	public int getApiRecipeId() {
-		return apiRecipeId;
+	public int getApiRecipeNum() {
+		return apiRecipeNum;
 	}
 
 	public int getRecipeNum() {

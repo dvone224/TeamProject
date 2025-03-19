@@ -5,9 +5,9 @@
 
 <mapper namespace="kr.smartReciFit.mybatis.recipe.ApiRecipeRawDataMapper">
 	<resultMap id="apiRecipeRawDataMap" type="apiRecipeRawData">
-		<result column="api_recipe_id" property="apiRecipeId"
+		<result column="api_recipe_id" property="recipeNum"
 			jdbcType="INTEGER" javaType="int" />
-		<result column="recipe_num" property="recipeNum"
+		<result column="recipe_num" property="apiRecipeNum"
 			jdbcType="INTEGER" javaType="int" />
 		<result column="recipe_name" property="recipeName"
 			jdbcType="VARCHAR" javaType="String" />

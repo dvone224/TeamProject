@@ -17,8 +17,8 @@ public class ApiRecipeRawDataDAO {
 
 	public void refinerRecipeRawData(ArrayList<ApiRecipeRawData> list) {
 		for (ApiRecipeRawData rawData : list) {
-			int apiRecipeId = rawData.getApiRecipeId();
 			int recipeNum = rawData.getRecipeNum();
+			int apiRecipeNum = rawData.getApiRecipeNum();
 			String recipeName = rawData.getRecipeName();
 			String recipeIngredient = rawData.getRecipeIngredient();
 			String recipeSeasoning = rawData.getRecipeSeasoning();
@@ -29,8 +29,8 @@ public class ApiRecipeRawDataDAO {
 					AllIngredientTags.getInstance().getAllIngredientTags());
 			Set<String> tagCookingMethod = refinerJsonData(rawData.getTagCookingMethod(),
 					AllCookkingMethodTags.getInstance().getAllCookkingMethodTags());
-			ApiRecipe apiRecipe = new ApiRecipe(apiRecipeId, recipeName, recipeIngredient, recipeSeasoning, recipeManual,
-					tagCookingMethod, tagIngredient, EatTime.getEatTimeByName(tagEatTime),
+			ApiRecipe apiRecipe = new ApiRecipe(recipeNum, apiRecipeNum, recipeName, recipeIngredient, recipeSeasoning,
+					recipeManual, tagCookingMethod, tagIngredient, EatTime.getEatTimeByName(tagEatTime),
 					CookingStyle.getEatTimeByName(tagCookingStyle), null);
 			insertApiRecipe(apiRecipe);
 //			System.out.println(apiRecipe);
@@ -65,9 +65,9 @@ public class ApiRecipeRawDataDAO {
 		}
 		return list;
 	}
-	
+
 	private void insertApiRecipe(ApiRecipe apiRecipe) {
-		try (SqlSession session = Config.getSession().openSession()){
+		try (SqlSession session = Config.getSession().openSession()) {
 			session.insert("insertRecipe", (Recipe) apiRecipe);
 			session.insert("insertApiRecipe", apiRecipe);
 			session.insert("insertTag", (Recipe) apiRecipe);

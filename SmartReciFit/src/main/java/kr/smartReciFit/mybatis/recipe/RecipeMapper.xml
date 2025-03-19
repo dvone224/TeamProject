@@ -11,7 +11,7 @@
 	
 	<insert id="insertApiRecipe" parameterType="apiRecipe">
 		insert into api_recipes
-		values(#{recipeNum}, null)
+		values(#{recipeNum},#{apiRecipeNum}, null)
 	</insert>
 	
 	<insert id="insertTag" parameterType="recipe">
