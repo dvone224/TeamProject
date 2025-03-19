@@ -24,41 +24,43 @@
 
 <div class="review-detail">
     <h1>${review.reviewBoardTitle}</h1>
+    <p>글쓴이: ${userNickname}</p>
     <img src="${review.reviewBoardImg}" alt="${review.reviewBoardTitle}" width="400">
-    <p>${review.reviewBoardContent}</p>
+    <p>내용: ${review.reviewBoardContent}</p>
     <p>조회수: ${review.reviewBoardViews}</p>
-    <p>좋아요: ${review.reviewBoardLikes}</p>
+    <i class="fa-solid fa-heart" id="boardLike"></i><p>좋아요: ${review.reviewBoardLikes}</p>
     <p>작성일: ${review.reviewBoardCreated}</p>
+ 	<h3>댓글</h3>   
    <div class="comment-form">
         <form action="${ctx}/commentAdd.do" method="post">
             <input type="hidden" name="boardNum" value="${review.reviewBoardNum}">
             <input type="hidden" name="user" value="${user}">
             <textarea name="commentContent" placeholder="댓글을 입력하세요" required style="height: 100px; width: 610px; resize: none"></textarea>
-    <c:if test="${not empty user}">
             <button type="submit">댓글 작성</button>
         </form>
-    </c:if>
-
-</div>
+	</div>
 
 
    <div class="comment-list">
     <c:forEach var="comment" items="${comments}">
-        <div class="comment-item">
-            <p>${comment.commentContent}</p>
-            <small>작성자: ${comment.userNum}, 작성일: ${comment.commentCreated}</small>
-            <%-- <c:if test="${sessionScope.userNum == comment.userNum}">
+        <div class="comment-item" id="comment-item-${comment.commentNum}">
+            <div id="comment-div-${comment.commentNum}">${comment.commentContent}</div>
+            <small>작성자: ${comment.userNickname}, 작성일: ${comment.commentCreated}</small>
+            <c:if test="${userNum eq comment.userNum or userNum eq 1}"> <%-- user에 있는 usernum이랑  comment usernum--%>
+            <button id="comment-btn-${comment.commentNum}" onclick="showEdit(${comment.commentNum})">수정</button>
                 <form action="${ctx}/commentDelete.do" method="post" style="display:inline;">
                     <input type="hidden" name="commentNum" value="${comment.commentNum}">
                     <input type="hidden" name="boardNum" value="${review.reviewBoardNum}">
                     <button type="submit">삭제</button>
                 </form>
-            </c:if> --%>
+            </c:if>
         </div>
     </c:forEach>
 </div>
     
 </div>
 
+
+<script src="${ctx}/js/board/comment.js"></script>
 <%@ include file="../../part/footer.jsp"%>
 

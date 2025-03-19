@@ -1,6 +1,7 @@
 package kr.smartReciFit.controller.board;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -20,8 +21,13 @@ public class CommentAddController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String user = request.getParameter("user");
-		if(user == null) {
+		String user = (String) request.getSession().getAttribute("user");
+		System.out.println(user);
+		if(request.getSession().getAttribute("user") == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('로그인 후 이용가능합니다'); history.back();</script>");
+			writer.close();
 			return null;
 		}
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));

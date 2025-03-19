@@ -36,6 +36,8 @@
     <result property="commentContent" column="comment_content" />
     
     <result property="commentCreated" column="comment_created_at" />
+    
+    <result property="userNickname" column="user_nickname"/>
 </resultMap>
 
 	<select id="getTop3RecipesByViews" resultMap="reviewBoardMap">
@@ -70,6 +72,7 @@
 		UPDATE review_board SET review_board_views = review_board_views + 1
 		WHERE review_board_num = #{reviewBoardNum}
 	</update>
+	<!-- 리뷰 추가 -->
 	<insert id="addReview" parameterType="review">
 		INSERT INTO review_board (
 		user_num, review_board_recipe_id, review_board_title,
@@ -85,9 +88,24 @@
 	
 	<!-- 댓글 목록조회 -->
 	<select id="getCommentsByBoardNum" parameterType="int" resultMap="commentResultMap">
-    	SELECT comment_num, user_num, board_num, comment_content, comment_created_at
-   		FROM comment
-    	WHERE board_num = #{boardNum}
-    	ORDER BY comment_created_at ASC
+    	SELECT c.comment_num, c.user_num, c.board_num, c.comment_content, c.comment_created_at,u.user_nickname
+   		FROM comment c
+   		inner join
+   		user u ON c.user_num = u.user_num
+    	WHERE c.board_num = #{boardNum}
+    	ORDER BY c.comment_created_at ASC
 	</select>
+	<!--댓글 수정-->
+	<update id="updateComment" parameterType="comment">
+		UPDATE comment
+		SET comment_content = #{commentContent}
+		WHERE comment_num = #{commentNum}
+	</update>
+	<!--댓글 삭제-->
+	<delete id="deleteComment" parameterType="java.util.Map">
+		DELETE 
+		FROM comment
+		WHERE comment_num = #{commentNum} and board_num = #{boardNum}		
+	</delete>
+	
 </mapper>

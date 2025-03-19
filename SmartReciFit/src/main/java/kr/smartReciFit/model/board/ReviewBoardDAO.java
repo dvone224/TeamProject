@@ -84,6 +84,7 @@ public class ReviewBoardDAO {
 		}
 	}
 
+	// 유저 이름 가져오기
 	public String getUserName() {
 		String name = null;
 		try (SqlSession session = Config.getSession().openSession()) {
@@ -106,6 +107,6 @@ public class ReviewBoardDAO {
 		}
 	}
 
-	// 유저 이름 가져오기
+	
 
 }
