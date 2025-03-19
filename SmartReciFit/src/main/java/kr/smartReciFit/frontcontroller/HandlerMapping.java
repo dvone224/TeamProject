@@ -26,6 +26,7 @@ import kr.smartReciFit.controller.user.VaildIdAjaxController;
 
 import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.MainController;
+import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
 
 
 public class HandlerMapping {
@@ -39,10 +40,13 @@ public class HandlerMapping {
 		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
 		mappings.put("/mailSend.do",  new MailSend());
 		
+		// 로그인 관련 작업 (나경)
 		mappings.put("/login.do", new LoginCheckController());
 		mappings.put("/logout.do", new LogOutController());
 		mappings.put("/main.do", new MainController());		
 		mappings.put("/loginSuccess.do", new LoginSuccessController());
+		mappings.put("/saveSocialLoginInfo.do", new SaveSocialLoginInfo());
+		
 		
 		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());
