@@ -34,7 +34,7 @@ function cancelEdit(commentNum, originalContent) {
 	editButton.disabled = false;
 }
 
-function updateComment(commentNum, reviewBoardNum) { // reviewBoardNum 파라미터 추가
+function updateComment(commentNum, reviewBoardNum) { 
       const commentDiv = document.getElementById(`comment-div-${commentNum}`);
       const editInput = document.getElementById(`edit-input-${commentNum}`);
 	  const editButton = document.getElementById(`comment-btn-${commentNum}`);
@@ -59,5 +59,32 @@ function updateComment(commentNum, reviewBoardNum) { // reviewBoardNum 파라미
          }
       });
    }
+   function toggleLike(reviewBoardNum) {
+       $.ajax({
+           type: "POST",
+           url: `${ctx}/like.do`, 
+           data: {
+               reviewBoardNum: reviewBoardNum
+           },
+           success: function (response) {
+               if (response.success) {
+                   let likeCount = response.likeCount; 
+                   let liked = response.liked; 
 
+                   $("#like-count").text(likeCount); 
+                   let likeButton = $(".like-button");
+                   if (liked) {
+                       likeButton.html("🤍"); 
+                   } else {
+                       likeButton.html("❤️"); 
+                   }
+               } else {
+                   alert("좋아요 처리 실패: " + response.message);
+               }
+           },
+           error: function (xhr, status, error) {
+               alert("좋아요 요청 실패: " + error);
+           }
+       });
+   }
    
