@@ -49,7 +49,6 @@ public class HandlerMapping {
 		//마이페이지 관련 맵핑
 		mappings.put("/userContent.do",  new UserContentController());
 		
-		
 		//로그인아웃 관련 맵핑
 		mappings.put("/login.do", new LoginCheckController());
 		mappings.put("/logout.do", new LogOutController());

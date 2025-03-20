@@ -11,7 +11,7 @@ import kr.smartReciFit.model.user.SocialDTO;
 import kr.smartReciFit.model.user.SocialLoginDTO;
 import kr.smartReciFit.model.user.User;
 
-public class SaveSocialLoginInfo implements Controller {
+public class LoginSocialLogin implements Controller {
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
@@ -20,6 +20,23 @@ public class SaveSocialLoginInfo implements Controller {
         String platform = request.getParameter("platform");
         String nickname = request.getParameter("nickname");
         String email = request.getParameter("email");
+        
+        // SocialDTO에 userNum, 각 맞는 플랫폼에 맞는 이메일 넣는다
+        SocialDTO socialDTO = new SocialDTO();
+        if(platform == "kakao") {
+        	socialDTO.setKakao(email);
+        }else if(platform == "naver") {
+        	socialDTO.setNaver(email);
+        }else {
+        	socialDTO.setGoogle(email);
+        }
+        
+        // User에 userNum, nickName 넣기 전에 회원가입 되있던 이메일 확인
+        User user = new User();
+        user.setUserNickName(nickname);
+        
+        
+        
         
         SocialLoginDTO socialLoginDTO = new SocialLoginDTO();
         socialLoginDTO.setPlatform(platform);

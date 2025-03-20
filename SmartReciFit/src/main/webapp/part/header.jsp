@@ -10,13 +10,15 @@
 
 <title>Smart ReciFit</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
+
 <script type="text/javascript" src="${ctx}/js/user/loginOut.js" defer></script>
+
+<script src="https://accounts.google.com/gsi/client"></script>
 
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
-<meta name="google-signin-client_id"
-	content="231194762579-nbasfr2j9k5nrb2nu78t6r6ou03c3btk.apps.googleusercontent.com">
+
+<script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.5/base64.min.js"></script>
 
 </head>
 <header>
@@ -54,7 +56,6 @@
 						test="${empty sessionScope.socialLogin.nickname and not empty sessionScope.user}">
 						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user}님</a>
 					</c:if>
-					</a>
 				</c:otherwise>
 			</c:choose>
 
