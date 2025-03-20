@@ -11,6 +11,7 @@ import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.controller.board.CommentAddController;
 import kr.smartReciFit.controller.board.CommentDeleteController;
 import kr.smartReciFit.controller.board.CommentUpdateController;
+import kr.smartReciFit.controller.board.LikeController;
 import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
@@ -70,6 +71,7 @@ public class HandlerMapping {
 		// 레시피 페이지
 		mappings.put("/recipes.do", new RecipesController());
 		
+		mappings.put("/like.do", new LikeController());
 	}
 
 	public Controller getController(String key) {

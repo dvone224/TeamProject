@@ -1,8 +1,10 @@
 package kr.smartReciFit.model.board;
 
 import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -107,6 +109,91 @@ public class ReviewBoardDAO {
 		}
 	}
 
-	
+	 public void likeCount(int reviewBoardNum, int like) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("reviewBoardNum", reviewBoardNum);
+	            map.put("like", like);
+	            session.update("likeCount", map);
+	            session.commit();
+	        } catch (Exception e) {
+	            System.out.println("likeCount() 에러");
+	            e.printStackTrace();
+	            throw e; 
+	        }
+	    }
+	 
+	 public void insertLike(int reviewBoardNum, int userNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("reviewBoardNum", reviewBoardNum);
+	            map.put("userNum", userNum);
+	            session.insert("insertLike", map);
+	            session.commit();
+	        } catch (Exception e) {
+	            System.out.println("insertLike() 에러");
+	            e.printStackTrace();
+	        }
+	    }
+	 public void deleteLike(int reviewBoardNum, int userNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("reviewBoardNum", reviewBoardNum);
+	            map.put("userNum", userNum);
+	            session.delete("deleteLike", map);
+	            session.commit();
+	        } catch (Exception e) {
+	            System.out.println("deleteLike() 에러");
+	            e.printStackTrace();
+	        }
+	    }
+	 
+	 
+	 public boolean isLiked(int reviewBoardNum, int userNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("reviewBoardNum", reviewBoardNum);
+	            map.put("userNum", userNum);
+	            Integer count = session.selectOne("isLiked", map);
+	            boolean isLiked = count != null && count > 0;
+
+	            if (isLiked) {
+	                session.delete("deleteLike", map);
+	                session.commit();
+	            } else {
+	                session.insert("insertLike", map);
+	                session.commit();
+	            }
+
+	            return !isLiked;
+	        } catch (Exception e) {
+	            System.out.println("isLiked() 에러");
+	            e.printStackTrace();
+	            return false;
+	        }
+	    }
+	  public void updateLikeCount(int reviewBoardNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            int totalLikes = getTotalLikes(reviewBoardNum);
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("reviewBoardNum", reviewBoardNum);
+	            map.put("totalLikes", totalLikes);
+	            session.update("updateReviewBoardLikes", map);
+	            session.commit();
+	        } catch (Exception e) {
+	            System.out.println("updateLikeCount() 에러");
+	            e.printStackTrace();
+	        }
+	    }
+	  public Integer getTotalLikes(int reviewBoardNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            return session.selectOne("getTotalLikes", reviewBoardNum);
+	        } catch (Exception e) {
+	            System.out.println("getTotalLikes() 에러");
+	            e.printStackTrace();
+	            return 0; 
+	        }
+	    }
+	 
 
 }
