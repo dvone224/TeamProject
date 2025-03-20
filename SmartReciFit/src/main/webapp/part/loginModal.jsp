@@ -23,8 +23,12 @@
 			<!-- //네이버 로그인 버튼 노출 영역 -->
 
 			<!-- 구글 로그인 버튼 노출 영역 -->
-			<div class="g-signin2" data-onsuccess="onSignIn"></div>
-			<!-- 구글 로그인 버튼 노출 영역 -->
+<div id="g_id_onload" data-client_id="231194762579-nbasfr2j9k5nrb2nu78t6r6ou03c3btk.apps.googleusercontent.com"
+  data-login_uri="http://localhost:8084/SmartReciFit/main.do" data-auto_prompt="false">
+</div>
+<div class="g_id_signin" data-type="standard" data size="large"
+  data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
+</div>		<!-- 구글 로그인 버튼 노출 영역 -->
 		</div>
 
 	</div>
@@ -93,14 +97,4 @@
     
   </script>
   
-<!------------------------ 구글 script ------------------------>
-<script type="text/javascript">
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-  location.href = ctx + "/main.do";
-}
-</script>
+<!------------------------ 구글 script loginOut.js 에 있음 ------------------------>

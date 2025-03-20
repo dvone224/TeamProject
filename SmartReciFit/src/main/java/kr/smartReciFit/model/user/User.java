@@ -95,5 +95,7 @@ public class User {
 				+ userId + ", userPw=" + userPw + ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", userImg="
 				+ userImg + "]";
 	}
+
+
 	
 }
