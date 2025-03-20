@@ -9,6 +9,12 @@ public class User {
 	private String userEmail;
 	private String userPhone;
 	private String userImg;
+	private String platformK;
+	private String platformMailK;
+	private String platformN;
+	private String platformMailN;
+	private String platformG;
+	private String platformMailG;
 	
 	public int getUserNum() {
 		return userNum;
@@ -73,6 +79,7 @@ public class User {
 	public void setUserImg(String userImg) {
 		this.userImg = userImg;
 	}
+	
 
 	public User(String userName, String userNickName, String userId, String userPw, String userEmail, String userPhone,
 			String userImg) {
@@ -85,6 +92,10 @@ public class User {
 		this.userPhone = userPhone;
 		this.userImg = userImg;
 	}
+	
+	//소셜용 생성자 따로 만들기
+	
+
 
 	public User() {
 	}
