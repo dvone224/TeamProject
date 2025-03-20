@@ -18,6 +18,9 @@
 <typeHandlers>
     <typeHandler javaType="java.util.Set" jdbcType="VARCHAR" handler="kr.smartReciFit.mybatis.typeHandler.StringSetTypeHandler"/>
     <typeHandler javaType="java.util.Set" jdbcType="LONGVARCHAR" handler="kr.smartReciFit.mybatis.typeHandler.StringSetTypeHandler"/>
+    <typeHandler javaType="kr.smartReciFit.model.recipe.tags.EatTime" handler="kr.smartReciFit.mybatis.typeHandler.KoreanEnumTypeHandler"/>
+    <typeHandler javaType="kr.smartReciFit.model.recipe.tags.CookingStyle" handler="kr.smartReciFit.mybatis.typeHandler.KoreanEnumTypeHandler"/>
+    <typeHandler javaType="kr.smartReciFit.model.recipe.tags.RecipeType" handler="kr.smartReciFit.mybatis.typeHandler.EnumTypeHandler"/>
 </typeHandlers>
 
   <environments default="development">

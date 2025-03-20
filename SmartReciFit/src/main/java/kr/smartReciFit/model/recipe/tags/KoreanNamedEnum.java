@@ -1,7 +1,10 @@
 package kr.smartReciFit.model.recipe.tags;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public interface KoreanNamedEnum {
 	String getKoreanName();
@@ -32,4 +35,10 @@ public interface KoreanNamedEnum {
 		return cache.get(koreanName);
 	}
 
+    static <E extends Enum<E> & KoreanNamedEnum> List<String> getAllKoreanNames(Class<E> enumType) {
+        return Arrays.stream(enumType.getEnumConstants())
+                .map(KoreanNamedEnum::getKoreanName)
+                .collect(Collectors.toList());
+    }
+	
 }

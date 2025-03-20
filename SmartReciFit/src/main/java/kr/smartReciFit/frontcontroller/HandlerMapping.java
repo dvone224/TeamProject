@@ -16,6 +16,7 @@ import kr.smartReciFit.controller.board.ReviewController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
+import kr.smartReciFit.controller.recipe.RecipesController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.LoginSuccessController;
@@ -65,6 +66,9 @@ public class HandlerMapping {
 		mappings.put("/commentDelete.do", new CommentDeleteController());
 		mappings.put("/reviewWrite.do", new ReviewWriteController());
 		mappings.put("/reviewWriteProcess.do",new ReviewWriteProcessController());
+		
+		// 레시피 페이지
+		mappings.put("/recipes.do", new RecipesController());
 		
 	}
 

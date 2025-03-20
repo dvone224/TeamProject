@@ -5,13 +5,18 @@ import java.util.Set;
 
 import kr.smartReciFit.model.recipe.tags.CookingStyle;
 import kr.smartReciFit.model.recipe.tags.EatTime;
+import kr.smartReciFit.model.recipe.tags.RecipeType;
 
 public class ApiRecipe extends Recipe {
 
-	public ApiRecipe(int recipeNum, int apiRecipeNum, String recipeName, String recipeIngredient,
+	public ApiRecipe() {
+		
+	}
+	
+	public ApiRecipe(int recipeNum, int apiRecipeNum, String recipeName, RecipeType recipeType ,String recipeIngredient,
 			String recipeSeasoning, String recipeManual, Set<String> cookingMethods, Set<String> ingredients,
 			EatTime eatTime, CookingStyle cookingStyle, String apiRecipeImg) {
-		super(recipeNum, recipeName, recipeIngredient, recipeSeasoning, recipeManual, cookingMethods, ingredients,
+		super(recipeNum, recipeName, recipeType, recipeIngredient, recipeSeasoning, recipeManual, cookingMethods, ingredients,
 				eatTime, cookingStyle);
 		this.apiRecipeNum = apiRecipeNum;
 		this.apiRecipeImg = apiRecipeImg;

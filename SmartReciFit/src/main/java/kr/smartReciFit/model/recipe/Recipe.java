@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 
 import kr.smartReciFit.model.recipe.tags.CookingStyle;
 import kr.smartReciFit.model.recipe.tags.EatTime;
+import kr.smartReciFit.model.recipe.tags.RecipeType;
 
 /**
  * 
@@ -13,6 +14,7 @@ import kr.smartReciFit.model.recipe.tags.EatTime;
 public class Recipe {
 	protected int recipeNum;
 	protected String recipeName;
+	protected RecipeType recipeType;
 	protected String recipeIngredient;
 	protected String recipeSeasoning;
 	protected String recipeManual;
@@ -21,10 +23,16 @@ public class Recipe {
 	protected EatTime eatTime;
 	protected CookingStyle cookingStyle;
 
-	public Recipe(int recipeNum, String recipeName, String recipeIngredient, String recipeSeasoning, String recipeManual,
-			Set<String> cookingMethods, Set<String> ingredients, EatTime eatTime, CookingStyle cookingStyle) {
+	public Recipe()	{
+		
+	}
+	
+	public Recipe(int recipeNum, String recipeName, RecipeType recipeType, String recipeIngredient, String recipeSeasoning,
+			String recipeManual, Set<String> cookingMethods, Set<String> ingredients, EatTime eatTime,
+			CookingStyle cookingStyle) {
 		this.recipeNum = recipeNum;
 		this.recipeName = recipeName;
+		this.recipeType = recipeType;
 		this.recipeIngredient = recipeIngredient;
 		this.recipeSeasoning = recipeSeasoning;
 		this.recipeManual = recipeManual;
@@ -54,26 +62,20 @@ public class Recipe {
 		return recipeManual;
 	}
 
-	public String getCookingMethods() {
-		JSONArray jsonArray = new JSONArray();
-        jsonArray.addAll(cookingMethods);
-        String jsonString = jsonArray.toJSONString();
-		return jsonString;
+	public Set<String> getCookingMethods() {
+		return cookingMethods;
 	}
 
-	public String getIngredients() {
-		JSONArray jsonArray = new JSONArray();
-        jsonArray.addAll(ingredients);
-        String jsonString = jsonArray.toJSONString();
-		return jsonString;
+	public Set<String> getIngredients() {
+		return ingredients;
 	}
 
-	public String getEatTime() {
-		return eatTime.getKoreanName();
+	public EatTime getEatTime() {
+		return eatTime;
 	}
 
-	public String getCookingStyle() {
-		return cookingStyle.getKoreanName();
+	public CookingStyle getCookingStyle() {
+		return cookingStyle;
 	}
 
 }

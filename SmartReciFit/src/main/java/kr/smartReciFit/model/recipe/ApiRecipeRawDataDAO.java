@@ -13,6 +13,7 @@ import kr.smartReciFit.model.recipe.tags.AllIngredientTags;
 import kr.smartReciFit.model.recipe.tags.CookingStyle;
 import kr.smartReciFit.model.recipe.tags.EatTime;
 import kr.smartReciFit.model.recipe.tags.KoreanNamedEnum;
+import kr.smartReciFit.model.recipe.tags.RecipeType;
 import kr.smartReciFit.util.Config;
 
 public class ApiRecipeRawDataDAO {
@@ -31,9 +32,10 @@ public class ApiRecipeRawDataDAO {
 					AllIngredientTags.getInstance().getAllIngredientTags());
 			Set<String> tagCookingMethod = refinerJsonData(rawData.getTagCookingMethod(),
 					AllCookkingMethodTags.getInstance().getAllCookkingMethodTags());
-			ApiRecipe apiRecipe = new ApiRecipe(recipeNum, apiRecipeNum, recipeName, recipeIngredient, recipeSeasoning,
-					recipeManual, tagCookingMethod, tagIngredient, EatTime.valueOf(tagEatTime),
-					CookingStyle.valueOf(tagCookingStyle), null);
+			ApiRecipe apiRecipe = new ApiRecipe(recipeNum, apiRecipeNum, recipeName, RecipeType.valueOf("API"), recipeIngredient, recipeSeasoning,
+					recipeManual, tagCookingMethod, tagIngredient,
+					KoreanNamedEnum.getEnumByKoreanName(EatTime.class, tagEatTime),
+					KoreanNamedEnum.getEnumByKoreanName(CookingStyle.class, tagCookingStyle), null);
 			insertApiRecipe(apiRecipe);
 //			System.out.println(apiRecipe);
 //			System.out.println();
@@ -79,25 +81,35 @@ public class ApiRecipeRawDataDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	private void updateEnum() {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String,Object>>();
-		try (SqlSession session = Config.getSession().openSession()) {
-			list = (ArrayList) session.selectList("getEnumTag");
-			for(HashMap<String, Object> map : list) {
-				String eatTime = KoreanNamedEnum.getEnumByKoreanName(EatTime.class, (String) map.get("tag_eat_time")).toString();
-				String cookingStyle = KoreanNamedEnum.getEnumByKoreanName(CookingStyle.class, (String) map.get("tag_category")).toString();
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-	}
+
+//	private void updateEnum() {
+//		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+//		try (SqlSession session = Config.getSession().openSession()) {
+//			list = (ArrayList) session.selectList("getEnumTag");
+//			for (HashMap<String, Object> map : list) {
+//				HashMap<String, Object> updateMap = new HashMap<String, Object>();
+//				int recipeNum = (int) map.get("tag_recipe_id");
+//				String eatTime = KoreanNamedEnum.getEnumByKoreanName(EatTime.class, (String) map.get("tag_eat_time"))
+//						.toString();
+//				String cookingStyle = KoreanNamedEnum
+//						.getEnumByKoreanName(CookingStyle.class, (String) map.get("tag_category")).toString();
+//				updateMap.put("tagRecipeId", recipeNum);
+//				updateMap.put("tagEatTime", eatTime);
+//				updateMap.put("tagCookingStyle", cookingStyle);
+//
+//				System.out.println("recipeNum = " + recipeNum);
+//				System.out.println("eatTime = " + eatTime);
+//				System.out.println("cookingStyle = " + cookingStyle);
+//			}
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
+//	}
 
 	public static void main(String[] args) {
 		ApiRecipeRawDataDAO dao = new ApiRecipeRawDataDAO();
-		dao.updateEnum();
-//		ArrayList<ApiRecipeRawData> rawDataList = dao.getApiRecipeRawDataList();
-//		dao.refinerRecipeRawData(rawDataList);
+		ArrayList<ApiRecipeRawData> rawDataList = dao.getApiRecipeRawDataList();
+		dao.refinerRecipeRawData(rawDataList);
 	}
 
 }
