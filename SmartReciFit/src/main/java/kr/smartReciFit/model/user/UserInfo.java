@@ -1,17 +1,11 @@
 package kr.smartReciFit.model.user;
 
+import java.util.ArrayList;
+
 public class UserInfo {
 	private int userNum;
-	private int userMealSize;
-	private int userGender;
-	public int getUserNum() {
-		return userNum;
-	}
-	public int getUserMealSize() {
-		return userMealSize;
-	}
-	public int getUserGender() {
-		return userGender;
-	}
-	
+	private double userMealSize;
+	private ArrayList<String> Ingredient;
+	private ArrayList<String> CookingStyle;
+	private ArrayList<String> CookingMethod;
 }

@@ -154,3 +154,10 @@ header {
 table, td{
 	border: 1px solid black;
 }
+
+.userContentImg{
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	margin: 10px;
+}
