@@ -28,10 +28,6 @@ public class RecipesController implements Controller {
 		Set<String> tagIngredient = AllIngredientTags.getInstance().getAllIngredientTags();
 		ArrayList<String> tagEatTime = (ArrayList<String>) KoreanNamedEnum.getAllKoreanNames(EatTime.class);
 		ArrayList<String> tagCookingStyle = (ArrayList<String>) KoreanNamedEnum.getAllKoreanNames(CookingStyle.class);
-		System.out.println("Ingredient = " + tagIngredient);
-		System.out.println("CookingStyle = " + tagCookingStyle);
-		System.out.println("CookingMethod = " + tagCookingMethod);
-		System.out.println("EatTime = " + tagEatTime);
 		request.setAttribute("recipeList", recipeList);
 		request.setAttribute("tagCookingMethod", tagCookingMethod);
 		request.setAttribute("tagIngredient", tagIngredient);

@@ -57,19 +57,25 @@
 		<!-- ApiRecipe 클래스의 고유 필드 매핑 -->
 		<result property="apiRecipeNum" column="api_recipe_num" />
 		<result property="apiRecipeImg" column="api_recipe_img" />
-
-
 	</resultMap>
+
+	<update id="updateEnumTag" parameterType="HashMap">
+		update tag
+		set
+		tag_eat_time = #{tagEatTime}, tag_cooking_style = #{tagCookingStyle}
+		where tag_recipe_id = #{tagRecipeId}
+	</update>
 
 	<select id="getApiRecipeListByLimit" parameterType="int"
 		resultMap="ApiRecipeResultMap">
 		SELECT *
 		FROM recipe r
 		INNER JOIN api_recipe ar
-		ON r.recipe_num
-		= ar.recipe_num
+		ON
+		r.recipe_num= ar.recipe_num
 		INNER JOIN tag t
-		ON t.tag_recipe_id = r.recipe_num
+		ON t.tag_recipe_id =
+		r.recipe_num
 		LIMIT
 		${limit};
 	</select>
@@ -80,12 +86,51 @@
 		from tag
 	</select>
 
-	<update id="updateEnumTag" parameterType="HashMap">
-		update tag
-		set
-		tag_eat_time = #{tagEatTime}, tag_cooking_style = #{tagCookingStyle}
-		where tag_recipe_id = #{tagRecipeId}
-	</update>
-
+	<select id="getRecipeListByFilter" parameterType="HashMap"
+		resultMap="recipeResultMap">
+		SELECT *
+		FROM recipe r
+		INNER JOIN api_recipe ar
+		ON r.recipe_num=
+		ar.recipe_num
+		INNER JOIN tag t
+		ON t.tag_recipe_id = r.recipe_num
+		<where>
+			<if test="cookingMethods.size != 0">
+				AND (
+				<foreach collection="cookingMethods" item="item"
+					separator=" OR ">
+					JSON_CONTAINS(tag_cooking_method, JSON_QUOTE(#{item}))
+				</foreach>
+				)
+			</if>
+			<if test="ingredients.size != 0">
+				AND (
+				<foreach collection="ingredients" item="item"
+					separator=" OR ">
+					JSON_CONTAINS(tag_ingredient, JSON_QUOTE(#{item}))
+				</foreach>
+				)
+			</if>
+			<if test="eatTimes.size != 0">
+				AND tag_eat_time IN
+				<foreach collection="eatTimes" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="cookingStyles.size != 0">
+				AND tag_cooking_style IN
+				<foreach collection="cookingStyles" item="item" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+	</select>
+	
+	<select id="">
+		select recipe_num from recipe where recipe_name = #{recipeName}
+	</select>
 
 </mapper>
