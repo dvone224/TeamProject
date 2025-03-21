@@ -95,6 +95,77 @@
     naver_id_login.setPopup();
     naver_id_login.init_naver_id_login();
     
+    window.addEventListener('message', function(event) {
+    	if (event.origin !== "http://localhost:8084") return; // 팝업 창의 도메인
+    	if (event.data.type === 'naverLogin') {
+    		var accessToken = event.data.accessToken;
+    		// 네이버 사용자 프로필 정보 가져오기
+    		getNaverProfile(accessToken);
+    	}
+    }, false);
+
+    function getNaverProfile(accessToken) {
+    	// 네이버 사용자 프로필 정보를 가져오는 코드
+    	$.ajax({
+    		url: 'https://openapi.naver.com/v1/nid/me',
+    		type: 'GET',
+    		headers: {
+    			"Authorization": "BEARER " + accessToken
+    		},
+    		success: function(data) {
+    			console.log(data);
+    			// 사용자 정보를 세션에 저장하거나 데이터베이스에 등록하는 코드
+    		},
+    		error: function(error) {
+    			console.error('Error:', error);
+    		}
+    	});
+    }
   </script>
   
 <!------------------------ 구글 script loginOut.js 에 있음 ------------------------>
+<script type="text/javascript">
+function handleCredentialResponse(response) {
+    const jwtToken = response.credential;
+    const payload = JSON.parse(Base64.decode(jwtToken.split('.')[1]));
+
+    console.log('ID: ' + payload.sub);
+    console.log('Full Name: ' + payload.name);
+    console.log('Given Name: ' + payload.given_name);
+    console.log('Family Name: ' + payload.family_name);
+    console.log('Image URL: ' + payload.picture);
+    console.log('Email: ' + payload.email);
+
+    const nickname = payload.name;
+    const email = payload.email;
+
+    sendUserInfoToServer('google', nickname, email);
+}
+
+function sendUserInfoToServer(platform, nickname, email) {
+    $.ajax({
+        type: 'POST',
+        url: `${ctx}/saveSocialLoginInfo.do`,
+        data: { platform: platform, nickname: nickname, email: email },
+        success: function () {
+            window.location.href = `${ctx}/main.do`;
+        },
+        error: function (error) {
+            console.error('Error sending user info:', error);
+        }
+    });
+}
+
+window.onload = function () {
+    google.accounts.id.initialize({
+        client_id: "231194762579-nbasfr2j9k5nrb2nu78t6r6ou03c3btk.apps.googleusercontent.com",  // 여기에 클라이언트 ID를 입력하세요
+        callback: handleCredentialResponse,
+        login_uri: "http://localhost:8084/SmartReciFit/main.do" // 로그인 URI 설정
+    });
+    google.accounts.id.renderButton(
+        document.querySelector(".g_id_signin"),
+        { theme: "outline", size: "large", shape: "rectangular", logo_alignment: "left" }
+    );
+    google.accounts.id.prompt();
+}
+</script>

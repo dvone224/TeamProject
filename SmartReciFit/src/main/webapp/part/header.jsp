@@ -40,7 +40,7 @@
 		<div class="user-actions">
 			<c:choose>
 				<c:when
-					test="${empty sessionScope.socialLogin and empty sessionScope.user}">
+					test="${empty sessionScope.user.userNickName and empty sessionScope.log}">
 					<!-- 로그인 상태가 아닐 때 -->
 					<button class="login-open">로그인</button>
 					<button class="btn-userJoin"
@@ -49,12 +49,12 @@
 				<c:otherwise>
 					<!-- 로그인 상태일 때 -->
 					<a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
-					<c:if test="${not empty sessionScope.socialLogin.nickname}">
-						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.socialLogin.nickname}님</a>
+					<c:if test="${not empty sessionScope.user.userNickName}">
+						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user.userNickName}님</a>
 					</c:if>
 					<c:if
-						test="${empty sessionScope.socialLogin.nickname and not empty sessionScope.user}">
-						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user}님</a>
+						test="${empty sessionScope.user.userNickName and not empty sessionScope.log}">
+						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.nickName}님</a>
 					</c:if>
 				</c:otherwise>
 			</c:choose>
