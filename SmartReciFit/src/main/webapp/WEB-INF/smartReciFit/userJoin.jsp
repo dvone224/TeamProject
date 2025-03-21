@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+
+<!-- 예쁜 알람창용 스크립트 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <%@ include file="../../part/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
 	<h1> 회원가입 </h1>
@@ -45,11 +48,13 @@
 	<td>전화번호</td>
 	<td colspan="2"><input type="text" name="phone" id="phone"></td>
 	</tr>
+
 	<tr>
 	<td>프로필 사진</td>
-	<td><input type="file" name="uploadFile" accept="image/*"></td>
+	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*" onchange="tryImgPreview(event)" ></td>
 	<td><button class="btn-imgDel" name="btn-imgDel" id="btn-imgDel">이미지삭제</button></td>
 	</tr>
+	<tr><td colspan="3"> <div id="imgPreview"></div> </td></tr>
 	<tr>
 	<td colspan="3"><button class="btn-submit" name="btn-submit" id="btn-submit">회원가입</button></td>
 	</tr>

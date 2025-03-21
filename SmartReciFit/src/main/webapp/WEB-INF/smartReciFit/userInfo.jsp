@@ -1,33 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="jakarta.tags.core"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE html>
+
+<!-- 예쁜 알람창용 스크립트 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<main>
+
+<%@ include file="../../part/header.jsp"%>
+<script src="${ctx}/js/user/userInfo.js"> </script>
+
       <div class="inner">
         <h2> 추가 정보 입력 </h2>
 		<form method="post" action="userInfo.do">
-        
 		<p> 평소 식사량을 골라주세요. 해당 정보를 기반으로 레시피의 재료양이 수정됩니다.</p>
 		<div class=checkMealSize id=box-mealSixe>	
         <input type="radio" name="mealSize" value="0.5"> 0.5인분
         <input type="radio" name="mealSize" value="0.7"> 0.7인분
-        <input type="radio" name="mealSize" value="1.0"> 1인분
+        <input type="radio" name="mealSize" value="1.0" checked="checked"> 1인분
         <input type="radio" name="mealSize" value="1.2"> 1.2인분
         <input type="radio" name="mealSize" value="1.4"> 1.5인분
         <input type="radio" name="mealSize" value="2.0"> 2인분
         </div>
         
-		<p> 좋아하는 재료를 선택해주세요. 추천 알고리즘의 기반이 됩니다.
-		<br> 총 5가지를 선택할 수 있으며 한 카테고리에 여러 재료를 선택하는 것도 가능합니다. </p>
+		<p> 좋아하는 재료를 선택해주세요. 추천 알고리즘의 기반이 됩니다.<br>
+		총 5가지를 선택할 수 있으며 최소 1가지를 선택해주세요.<br>
+		한 카테고리에 여러 재료를 선택하는 것도 가능합니다. </p>
         
 		<div class=checkItem id=box-itemMain>	
         <h3>메인 재료</h3>
@@ -83,9 +81,11 @@
 		<input type="checkbox" name="itemTime" value="야식">야식
 		<input type="checkbox" name="itemTime" value="간식">간식
 		</div>
-		<button name="btn-perforenceSubmit" id="btn-perforenceSubmit">검사완료</button>
+		<button name="btn-infoCancel" id="btn-infoCancel">입력취소</button>
+		<button name="btn-infoSubmit" id="btn-infoSubmit">검사완료</button>
 	</form>
     </div>
+    
 <script>
 Swal.fire({
 	icon: "info",
@@ -112,6 +112,4 @@ Swal.fire({
 	  }
 	});
 </script>
-</main>
-</body>
-</html>
+<%@ include file="../../part/footer.jsp"%>

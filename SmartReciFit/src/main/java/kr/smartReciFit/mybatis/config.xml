@@ -9,6 +9,7 @@
 <typeAliases>
 	<typeAlias type="kr.smartReciFit.model.user.User" alias="user"/>
 	<typeAlias type="kr.smartReciFit.model.user.SocialDTO" alias="socialDTO"/>
+	<typeAlias type="kr.smartReciFit.model.user.UserInfo" alias="userInfo"/>
 	<typeAlias type="kr.smartReciFit.model.board.ReviewBoard" alias="review"/>
 	<typeAlias type="kr.smartReciFit.model.board.Comment" alias="comment"/>
 	<typeAlias type="kr.smartReciFit.model.recipe.ApiRecipeRawData" alias="apiRecipeRawData"/>
@@ -37,6 +38,7 @@
   </environments>
   <mappers>
     <mapper resource="kr/smartReciFit/mybatis/user/UserMapper.xml"/>
+    <mapper resource="kr/smartReciFit/mybatis/user/UserInfoMapper.xml"/>
     <mapper resource="kr/smartReciFit/mybatis/board/BoardMapper.xml"/>
     <mapper resource="kr/smartReciFit/mybatis/recipe/ApiRecipeRawDataMapper.xml"/>
     <mapper resource="kr/smartReciFit/mybatis/recipe/RecipeMapper.xml"/>

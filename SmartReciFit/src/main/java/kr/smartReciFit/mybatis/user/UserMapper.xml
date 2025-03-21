@@ -135,5 +135,18 @@
 		resultType="user">
 		SELECT * FROM user WHERE user_num = #{userNum}
 	</select>
-
+	
+    <!-- num으로 이름찾기 -->
+	<select id="numGetName" parameterType="Integer" resultType="String">
+	select user_name from user where user_num=#{num2}
+	</select>
+	
+   <!-- social에 넣을 마지막 userNum 추출 -->
+   <select id="getLastInsertuserNum" resultType="Integer">
+   SELECT user_num
+   FROM user
+   ORDER BY user_num DESC
+   LIMIT 1;
+   </select>
+	
 </mapper>

@@ -125,6 +125,16 @@ public class UserDAO {
 			session.close(); // 세션 종료
 		}
 	}
+	//마지막 Num 가져오기
+	public int getLastUserNum() {
+		SqlSession session = Config.getSession().openSession();
+		Integer num=session.selectOne("getLastInsertuserNum");
+	    session.close();
+	    System.out.println("getLastUserNum()에서 가져온 num: "+num);
+		return (int)num;
+	}
+	
+	
 	
 	// 소셜 로그인 시 user 테이블에 추가 ( userNum , 닉네임만 넣는다 )
 	public int insertUserTableBySocial(User user) {

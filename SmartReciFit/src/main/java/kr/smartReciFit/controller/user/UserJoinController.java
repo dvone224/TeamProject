@@ -1,6 +1,7 @@
 package kr.smartReciFit.controller.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -71,9 +72,27 @@ public class UserJoinController implements Controller {
 
 		profileImg=sFileName;
 		
+		PrintWriter out = response.getWriter();
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
 		
-		UserDAO.getInstance().UserJoin(id,pw,name,nickName,email,phone,profileImg);
-		return "redirect:" + ctx + "/index.jsp";
+		try {
+			//유저 가입완료 알람창 + 정보 입력 할지
+			UserDAO.getInstance().UserJoin(id,pw,name,nickName,email,phone,profileImg);
+			System.out.println("회원 가입 성공");
+//			out.println("<script>alert('회원 가입 성공.'); location.href='" + ctx + "/userInfo.do';</script>");
+			out.println("<script>location.href='" + ctx + "/userInfo.do';</script>");
+			out.close();
+//			return "redirect:" + ctx + "/userInfo.do";
+		}catch (Exception e) {
+			e.printStackTrace();
+			out.println("<script> alert('회원 가입 실패');");
+			out.println("history.go(-1); </script>"); 
+			System.out.println("회원 가입 실패");
+			out.close();
+//			return "userJoin.do";
+		}
+		return null;
 	}
 
 	private String extractFileName(Part filePart) {
