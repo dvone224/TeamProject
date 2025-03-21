@@ -9,12 +9,6 @@ public class User {
 	private String userEmail;
 	private String userPhone;
 	private String userImg;
-	private String platformK;
-	private String platformMailK;
-	private String platformN;
-	private String platformMailN;
-	private String platformG;
-	private String platformMailG;
 	
 	public int getUserNum() {
 		return userNum;

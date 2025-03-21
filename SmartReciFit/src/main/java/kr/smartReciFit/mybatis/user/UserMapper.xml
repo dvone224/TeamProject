@@ -3,51 +3,137 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- User ResultMap -->
 <mapper namespace="kr.smartReciFit.mybatis.user.UserMapper">
-<resultMap id="userResultMap" type="user">
-   <id property="userNum" column="user_num"/>
-  <result property="userName" column="user_name"/>
-  <result property="userId" column="user_id"/>
-  <result property="userNickName" column="user_nickname"/>
-  <result property="userPw" column="user_pwd"/>
-  <result property="userEmail" column="user_email"/>
-  <result property="userPhone" column="user_phone"/>
-  <result property="userImg" column="user_img"/>
-</resultMap>
+	<resultMap id="userResultMap" type="user">
+		<id property="userNum" column="user_num" />
+		<result property="userName" column="user_name" />
+		<result property="userId" column="user_id" />
+		<result property="userNickName" column="user_nickname" />
+		<result property="userPw" column="user_pwd" />
+		<result property="userEmail" column="user_email" />
+		<result property="userPhone" column="user_phone" />
+		<result property="userImg" column="user_img" />
+	</resultMap>
+
+	<!-- SocialDTO ResultMap -->
+	<resultMap id="socialResultMap" type="socialDTO">
+		<result property="userNum" column="user_num" />
+		<result property="kakao" column="kakao" />
+		<result property="naver" column="naver" />
+		<result property="google" column="google" />
+	</resultMap>
 
 	<select id="getUserList" resultType="HashMap">
 		select * from user
 	</select>
 
 	<select id="userLogin" parameterType="user" resultType="String">
-		SELECT user_id FROM user WHERE user_id = #{userId} AND user_pwd =#{userPw}
+		SELECT
+		user_id FROM user WHERE user_id = #{userId} AND user_pwd =#{userPw}
 	</select>
 
-	
+
 	<!-- 유저 삽입 -->
 	<insert id="userJoin" parameterType="user">
-    insert into user(user_name, user_id, user_nickname, user_pwd, user_email, user_phone, user_img)
-    values (#{userName}, #{userId}, #{userNickName}, #{userPw}, #{userEmail}, #{userPhone}, #{userImg})
-    </insert>
-    
-    <!-- 아이디로 num 찾기 -->
-    <select id="IdGetUserNum" parameterType="String" resultType="Integer">
-	select user_num from user where user_id=#{id}
+		insert into user(user_name,
+		user_id, user_nickname, user_pwd, user_email,
+		user_phone, user_img)
+		values (#{userName}, #{userId}, #{userNickName}, #{userPw},
+		#{userEmail},
+		#{userPhone}, #{userImg})
+	</insert>
+
+	<!-- 아이디로 num 찾기 -->
+	<select id="IdGetUserNum" parameterType="String"
+		resultType="Integer">
+		select user_num from user where user_id=#{id}
+	</select>
+
+	<!-- 닉네임으로 num 찾기 -->
+	<select id="nickNameGetUserNum" parameterType="String"
+		resultType="Integer">
+		select user_num from user where user_nickname=#{nickName}
+	</select>
+
+	<!-- num으로 유저찾기 -->
+	<select id="numGetUser" parameterType="Integer"
+		resultMap="userResultMap">
+		select * from user where user_num=#{num2}
+	</select>
+
+	<!-- num으로 이름찾기 -->
+	<select id="numGetName" parameterType="Integer"
+		resultType="String">
+		select user_name from user where user_num=#{num2}
+	</select>
+
+	<!-- SOCIAL에 정보 넣기 -->
+	<insert id="insertSocialInfo" parameterType="SocialDTO">
+		INSERT INTO social
+		(user_num, kakao, naver, google)
+		VALUES (#{userNum}, #{kakao},
+		#{naver}, #{google});
+	</insert>
+
+	<!-- 소셜로그인했을때 넣을 user nickname -->
+	<insert id="insertUserNickname" parameterType="user">
+		INSERT INTO user
+		(user_nickname, user_id, user_pwd, user_email, user_phone,
+		user_img)
+		VALUES (#{userNickName}, NULL, NULL, NULL, NULL, NULL);
+	</insert>
+
+
+	<!-- ID로 닉네임 가져오기 -->
+	<select id="IdGetNickName" parameterType="string"
+		resultType="string">
+		SELECT user_nickname FROM USER WHERE user_id = #{userId}
+	</select>
+
+	<!-- social에 넣을 마지막 userNum 추출 -->
+	<select id="getLastInsertuserNum" resultType="Integer">
+		SELECT user_num
+		FROM user
+		ORDER BY user_num DESC
+		LIMIT 1;
+	</select>
+
+	<!-- 이메일로 사용자 조회 -->
+	<select id="getSocialByEmail" parameterType="String"
+		resultType="socialDTO">
+		SELECT * FROM social WHERE user_email = #{email}
 	</select>
 	
-    <!-- 닉네임으로 num 찾기 -->
-	<select id="nickNameGetUserNum" parameterType="String" resultType="Integer">
-	select user_num from user where user_nickname=#{nickName}
+		<!-- 이메일로 사용자 조회 -->
+	<select id="getUserByEmail" parameterType="String"
+		resultType="user">
+		SELECT * FROM social WHERE user_email = #{email}
 	</select>
+
+	<!-- 소셜 정보 업데이트 -->
+	<update id="updateSocialInfo" parameterType="socialDTO">
+		UPDATE social
+		SET
+		kakao = #{kakao}, naver = #{naver}, google = #{google}
+		WHERE user_num =
+		#{userNum}
+	</update>
 	
-    <!-- num으로 유저찾기 -->
-	<select id="numGetUser" parameterType="Integer" resultMap="userResultMap">
-	select * from user where user_num=#{num2}
+	
+
+	<update id="updateUser" parameterType="user">
+		UPDATE user
+		SET
+		user_nickname = #{userNickName},
+		user_email = #{userEmail}
+		WHERE
+		user_num = #{userNum}
+	</update>
+
+	<select id="getUserById" parameterType="int"
+		resultType="user">
+		SELECT * FROM user WHERE user_num = #{userNum}
 	</select>
-	
-    <!-- num으로 이름찾기 -->
-	<select id="numGetName" parameterType="Integer" resultType="String">
-	select user_name from user where user_num=#{num2}
-	</select>
-	
+
 </mapper>

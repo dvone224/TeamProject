@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 네이버 script
-window.addEventListener('message', function(event) {
+/*window.addEventListener('message', function(event) {
 	if (event.origin !== "http://localhost:8084") return; // 팝업 창의 도메인
 	if (event.data.type === 'naverLogin') {
 		var accessToken = event.data.accessToken;
@@ -113,10 +113,10 @@ function getNaverProfile(accessToken) {
 			console.error('Error:', error);
 		}
 	});
-}
+}*/
 
 // 구글 script 
-function handleCredentialResponse(response) {
+/*function handleCredentialResponse(response) {
        const jwtToken = response.credential;
        const payload = JSON.parse(Base64.decode(jwtToken.split('.')[1]));
 
@@ -158,4 +158,4 @@ function handleCredentialResponse(response) {
            { theme: "outline", size: "large", shape: "rectangular", logo_alignment: "left" }
        );
        google.accounts.id.prompt();
-   }
+   }*/
