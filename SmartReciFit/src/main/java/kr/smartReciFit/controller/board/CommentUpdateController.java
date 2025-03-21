@@ -18,7 +18,7 @@ public class CommentUpdateController implements Controller {
 			throws ServletException, IOException {
 		 int commentNum = Integer.parseInt(request.getParameter("commentNum"));
 	        String commentContent = request.getParameter("commentContent");
-	        String reviewBoardNum = request.getParameter("reviewBoardNum"); // reviewBoardNum 파라미터 추가
+	        String reviewBoardNum = request.getParameter("reviewBoardNum");
 
 	        Comment comment = new Comment();
 	        comment.setCommentNum(commentNum);
@@ -27,9 +27,7 @@ public class CommentUpdateController implements Controller {
 	        CommentDAO commentDAO = CommentDAO.getInstance();
 	        commentDAO.updateComment(comment);
 	        return	null;
-//	        String redirectURL = "reviewDetail.do?reviewBoardNum=" + reviewBoardNum;
-//
-//	        return "redirect:" + redirectURL; 
+
 	    }
 
 }

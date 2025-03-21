@@ -33,7 +33,7 @@
 			<ul>
 				<li><a href="${ctx}/recipes.do">레시피</a></li>
 				<li><a href="${ctx}/ranking.do">랭킹</a></li>
-				<li><a href="${ctx}/reviews.do">후기</a></li>
+				<li><a href="${ctx}/reviews.do?page=1">후기</a></li>
 				<li><a href="${ctx}/events.do">EVENT</a></li>
 			</ul>
 		</nav>

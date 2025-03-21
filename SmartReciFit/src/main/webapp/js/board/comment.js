@@ -52,7 +52,6 @@ function updateComment(commentNum, reviewBoardNum) {
             alert("댓글이 수정되었습니다.");
 			commentDiv.innerHTML = newContent;
 			editButton.disabled = false;
-            /*window.location.href = `${ctx}/reviewDetail.do?reviewBoardNum=` + reviewBoardNum;*/
          },
          error: function(xhr, status, error) {
             alert("댓글 수정에 실패했습니다.");
@@ -62,21 +61,26 @@ function updateComment(commentNum, reviewBoardNum) {
    function toggleLike(reviewBoardNum) {
        $.ajax({
            type: "POST",
-           url: `${ctx}/like.do`, 
+           url: `${ctx}/like.do`,
            data: {
                reviewBoardNum: reviewBoardNum
            },
            success: function (response) {
                if (response.success) {
-                   let likeCount = response.likeCount; 
-                   let liked = response.liked; 
+                   let likeCount = response.likeCount;
+                   let liked = response.liked;
 
-                   $("#like-count").text(likeCount); 
+                   // 게시물 상세 페이지 좋아요 수 업데이트
+                   $("#like-count").text(likeCount);
+
+                   // 게시물 목록 페이지 좋아요 수 업데이트
+                   $("#like-count-" + reviewBoardNum).text(likeCount);
+
                    let likeButton = $(".like-button");
                    if (liked) {
-                       likeButton.html("🤍"); 
+                       likeButton.html("❤️"); // 좋아요
                    } else {
-                       likeButton.html("❤️"); 
+                       likeButton.html("🤍"); // 좋아요 취소됨
                    }
                } else {
                    alert("좋아요 처리 실패: " + response.message);
@@ -87,4 +91,3 @@ function updateComment(commentNum, reviewBoardNum) {
            }
        });
    }
-   

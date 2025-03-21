@@ -45,30 +45,27 @@
     <p>조회수: ${review.reviewBoardViews}</p>
     <p>
         좋아요: <span id="like-count">
-            <c:choose>
-                <c:when test="${not empty review}">
-                    <c:set var="likeCount"
-                           value="${ReviewBoardDAO.instance.getTotalLikes(review.reviewBoardNum)}" />
-                    ${likeCount}
-                </c:when>
-                <c:otherwise>
-                    0
-                </c:otherwise>
-            </c:choose>
+            ${totalLikes}
         </span>
         <button class="like-button" onclick="toggleLike(${review.reviewBoardNum})">
             <c:choose>
                 <c:when test="${liked}">
-                    🤍
+                    ❤️
                 </c:when>
                 <c:otherwise>
-                    ❤️
+                    🤍
                 </c:otherwise>
             </c:choose>
         </button>
     </p>
 
     <p>작성일: ${review.reviewBoardCreated}</p>
+    <c:if test="${review.userNum == userNum}">
+    <div class="review-update-delete">
+    	<button onclick="location.href='${ctx}/reviewUpdate.do?reviewBoardNum=${review.reviewBoardNum}'">수정하기</button>
+    	<button onclick="location.href='${ctx}/reviewDelete.do?reviewBoardNum=${review.reviewBoardNum}'">삭제하기</button>
+    </div>
+    </c:if>
     <h3>댓글</h3>
     <div class="comment-form">
         <form action="${ctx}/commentAdd.do" method="post">
@@ -106,4 +103,3 @@
 
 <script src="${ctx}/js/board/comment.js"></script>
 <%@ include file="../../part/footer.jsp"%>
-
