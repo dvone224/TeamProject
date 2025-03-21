@@ -2,6 +2,7 @@ package kr.smartReciFit.frontcontroller;
 
 
 import java.io.IOException;
+
 import java.util.HashMap;
 
 import jakarta.servlet.ServletException;
@@ -14,7 +15,10 @@ import kr.smartReciFit.controller.board.CommentUpdateController;
 import kr.smartReciFit.controller.board.LikeController;
 import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
+import kr.smartReciFit.controller.board.ReviewDeleteController;
 import kr.smartReciFit.controller.board.ReviewDetailController;
+import kr.smartReciFit.controller.board.ReviewUpdateController;
+import kr.smartReciFit.controller.board.ReviewUpdateProcessController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
 import kr.smartReciFit.controller.recipe.RecipesController;
@@ -66,11 +70,14 @@ public class HandlerMapping {
 		mappings.put("/commentDelete.do", new CommentDeleteController());
 		mappings.put("/reviewWrite.do", new ReviewWriteController());
 		mappings.put("/reviewWriteProcess.do",new ReviewWriteProcessController());
+		mappings.put("/reviewUpdate.do", new ReviewUpdateController());
+		mappings.put("/reviewUpdateProcess.do", new ReviewUpdateProcessController());
+		mappings.put("/reviewDelete.do", new ReviewDeleteController());
+		mappings.put("/like.do", new LikeController());
 		
 		// 레시피 페이지
 		mappings.put("/recipes.do", new RecipesController());
 		
-		mappings.put("/like.do", new LikeController());
 	}
 
 	public Controller getController(String key) {
