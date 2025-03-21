@@ -79,12 +79,12 @@ submitButton.addEventListener('click', (event) => {
 	    return;
 	}else{
 		console.log("모든 입력값 확인="+validateAll());
-		swal.fire({
+/*		swal.fire({
 			icon: "success",
 			title: "Okay!",
 			text:"회원가입이 완료되었습니다.",
 			confirmButtonColor: "#F7C525",
-		});
+		});*/
 		form.submit();
 	}
 });
@@ -459,9 +459,40 @@ function showError(input, message) {
     errorElement.style.color = 'red';
 }
 
+/*이미지 삭제*/
 document.getElementById('btn-imgDel').addEventListener('click', function() {
   document.querySelector('input[name="uploadFile"]').value = '';
+  $('#imgPreview').empty();
 });
+
+/*이미지 미리보기*/
+function tryImgPreview(event) {
+  let files = event.target.files;
+  let fileArr = Array.from(files);
+
+  // 기존 이미지 미리보기 삭제
+  $('#imgPreview').empty();
+
+  fileArr.forEach(function (f) {
+    // 이미지만 가능
+    if (!f.type.match("image.*")) {
+      alert("이미지 확장자만 가능합니다.");
+      return;
+    }
+    // 이미지를 읽을 객체
+    let reader = new FileReader();
+    // reader.onload ==> 읽기가 완료되었을때
+    reader.onload = function (e) {
+      let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
+      $('#imgPreview').append(img_html);
+    }
+    // 이미지를 읽자
+    reader.readAsDataURL(f);
+  });
+}
+// input 요소에 change 이벤트 리스너 추가
+$('#imageInput').on('change', tryImgPreview);
+
 
 const style = document.createElement('style');
 style.textContent = `

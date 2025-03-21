@@ -103,6 +103,16 @@ public class UserDAO {
 		return vo;
 	}
 	
+	//마지막 Num 가져오기
+	public int getLastUserNum() {
+		SqlSession session = Config.getSession().openSession();
+		Integer num=session.selectOne("getLastInsertuserNum");
+	    session.close();
+	    System.out.println("getLastUserNum()에서 가져온 num: "+num);
+		return (int)num;
+	}
+	
+	
 	
 	
 }

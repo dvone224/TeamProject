@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.smartReciFit.mybatis.user.UserMapper">
+<resultMap id="userInfoResultMap" type="userInfo">
+   <id property="userNum" column="user_num"/>
+  <result property="userMealSize" column="user_meal_siz"/>
+  <result property="ingredient" column="user_ingredient"/>
+  <result property="cookingStyle" column="user_cookingStyle"/>
+  <result property="cookingMethod" column="user_cookingMethod"/>
+  <result property="eatTime" column="user_eatTime"/>
+</resultMap>
+	
+	<!-- 유저인포 삽입 -->
+	<insert id="insertInfo" parameterType="userInfoResultMap">
+    insert into userInfo(user_num, user_meal_siz, user_ingredient, user_cookingStyle, user_cookingMethod, user_eatTime)
+    values (#{num}, #{mealSize}, #{ingredient}, #{cookingStyle}, #{cookingMethod}, #{eatTime})
+    </insert>
+	
+</mapper>
