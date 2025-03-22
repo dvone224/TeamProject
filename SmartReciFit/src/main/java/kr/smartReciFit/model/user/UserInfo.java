@@ -8,6 +8,10 @@ public class UserInfo {
 	private String cookingMethod;
 	private String eatTime;
 	
+	public UserInfo() {
+		
+	}
+	
 	public UserInfo(int userNum, double userMealSize, String ingredient, String cookingStyle, String cookingMethod,
 			String eatTime) {
 		super();
