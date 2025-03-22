@@ -1,8 +1,9 @@
 package kr.smartReciFit.model.recipe;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,8 +33,8 @@ public class ApiRecipeRawDataDAO {
 					AllIngredientTags.getInstance().getAllIngredientTags());
 			Set<String> tagCookingMethod = refinerJsonData(rawData.getTagCookingMethod(),
 					AllCookkingMethodTags.getInstance().getAllCookkingMethodTags());
-			ApiRecipe apiRecipe = new ApiRecipe(recipeNum, apiRecipeNum, recipeName, RecipeType.valueOf("API"), recipeIngredient, recipeSeasoning,
-					recipeManual, tagCookingMethod, tagIngredient,
+			ApiRecipe apiRecipe = new ApiRecipe(recipeNum, apiRecipeNum, recipeName, RecipeType.valueOf("API"),
+					recipeIngredient, recipeSeasoning, recipeManual, tagCookingMethod, tagIngredient,
 					KoreanNamedEnum.getEnumByKoreanName(EatTime.class, tagEatTime),
 					KoreanNamedEnum.getEnumByKoreanName(CookingStyle.class, tagCookingStyle), null);
 			insertApiRecipe(apiRecipe);
@@ -82,34 +83,41 @@ public class ApiRecipeRawDataDAO {
 		}
 	}
 
-//	private void updateEnum() {
-//		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-//		try (SqlSession session = Config.getSession().openSession()) {
-//			list = (ArrayList) session.selectList("getEnumTag");
-//			for (HashMap<String, Object> map : list) {
-//				HashMap<String, Object> updateMap = new HashMap<String, Object>();
-//				int recipeNum = (int) map.get("tag_recipe_id");
-//				String eatTime = KoreanNamedEnum.getEnumByKoreanName(EatTime.class, (String) map.get("tag_eat_time"))
-//						.toString();
-//				String cookingStyle = KoreanNamedEnum
-//						.getEnumByKoreanName(CookingStyle.class, (String) map.get("tag_category")).toString();
-//				updateMap.put("tagRecipeId", recipeNum);
-//				updateMap.put("tagEatTime", eatTime);
-//				updateMap.put("tagCookingStyle", cookingStyle);
-//
-//				System.out.println("recipeNum = " + recipeNum);
-//				System.out.println("eatTime = " + eatTime);
-//				System.out.println("cookingStyle = " + cookingStyle);
-//			}
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//	}
+	private void printInsertData() {
+		Field[] fields = ApiRecipeRawData.class.getDeclaredFields();
+	    ArrayList<ApiRecipeRawData> list = getApiRecipeRawDataList();
+	    
+	    // 텍스트 파일에 쓰기
+	    try (PrintWriter writer = new PrintWriter("insert_data.sql")) {
+	        for (ApiRecipeRawData data : list) {
+	            String printStr = "INSERT INTO recipe_raw_data VALUES(";
+	            for (Field field : fields) {
+	                try {
+	                    field.setAccessible(true);
+	                    Object fieldValue = field.get(data);
+	                    if (fieldValue instanceof String) {
+	                        printStr += "'" + fieldValue + "', ";
+	                    } else {
+	                        printStr += fieldValue + ", ";
+	                    }
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	            printStr = printStr.substring(0, printStr.length() - 2) + ");";
+	            writer.println(printStr);
+	        }
+	    } catch (FileNotFoundException e) {
+	        System.err.println("파일을 찾을 수 없습니다.");
+	    }
+	}
 
 	public static void main(String[] args) {
 		ApiRecipeRawDataDAO dao = new ApiRecipeRawDataDAO();
 		ArrayList<ApiRecipeRawData> rawDataList = dao.getApiRecipeRawDataList();
 		dao.refinerRecipeRawData(rawDataList);
+//		dao.printInsertData();
+
 	}
 
 }
