@@ -102,13 +102,14 @@
 	<!-- 이메일로 사용자 조회 -->
 	<select id="getSocialByEmail" parameterType="String"
 		resultType="socialDTO">
-		SELECT * FROM social WHERE user_email = #{email}
+		 SELECT * FROM social 
+    WHERE kakao = #{email} OR naver = #{email} OR google = #{email}
 	</select>
 	
 		<!-- 이메일로 사용자 조회 -->
 	<select id="getUserByEmail" parameterType="String"
 		resultType="user">
-		SELECT * FROM social WHERE user_email = #{email}
+		SELECT * FROM user WHERE user_email = #{email}
 	</select>
 
 	<!-- 소셜 정보 업데이트 -->
@@ -135,5 +136,29 @@
 		resultType="user">
 		SELECT * FROM user WHERE user_num = #{userNum}
 	</select>
+	
+	<!-- 소셜 테이블에 같은 이메일이 있는지 확인 -->
+<select id="checkExistingSocialEmail" parameterType="String" resultType="int">
+    SELECT COUNT(*) 
+    FROM social 
+    WHERE kakao = #{email} OR naver = #{email} OR google = #{email}
+</select>
+
+<!-- 기존 유저가 소셜 계정을 추가 연동 -->
+<update id="linkSocialAccount" parameterType="map">
+    UPDATE social
+    SET 
+        kakao = CASE WHEN #{platform} = 'kakao' THEN #{email} ELSE kakao END,
+        naver = CASE WHEN #{platform} = 'naver' THEN #{email} ELSE naver END,
+        google = CASE WHEN #{platform} = 'google' THEN #{email} ELSE google END
+    WHERE user_num = #{userNum}
+</update>
+
+<!-- 기존에 소셜 정보가 없으면 INSERT -->
+<insert id="insertSocialLink" parameterType="kr.smartReciFit.model.user.SocialDTO">
+    INSERT INTO social (user_num, kakao, naver, google)
+    VALUES (#{userNum}, #{kakao}, #{naver}, #{google})
+</insert>
+	
 	
 </mapper>

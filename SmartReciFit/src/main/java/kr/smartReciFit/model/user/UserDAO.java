@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -200,6 +201,58 @@ public class UserDAO {
 		    } finally {
 		        session.close();
 		    }
+		}
+	 
+	 public boolean linkSocialAccount(int userNum, String platform, String email) {
+		    SqlSession session = Config.getSession().openSession();
+		    boolean success = false;
+
+		    try {
+		        // 1️⃣ 기존 소셜 이메일이 이미 등록되어 있는지 확인
+		        Map<String, Object> params = new HashMap<>();
+		        params.put("email", email);
+		        int count = session.selectOne("checkExistingSocialEmail", params);
+
+		        if (count > 0) {
+		            System.out.println("이미 연동된 소셜 계정입니다.");
+		            return false;
+		        }
+
+		        // 2️⃣ 기존 social 테이블에 user_num이 있는지 확인
+		        params.put("userNum", userNum);
+		        int existingSocial = session.selectOne("checkExistingSocialByUserNum", userNum);
+
+		        if (existingSocial > 0) {
+		            // 3️⃣ 기존 데이터가 있으면 업데이트
+		            params.put("platform", platform);
+		            int updated = session.update("linkSocialAccount", params);
+		            if (updated > 0) {
+		                session.commit();
+		                success = true;
+		                System.out.println("소셜 계정이 기존 유저 계정과 성공적으로 연동되었습니다.");
+		            }
+		        } else {
+		            // 4️⃣ 기존 데이터가 없으면 새로 INSERT
+		            SocialDTO socialDTO = new SocialDTO();
+		            socialDTO.setUserNum(userNum);
+		            if ("kakao".equals(platform)) socialDTO.setKakao(email);
+		            if ("naver".equals(platform)) socialDTO.setNaver(email);
+		            if ("google".equals(platform)) socialDTO.setGoogle(email);
+
+		            int inserted = session.insert("insertSocialLink", socialDTO);
+		            if (inserted > 0) {
+		                session.commit();
+		                success = true;
+		                System.out.println("새로운 소셜 계정이 추가되었습니다.");
+		            }
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        session.close();
+		    }
+
+		    return success;
 		}
 	 
 

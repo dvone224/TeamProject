@@ -28,6 +28,7 @@ import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.LoginSuccessController;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
+import kr.smartReciFit.controller.user.LinkSocialLoginController;
 import kr.smartReciFit.controller.user.UserJoinController;
 import kr.smartReciFit.controller.user.VaildIdAjaxController;
 
@@ -54,14 +55,13 @@ public class HandlerMapping {
 		mappings.put("/userContent.do",  new UserContentController());
 		mappings.put("/userInfo.do",  new UserInfoController());
 		
-		
-		// 로그인 관련 작업 (나경)
-		//로그인아웃 관련 맵핑
+		// 로그인아웃 관련 맵핑 (나경)
 		mappings.put("/login.do", new LoginCheckController());
 		mappings.put("/logout.do", new LogOutController());
 		mappings.put("/main.do", new MainController());		
 		mappings.put("/loginSuccess.do", new LoginSuccessController());
 		mappings.put("/saveSocialLoginInfo.do", new SaveSocialLoginInfo());
+		mappings.put("/linkSocial.do", new LinkSocialLoginController());
 		
 		
 		// 랭킹 후기 게시판 작업(명보)
