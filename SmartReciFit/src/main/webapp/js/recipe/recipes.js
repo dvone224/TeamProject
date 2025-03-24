@@ -38,10 +38,14 @@ checkBoxList.forEach(e => e.addEventListener('change', function() {
 		let html = '';
 		data.forEach(e=> {
 			html += `<div class="recipe ${e["recipeNum"]}">`;
-			html += '<img src="http://placehold.it/300x300" alt="" width="300px" height="300px">';
+			html += `<img class="recipe-img ${e["recipeNum"]}" src="${e["recipeThumbnail"]}" alt="" width="300px" height="300px">`;
 			html += `${e["recipeName"]}</div>`
 		})
 		recipeContainer.innerHTML = html;
+		let recipeImgs = recipeContainer.querySelectorAll('img')
+		recipeImgs.forEach(e => e.addEventListener('click', function() {
+			location.href = `${ctx}/recipeContent.do?rn=${this.classList[1]}`;
+		}))
 	})
 	.catch(error => console.error('Error:', error));
 }));

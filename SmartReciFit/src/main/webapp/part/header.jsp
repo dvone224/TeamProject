@@ -31,6 +31,12 @@
 				<li><a href="${ctx}/ranking.do">랭킹</a></li>
 				<li><a href="${ctx}/reviews.do?page=1">후기</a></li>
 				<li><a href="${ctx}/events.do">EVENT</a></li>
+				<li>
+					<form action="${ctx}/recipeURL.do" method="post">
+						<input class="youtube-url" type="text" name="youtube-url"/>
+						<button>전송</button>
+					</form>
+				</li>
 			</ul>
 		</nav>
 		<div class="user-actions">

@@ -10,7 +10,7 @@ import kr.smartReciFit.model.recipe.tags.RecipeType;
 public class ApiRecipe extends Recipe {
 
 	public ApiRecipe() {
-		
+		super();
 	}
 	
 	public ApiRecipe(int recipeNum, int apiRecipeNum, String recipeName, RecipeType recipeType ,String recipeIngredient,

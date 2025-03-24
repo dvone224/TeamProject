@@ -6,7 +6,7 @@
 <mapper namespace="kr.smartReciFit.mybatis.recipe.RecipeMapper">
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into recipe
-		values(#{recipeNum},#{recipeName},#{recipeIngredient},#{recipeSeasoning},#{recipeManual});
+		values(#{recipeNum},#{recipeName},#{recipeIngredient},#{recipeSeasoning},#{recipeManual},null);
 	</insert>
 
 	<insert id="insertApiRecipe" parameterType="apiRecipe">
@@ -27,6 +27,7 @@
 		<result property="recipeIngredient" column="recipe_ingredient" />
 		<result property="recipeSeasoning" column="recipe_seasoning" />
 		<result property="recipeManual" column="recipe_manual" />
+		<result property="recipeThumbnail" column="recipe_thumbnail" />
 
 		<!-- Enum 타입 매핑 -->
 		<association property="recipeType"
@@ -128,9 +129,38 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id="">
-		select recipe_num from recipe where recipe_name = #{recipeName}
-	</select>
 
+	<update id="updateThumbnail" parameterType="HashMap">
+		UPDATE recipe r
+		INNER
+		JOIN api_recipe ar
+		ON r.recipe_num = ar.recipe_num
+		SET recipe_thumbnail
+		= #{thumbnail}
+		WHERE api_recipe_num = #{apiRecipeNum} and recipe_name =
+		#{recipeName}
+	</update>
+
+	<update id="updateImg" parameterType="HashMap">
+		UPDATE api_recipe ar
+		INNER
+		JOIN recipe r
+		ON r.recipe_num = ar.recipe_num
+		SET api_recipe_img =
+		#{apiRecipeImg}
+		WHERE api_recipe_num = #{apiRecipeNum} and recipe_name
+		= #{recipeName}
+	</update>
+
+	<select id="getRecipeByRecipeNum" parameterType="int" resultMap="ApiRecipeResultMap">
+		SELECT *
+		FROM recipe r
+		INNER JOIN api_recipe ar
+		ON
+		r.recipe_num= ar.recipe_num
+		INNER JOIN tag t
+		ON t.tag_recipe_id =
+		r.recipe_num
+		WHERE r.recipe_num = #{recipeNum}
+	</select>
 </mapper>

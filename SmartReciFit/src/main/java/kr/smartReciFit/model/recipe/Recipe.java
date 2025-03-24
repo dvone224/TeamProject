@@ -18,18 +18,19 @@ public class Recipe {
 	protected String recipeIngredient;
 	protected String recipeSeasoning;
 	protected String recipeManual;
+	protected String recipeThumbnail;
 	protected Set<String> cookingMethods;
 	protected Set<String> ingredients;
 	protected EatTime eatTime;
 	protected CookingStyle cookingStyle;
 
-	public Recipe()	{
-		
+	public Recipe() {
+
 	}
-	
-	public Recipe(int recipeNum, String recipeName, RecipeType recipeType, String recipeIngredient, String recipeSeasoning,
-			String recipeManual, Set<String> cookingMethods, Set<String> ingredients, EatTime eatTime,
-			CookingStyle cookingStyle) {
+
+	public Recipe(int recipeNum, String recipeName, RecipeType recipeType, String recipeIngredient,
+			String recipeSeasoning, String recipeManual, Set<String> cookingMethods, Set<String> ingredients,
+			EatTime eatTime, CookingStyle cookingStyle) {
 		this.recipeNum = recipeNum;
 		this.recipeName = recipeName;
 		this.recipeType = recipeType;
@@ -60,6 +61,14 @@ public class Recipe {
 
 	public String getRecipeManual() {
 		return recipeManual;
+	}
+
+	public RecipeType getRecipeType() {
+		return recipeType;
+	}
+
+	public String getRecipeThumbnail() {
+		return recipeThumbnail;
 	}
 
 	public Set<String> getCookingMethods() {
