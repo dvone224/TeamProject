@@ -18,6 +18,10 @@ public class SocialDTO {
 	public void setKakao(String kakao) {
 		this.kakao = kakao;
 	}
+	@Override
+	public String toString() {
+		return "SocialDTO [userNum=" + userNum + ", kakao=" + kakao + ", naver=" + naver + ", google=" + google + "]";
+	}
 	public String getNaver() {
 		return naver;
 	}

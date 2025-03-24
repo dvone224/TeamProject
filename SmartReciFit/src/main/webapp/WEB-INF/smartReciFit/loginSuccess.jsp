@@ -18,8 +18,7 @@
 </head>
 
 <main>
-	<div class="inner">
-	</div>
+	<div class="inner"></div>
 </main>
 
 <script type="text/javascript">
@@ -57,13 +56,32 @@
         }, "http://localhost:8084"); // 부모 창의 도메인
         alert('로그인 성공')
         // 부모 창으로 리다이렉트
-        window.opener.location.href = "http://localhost:8084/SmartReciFit/main.do";
+        
+        $.ajax({
+   	        type: 'POST',
+   	        url: `${ctx}/saveSocialLoginInfo.do`,
+   	        data: { platform: 'naver', nickname: nickname, email: email },
+   	        success: function (data) {
+   	            if (data === '닉네임 중복') {
+   	                // 닉네임 입력 폼으로 이동
+   	                window.opener.location.href = `${ctx}/nicknameInputForm.do?platform=${platform}&email=${email}&nickname=${nickname}`;
+   	            } else {
+   	                // 메인 페이지로 이동
+   	                window.opener.location.href = `${ctx}/main.do`;
+   	            }
+   	        	window.close();
+   	        },
+   	        error: function (error) {
+   	            console.error('Error sending user info:', error);
+   	        }
+   	    });
+        /* window.opener.location.href = `${ctx}/nicknameInputForm.do?platform=${platform}&email=${email}&nickname=${nickname}`; */
 
         // 팝업 닫기
-        window.close();
+        /* window.close(); */
     } else {
         // 팝업이 아닌 경우 직접 이동
-        window.location.href = "http://localhost:8084/SmartReciFit/main.do";
+       /*  window.location.href = "http://localhost:8084/SmartReciFit/main.do"; */
     }
   }
   

@@ -33,6 +33,7 @@ public class LoginCheckController implements Controller {
 	        	  HttpSession session = request.getSession();
 	        	  String nickName = UserDAO.getInstance().getNickName(id);
 	        	   int userNum=(int)UserDAO.getInstance().checkId(id);
+	        	   session.setAttribute("user", user); // User 객체를 세션에 저장
 	        	   session.setAttribute("log", userNum); // 로그에 사용자 num 저장
 	        	   session.setAttribute("nickName", nickName);
 	        	   System.out.println(session.getAttribute("nickName"));
