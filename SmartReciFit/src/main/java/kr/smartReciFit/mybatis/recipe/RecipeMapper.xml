@@ -152,18 +152,24 @@
 		= #{recipeName}
 	</update>
 
-	<select id="getRecipeByRecipeNum" parameterType="int" resultMap="ApiRecipeResultMap">
+	<select id="getRecipeByRecipeNum" parameterType="int"
+		resultMap="ApiRecipeResultMap">
 		SELECT *
 		FROM recipe r
 		INNER JOIN api_recipe ar
 		ON
-		r.recipe_num= ar.recipe_num
+		r.recipe_num=
+		ar.recipe_num
 		INNER JOIN tag t
 		ON t.tag_recipe_id =
 		r.recipe_num
-		WHERE r.recipe_num = #{recipeNum}
-	<select id="getRecipeByNum" parameterType="int" resultMap="recipeResultMap">
-		SELECT * 
+		WHERE
+		r.recipe_num = #{recipeNum}
+	</select>
+
+	<select id="getRecipeByNum" parameterType="int"
+		resultMap="recipeResultMap">
+		SELECT *
 		FROM recipe r
 		INNER JOIN tag t
 		ON r.recipe_num = t.tag_recipe_id
