@@ -34,6 +34,7 @@ import kr.smartReciFit.controller.user.VaildIdAjaxController;
 
 import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.MainController;
+import kr.smartReciFit.controller.user.NicknameInputFormController;
 import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
 import kr.smartReciFit.controller.user.UserContentController;
 import kr.smartReciFit.controller.user.UserInfoController;
@@ -62,6 +63,7 @@ public class HandlerMapping {
 		mappings.put("/loginSuccess.do", new LoginSuccessController());
 		mappings.put("/saveSocialLoginInfo.do", new SaveSocialLoginInfo());
 		mappings.put("/linkSocial.do", new LinkSocialLoginController());
+		mappings.put("/nicknameInputForm.do", new NicknameInputFormController());
 		
 		
 		// 랭킹 후기 게시판 작업(명보)

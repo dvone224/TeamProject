@@ -47,11 +47,11 @@
 					<a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
 					<c:if test="${not empty sessionScope.user.userNickName}">
 						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user.userNickName}님</a>
-					</c:if>
+					</c:if> <!--회원가입한 유저 로그인 상태 --> 
 					<c:if
 						test="${empty sessionScope.user.userNickName and not empty sessionScope.log}">
 						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.nickName}님</a>
-					</c:if>
+					</c:if> <!--소셜로그인한 로그인상태 --> 
 				</c:otherwise>
 			</c:choose>
 

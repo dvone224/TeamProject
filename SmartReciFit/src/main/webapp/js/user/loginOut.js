@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then(response => response.text())
 			.then(data => {
 				if (data === "success") {
-					alert("로그인 성공");
+					alert("로그인 성공dd");
 					location.href = ctx + "/main.do";
 				} else {
 					alert("아이디 또는 비밀번호가 잘못 되었습니다. 아이디와 비밀번호를 정확히 입력해 주세요.");

@@ -116,7 +116,7 @@ public class UserDAO {
 			int cnt = session.insert("insertSocialInfo", socialDTO);
 			if (cnt > 0) {
 				session.commit(); // 변경사항 저장
-				System.out.println("소셜 로그인 정보 삽입 성공");
+				System.out.println("소셜 로그인 정보 삽입 성공(social table)");
 			} else {
 				System.out.println("삽입할 정보가 없습니다.");
 			}
@@ -143,6 +143,7 @@ public class UserDAO {
 	    try {
 	        session.insert("insertUserNickname", user);
 	        session.commit(); // 변경사항 저장
+	        System.out.println("user table에 신규멤버 저장 완료");
 	        // 마지막으로 삽입된 user_num 반환
 	        return session.selectOne("getLastInsertuserNum");
 	    } catch (Exception e) {
@@ -254,6 +255,17 @@ public class UserDAO {
 
 		    return success;
 		}
+	 
+	 public User getUserByNum(int userNum) {
+		    SqlSession session = Config.getSession().openSession();
+		    try {
+		        return session.selectOne("getUserByNum", userNum);
+		    } finally {
+		        session.close();
+		    }
+		}
+	 
+
 	 
 
 

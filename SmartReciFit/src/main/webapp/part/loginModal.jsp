@@ -52,7 +52,7 @@
                         sendUserInfoToServer('kakao', nickname, email);
                          
                         alert('로그인 성공')
-                         location.href = ctx + "/main.do";
+                         location.href = ctx + "/main.do"; 
                     },
                     fail: function (error) {
                     	console.error(error);
@@ -66,17 +66,23 @@
     }
     
     function sendUserInfoToServer(platform, nickname, email) {
-        $.ajax({
-            type: 'POST',
-            url: `${ctx}/saveSocialLoginInfo.do`,
-            data: { platform, nickname, email },
-            success: function () {
-                location.href = `${ctx}/main.do`; // 메인 페이지로 이동
-            },
-            error: function (error) {
-                console.error('Error sending user info:', error);
-            },
-        });
+    	 $.ajax({
+    	        type: 'POST',
+    	        url: `${ctx}/saveSocialLoginInfo.do`,
+    	        data: { platform: platform, nickname: nickname, email: email },
+    	        success: function (data) {
+    	            if (data === '닉네임 중복') {
+    	                // 닉네임 입력 폼으로 이동
+    	                window.location.href = `${ctx}/nicknameInputForm.do?platform=${platform}&email=${email}&nickname=${nickname}`;
+    	            } else {
+    	                // 메인 페이지로 이동
+    	                window.location.href = `${ctx}/main.do`;
+    	            }
+    	        },
+    	        error: function (error) {
+    	            console.error('Error sending user info:', error);
+    	        }
+    	    });
     }
 </script>
 
@@ -104,23 +110,7 @@
     	}
     }, false);
 
-    function getNaverProfile(accessToken) {
-    	// 네이버 사용자 프로필 정보를 가져오는 코드
-    	$.ajax({
-    		url: 'https://openapi.naver.com/v1/nid/me',
-    		type: 'GET',
-    		headers: {
-    			"Authorization": "BEARER " + accessToken
-    		},
-    		success: function(data) {
-    			console.log(data);
-    			// 사용자 정보를 세션에 저장하거나 데이터베이스에 등록하는 코드
-    		},
-    		error: function(error) {
-    			console.error('Error:', error);
-    		}
-    	});
-    }
+
   </script>
   
 <!------------------------ 구글 script loginOut.js 에 있음 ------------------------>
@@ -143,17 +133,23 @@ function handleCredentialResponse(response) {
 }
 
 function sendUserInfoToServer(platform, nickname, email) {
-    $.ajax({
-        type: 'POST',
-        url: `${ctx}/saveSocialLoginInfo.do`,
-        data: { platform: platform, nickname: nickname, email: email },
-        success: function () {
-            window.location.href = `${ctx}/main.do`;
-        },
-        error: function (error) {
-            console.error('Error sending user info:', error);
-        }
-    });
+	 $.ajax({
+	        type: 'POST',
+	        url: `${ctx}/saveSocialLoginInfo.do`,
+	        data: { platform: platform, nickname: nickname, email: email },
+	        success: function (data) {
+	            if (data === '닉네임 중복') {
+	                // 닉네임 입력 폼으로 이동
+	                window.location.href = `${ctx}/nicknameInputForm.do?platform=${platform}&email=${email}&nickname=${nickname}`;
+	            } else {
+	                // 메인 페이지로 이동
+	                window.location.href = `${ctx}/main.do`;
+	            }
+	        },
+	        error: function (error) {
+	            console.error('Error sending user info:', error);
+	        }
+	    });
 }
 
 window.onload = function () {

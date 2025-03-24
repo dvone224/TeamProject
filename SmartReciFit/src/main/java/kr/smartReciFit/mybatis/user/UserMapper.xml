@@ -69,7 +69,7 @@
 	</select>
 
 	<!-- SOCIAL에 정보 넣기 -->
-	<insert id="insertSocialInfo" parameterType="SocialDTO">
+	<insert id="insertSocialInfo" parameterType="socialDTO">
 		INSERT INTO social
 		(user_num, kakao, naver, google)
 		VALUES (#{userNum}, #{kakao},
@@ -100,11 +100,11 @@
 	</select>
 
 	<!-- 이메일로 사용자 조회 -->
-	<select id="getSocialByEmail" parameterType="String"
-		resultType="socialDTO">
-		 SELECT * FROM social 
+<select id="getSocialByEmail" parameterType="String" resultMap="socialResultMap">
+    SELECT * 
+    FROM social 
     WHERE kakao = #{email} OR naver = #{email} OR google = #{email}
-	</select>
+</select>
 	
 		<!-- 이메일로 사용자 조회 -->
 	<select id="getUserByEmail" parameterType="String"
@@ -154,11 +154,16 @@
     WHERE user_num = #{userNum}
 </update>
 
-<!-- 기존에 소셜 정보가 없으면 INSERT -->
-<insert id="insertSocialLink" parameterType="kr.smartReciFit.model.user.SocialDTO">
-    INSERT INTO social (user_num, kakao, naver, google)
-    VALUES (#{userNum}, #{kakao}, #{naver}, #{google})
-</insert>
+
+	<select id="getUserNumByEmail" parameterType="socialDTO"
+		resultType="user">
+		SELECT * FROM user WHERE user_email = #{email}
+	</select>
+	
+		<select id="getUserByNum" parameterType="int"
+		resultMap="userResultMap">
+		SELECT * FROM user WHERE user_num = #{userNum}
+	</select>
 	
 	
 </mapper>
