@@ -87,6 +87,6 @@ public class SaveSocialLoginInfo implements Controller {
 	        System.out.println("세션 저장 완료: " + session.getAttribute("log") + " / " + session.getAttribute("nickName"));
 	        out.print("유저 생성 성공");
 	        out.close();
-	        return null;
+	        return null;//fdsjkgljfd//
 	    }
 	}
