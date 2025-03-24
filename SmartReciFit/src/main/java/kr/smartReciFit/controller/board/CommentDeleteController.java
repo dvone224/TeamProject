@@ -20,13 +20,15 @@ public class CommentDeleteController implements Controller {
 		System.out.println("userId?="+userId);
 		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		String userNickname = request.getParameter("userNickname");
 		
+		System.out.println(userNickname);
 		CommentDAO.getInstance().deleteComment(commentNum,boardNum);
 		String ctx = request.getContextPath();
 		String reviewBoardNum = request.getParameter("boardNum");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter writer = response.getWriter();
-		writer.println("<script>alert('삭제 되었습니다'); location.href='"+ctx+"/reviewDetail.do?reviewBoardNum="+reviewBoardNum+"&user="+userId+"';</script>");
+		writer.println("<script>alert('삭제 되었습니다'); location.href='"+ctx+"/reviewDetail.do?reviewBoardNum="+reviewBoardNum+"&userNickname="+userNickname+"';</script>");
 		writer.close();
 		
 		return null;

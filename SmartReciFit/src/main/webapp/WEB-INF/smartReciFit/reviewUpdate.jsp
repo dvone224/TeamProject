@@ -3,7 +3,7 @@
 <%@ include file="../../part/header.jsp"%>
 
 <div class="review-page">
-	<form action="${ctx}/reviewUpdateProcess.do?reviewBoardNum=${review.reviewBoardNum}" method="post"
+	<form action="${ctx}/reviewUpdateProcess.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}" method="post"
 		enctype="multipart/form-data">
 		<table class="update-table">
 			<tr class="update-row">

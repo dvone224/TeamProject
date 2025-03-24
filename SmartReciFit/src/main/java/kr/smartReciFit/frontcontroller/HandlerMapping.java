@@ -21,6 +21,8 @@ import kr.smartReciFit.controller.board.ReviewUpdateController;
 import kr.smartReciFit.controller.board.ReviewUpdateProcessController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
+import kr.smartReciFit.controller.board.SearchRecipesController;
+import kr.smartReciFit.controller.board.SearchReviewBoardController;
 import kr.smartReciFit.controller.recipe.RecipeFilterController;
 import kr.smartReciFit.controller.recipe.RecipesController;
 import kr.smartReciFit.controller.user.LoginCheckController;
@@ -77,11 +79,12 @@ public class HandlerMapping {
 		mappings.put("/reviewUpdateProcess.do", new ReviewUpdateProcessController());
 		mappings.put("/reviewDelete.do", new ReviewDeleteController());
 		mappings.put("/like.do", new LikeController());
+		mappings.put("/searchRecipes.do", new SearchRecipesController());
+		mappings.put("/searchReviewBoard.do", new SearchReviewBoardController());
 		
 		// 레시피 페이지
 		mappings.put("/recipes.do", new RecipesController());
 		mappings.put("/recipeFilter.do", new RecipeFilterController());
-		
 	}
 
 	public Controller getController(String key) {

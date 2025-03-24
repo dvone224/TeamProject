@@ -21,9 +21,11 @@ public class CommentAddController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String user = (String) request.getSession().getAttribute("user");
-		System.out.println(user);
-		if(request.getSession().getAttribute("user") == null) {
+		System.out.println("커멘드 에드로 왔니? ");
+		String user = (String) request.getSession().getAttribute("nickName");
+		System.out.println("바뀐거임?"+user);
+		String userNickname = request.getParameter("userNickname");
+		if(request.getSession().getAttribute("nickName") == null) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('로그인 후 이용가능합니다'); history.back();</script>");
@@ -32,7 +34,7 @@ public class CommentAddController implements Controller {
 		}
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
         String commentContent = request.getParameter("commentContent");
-        int userNum = UserDAO.getInstance().checkId(user);
+        int userNum = UserDAO.getInstance().checkNickName(user);
         
         Comment comment = new Comment();
         comment.setUserNum(userNum);
@@ -45,7 +47,7 @@ public class CommentAddController implements Controller {
 		
         String ctx = request.getContextPath();
 		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().println("<script>alert('댓글 게시성공'); location.href='" + ctx + "/reviewDetail.do?reviewBoardNum="+boardNum+"';</script>");
+		response.getWriter().println("<script>alert('댓글 게시성공'); location.href='" + ctx + "/reviewDetail.do?reviewBoardNum="+boardNum+"&userNickname="+userNickname+"';</script>");
 		response.getWriter().flush();
         
         return null;

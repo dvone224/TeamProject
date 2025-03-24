@@ -9,7 +9,7 @@
 			jdbcType="INTEGER" javaType="int" />
 		<result column="user_num" property="userNum" jdbcType="INTEGER"
 			javaType="int" />
-		<result column="api_recipe_num" property="apiRecipeNum"
+		<result column="review_board_recipe_id" property="reviewBoardRecipeId"
 			jdbcType="INTEGER" javaType="int" />
 		<result column="review_board_title" property="reviewBoardTitle"
 			jdbcType="VARCHAR" javaType="String" />
@@ -85,7 +85,7 @@
 		review_board_content, review_board_img, review_board_views,
 		review_board_likes
 		) VALUES
-		(#{userNum},null,#{reviewBoardTitle},#{reviewBoardContent},#{reviewBoardImg},#{reviewBoardViews},
+		(#{userNum},#{reviewBoardRecipeId},#{reviewBoardTitle},#{reviewBoardContent},#{reviewBoardImg},#{reviewBoardViews},
 		#{reviewBoardLikes})
 	</insert>
 	<!-- 댓글 추가 -->
@@ -183,7 +183,7 @@
 		ORDER BY review_board_num ASC;
 
 	</select>
-	
+	<!-- 리뷰 수정 -->
 	<update id="updateReview" parameterType="review">
     UPDATE review_board
     SET
@@ -192,9 +192,61 @@
     review_board_img = #{reviewBoardImg}
     WHERE review_board_num = #{reviewBoardNum}
 	</update>
+	<!-- 리뷰에 있는 좋아요 삭제 -->
+	<delete id="deleteLikesByReviewBoardNum" parameterType="int">
+        DELETE FROM likes WHERE review_board_num = #{reviewBoardNum}
+    </delete>
+    <!-- 리뷰 삭제  -->
 	<delete id="deleteReview" parameterType="int">
 	DELETE FROM review_board
 	WHERE review_board_num = #{reviewBoardNum}
 	</delete>
-
+	<!--좋아요 1 증가  -->
+	<update id="increaseLikeCount" parameterType="int">
+        UPDATE review_board
+        SET review_board_likes = review_board_likes + 1
+        WHERE review_board_num = #{reviewBoardNum}
+    </update>
+	<!--좋아요 1 감소  -->
+    <update id="decreaseLikeCount" parameterType="int">
+        UPDATE review_board
+        SET review_board_likes = review_board_likes - 1
+        WHERE review_board_num = #{reviewBoardNum}
+    </update>
+    <!--후기에 있는 댓글삭제  -->
+    <delete id="deleteCommentsByBoardNum" parameterType="int">
+    DELETE FROM comment WHERE board_num = #{reviewBoardNum}
+	</delete>
+	<!--참고한 레시피 찾기  -->
+	 <select id="searchRecipes" parameterType="string" resultType="hashmap">
+        SELECT * FROM recipe_raw_data
+        WHERE recipe_name LIKE CONCAT('%', #{keyword}, '%') LIMIT 4
+    </select>
+    <!-- 검색한 리뷰 찾기 -->
+    <select id="searchReviewBoard" parameterType="Map" resultType="hashmap">
+       SELECT 
+        review_board_num,
+        user.user_num,
+        review_board_recipe_id,
+        review_board_title,
+        review_board_content,
+        review_board_img,
+        review_board_views,
+        review_board_likes,
+        date_format(review_board_created_at, '%Y-%m-%d') as review_board_created_at,
+        user_nickname
+    FROM review_board rb
+    INNER JOIN user ON rb.user_num = user.user_num
+    <where>
+        <if test="searchName == 'title'">
+            review_board_title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="searchName == 'titleAndContent'">
+            (review_board_title LIKE CONCAT('%', #{keyword}, '%') OR review_board_content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+    </where>
+    ORDER BY review_board_num ASC
+    
+    </select>
+	
 </mapper>

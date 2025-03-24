@@ -133,4 +133,11 @@
 		select recipe_num from recipe where recipe_name = #{recipeName}
 	</select>
 
+	<select id="getRecipeByNum" parameterType="int" resultMap="recipeResultMap">
+		SELECT * 
+		FROM recipe r
+		INNER JOIN tag t
+		ON r.recipe_num = t.tag_recipe_id
+		WHERE recipe_num = ${recipeNum}
+	</select>
 </mapper>
