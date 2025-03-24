@@ -8,11 +8,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <%@ include file="../../part/header.jsp"%>
-<script src="${ctx}/js/user/userInfo.js"> </script>
 
       <div class="inner">
         <h2> 추가 정보 입력 </h2>
-		<form method="post" action="userInfo.do">
+		<form id="userInfoForm" method="post" action="userInfo.do">
 		<p> 평소 식사량을 골라주세요. 해당 정보를 기반으로 레시피의 재료양이 수정됩니다.</p>
 		<div class=checkMealSize id=box-mealSixe>	
         <input type="radio" name="mealSize" value="0.5"> 0.5인분
@@ -81,35 +80,10 @@
 		<input type="checkbox" name="itemTime" value="야식">야식
 		<input type="checkbox" name="itemTime" value="간식">간식
 		</div>
+	</form>
 		<button name="btn-infoCancel" id="btn-infoCancel">입력취소</button>
 		<button name="btn-infoSubmit" id="btn-infoSubmit">검사완료</button>
-	</form>
     </div>
     
-<script>
-Swal.fire({
-	icon: "info",
-	  title: "추가 정보 입력",
-	  text: "내가 선호하는 음식을 기록해둘 수 있어요",
-	  showDenyButton: true,
-	  showCancelButton: false,
-	  confirmButtonText: "네, 입력할게요",
-	  denyButtonText: "입력하지 않을래요"
-	}).then((result) => {
-	  /* Read more about isConfirmed, isDenied below */
-	  if (result.isConfirmed) {
-		  console.log("입력하기 선택");
-	  } else if (result.isDenied) {
-		  console.log("입력안하기 선택");
-	        Swal.fire({
-	            title: "회원가입 완료!",
-	            text: "저희 사이트에 가입해주셔서 감사합니다.",
-	            icon: "success",
-	            confirmButtonText: "확인"
-	        }).then(() => {
-	            window.location.href = "index.jsp";
-	        });
-	  }
-	});
-</script>
+<script src="${ctx}/js/user/userInfo.js"> </script>
 <%@ include file="../../part/footer.jsp"%>

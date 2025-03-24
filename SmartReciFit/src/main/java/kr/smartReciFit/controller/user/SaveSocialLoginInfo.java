@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import kr.smartReciFit.controller.Controller;
+import kr.smartReciFit.model.user.SocialDTO;
 import kr.smartReciFit.model.user.SocialLoginDTO;
 import kr.smartReciFit.model.user.User;
 import kr.smartReciFit.model.user.UserDAO;

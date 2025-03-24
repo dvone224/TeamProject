@@ -79,12 +79,6 @@ submitButton.addEventListener('click', (event) => {
 	    return;
 	}else{
 		console.log("모든 입력값 확인="+validateAll());
-/*		swal.fire({
-			icon: "success",
-			title: "Okay!",
-			text:"회원가입이 완료되었습니다.",
-			confirmButtonColor: "#F7C525",
-		});*/
 		form.submit();
 	}
 });
@@ -185,7 +179,7 @@ function validateField(input) {
     let message = '';
 
     switch (input.id) {
-        case 'id':
+        case 'id-new':
             if (!value) {
                 message = '아아디는 영문 대소문자, 숫자, 기호로 이루어신 6-16자 사이로 입력해주세요';
                 isValid = false;
@@ -195,7 +189,7 @@ function validateField(input) {
 			}
             break;
 
-        case 'pw':
+        case 'pw-new':
             if (!value) {
                 message = '비밀번호는 영문 대소문자, 숫자, 기호로 이루어신 6-16자 사이로 입력해주세요';
                 isValid = false;
@@ -221,7 +215,26 @@ function validateField(input) {
 			isValid = false;
 			}
             break;
-			
+		
+		case 'email':
+		    if (!value) {
+		        message = '이메일을 입력해주세요';
+		        isValid = false;
+		    } else if (!value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
+		        message = '올바른 이메일 형식이 아닙니다';
+		        isValid = false;
+		    }
+		    break;
+
+		case 'phone':
+			if (!value) {
+			    message = '전화번호를 입력해주세요';
+			    isValid = false;
+		    } else if (!value.match(/^010-\d{3,4}-\d{4}$/)) {
+		        message = '전화번호 형식(010-XXXX-XXXX)이 맞지 않습니다';
+		        isValid = false;
+		    }
+		    break;
 
     }
 
@@ -240,7 +253,7 @@ function validateAll() {
             isValid = false;
         }
     });
-    return isValid&&isIdValid === 1 && isNicknameValid === 1 && isidentityValid===1;
+    return isIdValid === 1 && isNicknameValid === 1 && isidentityValid===1;
 }
 
 function handleIdValidationResult(data) {
@@ -285,7 +298,6 @@ function handleIdValidationResult(data) {
 }
 
 function handleNickNameValidationResult(data) {
-
     switch (data) {
         case 'valid':
 			swal.fire({
