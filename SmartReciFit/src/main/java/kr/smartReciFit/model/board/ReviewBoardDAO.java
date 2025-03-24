@@ -168,25 +168,45 @@ public class ReviewBoardDAO {
 		        }
 		    }
 		}
-	 public void updateLikeCount(int reviewBoardNum) {
-		    SqlSession session = null;
-		    try {
-		        session = Config.getSession().openSession();
-		        int totalLikes = getTotalLikes(reviewBoardNum); // likes 테이블에서 좋아요 수를 가져옴
-		        Map<String, Object> map = new HashMap<>();
-		        map.put("reviewBoardNum", reviewBoardNum);
-		        map.put("totalLikes", totalLikes);
-		        session.update("updateReviewBoardLikes", map);
-		        session.commit();
-		    } catch (Exception e) {
-		        System.out.println("updateLikeCount() 에러");
-		        e.printStackTrace();
-		    } finally {
-		        if (session != null) {
-		            session.close();
-		        }
-		    }
-		}
+//	 public void updateLikeCount(int reviewBoardNum) {
+//		    SqlSession session = null;
+//		    try {
+//		        session = Config.getSession().openSession();
+//		        int totalLikes = getTotalLikes(reviewBoardNum); // likes 테이블에서 좋아요 수를 가져옴
+//		        Map<String, Object> map = new HashMap<>();
+//		        map.put("reviewBoardNum", reviewBoardNum);
+//		        map.put("totalLikes", totalLikes);
+//		        session.update("updateReviewBoardLikes", map);
+//		        session.commit();
+//		    } catch (Exception e) {
+//		        System.out.println("updateLikeCount() 에러");
+//		        e.printStackTrace();
+//		    } finally {
+//		        if (session != null) {
+//		            session.close();
+//		        }
+//		    }
+//		}
+	 public void increaseLikeCount(int reviewBoardNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            session.update("increaseLikeCount", reviewBoardNum);
+	            session.commit();
+	        } catch (Exception e) {
+	            System.out.println("increaseLikeCount() 에러");
+	            e.printStackTrace();
+	        }
+	    }
+
+	    public void decreaseLikeCount(int reviewBoardNum) {
+	        try (SqlSession session = Config.getSession().openSession()) {
+	            session.update("decreaseLikeCount", reviewBoardNum);
+	            session.commit();
+	        } catch (Exception e) {
+	            System.out.println("decreaseLikeCount() 에러");
+	            e.printStackTrace();
+	        }
+	    }
+	 
 	  public Integer getTotalLikes(int reviewBoardNum) {
 	        try (SqlSession session = Config.getSession().openSession()) {
 	            return session.selectOne("getTotalLikes", reviewBoardNum);
@@ -224,14 +244,37 @@ public class ReviewBoardDAO {
 	}
 
 	public void deleteReview(int reviewBoardNum) {
-		
-		try (SqlSession session = Config.getSession().openSession()){
+		SqlSession session = Config.getSession().openSession();
+		try {
+			 session.getConnection().setAutoCommit(false);
+			 session.delete("deleteCommentsByBoardNum", reviewBoardNum);
+			 session.delete("deleteLikesByReviewBoardNum", reviewBoardNum);
 			session.delete("deleteReview",reviewBoardNum);
 			session.commit();
 		} catch (Exception e) {
 			System.out.println("deleteReview() 에러");
 			e.printStackTrace();
 		}
+		finally {
+	        try {
+	            session.getConnection().setAutoCommit(true);
+	        } catch (Exception ignored) {} 
+	        session.close();
+	    }
+	}
+
+	public List<HashMap<String, Object>> searchReviewBoard(String searchName, String keyword) {
+		List<HashMap<String,Object>> list = new ArrayList<>();
+		 try (SqlSession session = Config.getSession().openSession()) {
+	            Map<String, Object> map = new HashMap<>();
+	            map.put("searchName", searchName);
+	            map.put("keyword", keyword);
+	            list = session.selectList("searchReviewBoard", map);
+	        } catch (Exception e) {
+	            System.out.println("searchReviewBoard() error");
+	            e.printStackTrace();
+	        }
+	        return list;
 	}
 	 
 

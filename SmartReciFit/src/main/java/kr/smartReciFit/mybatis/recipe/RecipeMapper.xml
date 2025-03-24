@@ -162,5 +162,11 @@
 		ON t.tag_recipe_id =
 		r.recipe_num
 		WHERE r.recipe_num = #{recipeNum}
+	<select id="getRecipeByNum" parameterType="int" resultMap="recipeResultMap">
+		SELECT * 
+		FROM recipe r
+		INNER JOIN tag t
+		ON r.recipe_num = t.tag_recipe_id
+		WHERE recipe_num = ${recipeNum}
 	</select>
 </mapper>

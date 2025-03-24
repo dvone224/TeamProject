@@ -21,6 +21,7 @@ public class ReviewUpdateProcessController implements Controller {
         String content = request.getParameter("content");
         String reiveImg = request.getParameter("reiveImg");
         String ctx = request.getContextPath(); // 컨텍스트 경로
+        String userNickname = request.getParameter("userNickname");
 
         String filename = "";
         FileUtil fileUtil = new FileUtil();
@@ -41,7 +42,7 @@ public class ReviewUpdateProcessController implements Controller {
 
         if (cnt > 0) {
         	response.setContentType("text/html; charset=UTF-8");
-            response.getWriter().println("<script>alert('게시글이 수정되었습니다.'); location.href='" + ctx + "/reviewDetail.do?reviewBoardNum=" + reviewBoardNum + "';</script>");
+            response.getWriter().println("<script>alert('게시글이 수정되었습니다.'); location.href='" + ctx + "/reviewDetail.do?reviewBoardNum=" + reviewBoardNum + "&userNickname="+userNickname+"';</script>");
         } else {
             response.setContentType("text/html; charset=UTF-8");
             response.getWriter().println("<script>alert('게시글 수정에 실패했습니다.'); history.back();</script>");

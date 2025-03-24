@@ -23,8 +23,10 @@ public class ReviewUpdateController implements Controller {
 		int reviewBoardNum = Integer.parseInt(reviewBoardNumParam);
 		ReviewBoardDAO dao = ReviewBoardDAO.getInstance();
 		ReviewBoard review = dao.getReviewById(reviewBoardNum);
+		String userNickname = request.getParameter("userNickname");
 		
 		request.setAttribute("review", review);
+		request.setAttribute("userNickname",userNickname);
 	
 	    return "reviewUpdate";
 		

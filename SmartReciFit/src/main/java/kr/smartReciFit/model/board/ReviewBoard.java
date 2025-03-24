@@ -3,7 +3,7 @@ package kr.smartReciFit.model.board;
 public class ReviewBoard {
 	private int reviewBoardNum;
 	private int userNum;
-	private int apiRecipeNum;
+	private int reviewBoardRecipeId;
 	private String reviewBoardTitle;
 	private String reviewBoardContent;
 	private String reviewBoardImg;
@@ -12,8 +12,14 @@ public class ReviewBoard {
 	private String reviewBoardCreatedAt;
 	
 	
+	
+	public int getReviewBoardRecipeId() {
+		return reviewBoardRecipeId;
+	}
 
-
+	public void setReviewBoardRecipeId(int reviewBoardRecipeId) {
+		this.reviewBoardRecipeId = reviewBoardRecipeId;
+	}
 
 	public void setReviewBoardNum(int reviewBoardNum) {
 		this.reviewBoardNum = reviewBoardNum;
@@ -23,9 +29,6 @@ public class ReviewBoard {
 		this.userNum = userNum;
 	}
 
-	public void setApiRecipeNum(int apiRecipeNum) {
-		this.apiRecipeNum = apiRecipeNum;
-	}
 
 	public void setReviewBoardTitle(String reviewBoardTitle) {
 		this.reviewBoardTitle = reviewBoardTitle;
@@ -59,9 +62,7 @@ public class ReviewBoard {
 		return userNum;
 	}
 
-	public int getApiRecipeNum() {
-		return apiRecipeNum;
-	}
+
 
 	public String getReviewBoardTitle() {
 		return reviewBoardTitle;
