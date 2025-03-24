@@ -6,7 +6,7 @@
 <mapper namespace="kr.smartReciFit.mybatis.userInfo.UserInfoMapper">
 <resultMap id="userInfoResultMap" type="userInfo">
    <id property="userNum" column="user_num"/>
-  <result property="userMealSize" column="user_meal_siz"/>
+  <result property="userMealSize" column="user_meal_size"/>
   <result property="ingredient" column="user_ingredient"/>
   <result property="cookingStyle" column="user_cookingStyle"/>
   <result property="cookingMethod" column="user_cookingMethod"/>
@@ -15,8 +15,14 @@
 	
 	<!-- 유저인포 삽입 -->
 	<insert id="insertInfo" parameterType="userInfo">
-	    insert into userInfo(user_num, user_meal_siz, user_ingredient, user_cookingStyle, user_cookingMethod, user_eatTime)
-	    values (#{num}, #{mealSize}, #{ingredient}, #{cookingStyle}, #{cookingMethod}, #{eatTime})
+	    insert into user_info(user_num, user_meal_size, user_ingredient, user_cookingStyle, user_cookingMethod, user_eatTime)
+	    values (#{userNum}, #{userMealSize}, #{ingredient}, #{cookingStyle}, #{cookingMethod}, #{eatTime})
     </insert>
+    
+    <!-- num으로 유저인포찾기 -->
+	<select id="numGetUserInfo" parameterType="Integer" resultMap="userInfoResultMap">
+		select * from user_info where user_num=#{num2}
+	</select>
+    
 	
 </mapper>

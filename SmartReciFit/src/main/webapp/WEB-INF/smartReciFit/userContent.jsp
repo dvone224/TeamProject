@@ -8,44 +8,42 @@
 <table>
 <tr>
 <td colspan="3">
-<div class="userContentImg">
-<c:if test="${not empty userContent.userImg}">
-<img src="${ctx}/img/${userContent.userImg}" class="photo" id="userImg"/>
-</c:if>
-<c:if test="${empty userContent.userImg}">
-<img src="${ctx}/img/ProfileBasicImg.png" class="photo" id="default"/>
-</c:if>
-</div>
-<td>
+<c:choose>
+<c:when test="${not empty userContent.userImg}"><img src="${ctx}/img/${userContent.userImg}" class="photo" id="userImg"/></c:when>
+<c:otherwise><img src="${ctx}/img/ProfileBasicImg.png" class="photo" id="default"/></c:otherwise>
+</c:choose>
+</td>
 </tr>
 <tr>
 <td colspan="3"><button name="fixImg" id="fixImg">수정</button></td>
 </tr>
 <tr>
-<td>닉네임</td><td>${userContent.userNickName}</td><td><button name="fixNickName" id="fixNickName">수정</button></td>
+<td>닉네임</td><td>${userContent.userNickName}</td><td><button name="btn-fixNickName" id="btn-fixNickName">수정</button></td>
 </tr>
 </table>
+
+<br>
 
 <!-- 소셜 로그인 아닐때 테이블 -->
 <c:if test="${not empty userContent.userId}">
 <table>
 <tr>
-<td>아이디</td><td>${userContent.userId}</td><td><button name="fixId" id="fixId">수정</button></td>
+<td>아이디</td><td>${userContent.userId}</td><td><button name="btn-fixId" id="btn-fixId">수정</button></td>
 </tr>
 <tr>
-<td>비밀번호</td><td>${userContent.userPw}</td><td><button name="fixPw" id="fixPw">수정</button></td>
+<td>비밀번호</td><td>${userContent.userPw}</td><td><button name="btn-fixPw" id="btn-fixPw">수정</button></td>
 </tr>
 <tr>
-<td>이름</td><td>${userContent.userName}</td><td><button  name="fixName" id="fixName">수정</button></td>
+<td>이름</td><td>${userContent.userName}</td><td><button  name="btn-fixName" id="btn-fixName">수정</button></td>
 </tr>
 <tr>
 <td>E-mail</td>
 <c:choose>
 <c:when test="${empty userContent.userEmail}">
-<td>이메일을 입력하지 않으셨습니다</td><td><button name="fixEmail" id="fixEmail">추가</button></td>
+<td>이메일을 입력하지 않으셨습니다</td><td><button name="btn-fixEmail" id="btn-fixEmail">추가</button></td>
 </c:when>
 <c:otherwise>
-<td>${userContent.userEmail}</td><td><button name="fixEmail" id="fixEmail">수정</button></td>
+<td>${userContent.userEmail}</td><td><button name="btn-fixEmail" id="btn-fixEmail">수정</button></td>
 </c:otherwise>
 </c:choose>
 </tr>
@@ -53,10 +51,10 @@
 <td>전화번호</td>
 <c:choose>
 <c:when test="${empty userContent.userPhone}">
-<td>전화번호를 입력하지 않으셨습니다</td><td><button name="fixEmail" id="fixEmail">추가</button></td>
+<td>전화번호를 입력하지 않으셨습니다</td><td><button name="btn-fixEmail" id="btn-fixEmail">추가</button></td>
 </c:when>
 <c:otherwise>
-<td>${userContent.userPhone}</td><td><button name="fixEmail" id="fixEmail">수정</button></td>
+<td>${userContent.userPhone}</td><td><button name="btn-fixEmail" id="btn-fixEmail">수정</button></td>
 </c:otherwise>
 </c:choose>
 </tr>
@@ -107,8 +105,26 @@
 <!-- 기존 회원가입 페이지로 연결되는데, 로그인 상태인지 아닌지로 판단하기: 로그인 상태에서 넘어가면 추가로직으로, 아니면 가입로직으로 -->
 </c:when>
 </c:choose> --%>
+
+<c:choose>
+<c:when test="${empty voInfo}">
+<table>
+<tr><td><p>아직 인포를 저장하지 않았습니다.</p></td></tr>
+<tr><td><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfo.do'">인포만들기</button></td></tr>
+
+</table>
+</c:when>
+<c:otherwise>
+<table>
+<tr><td>나의 식사량</td><td>${voMealSize}</td></tr>
+<tr><td>내가 선호하는 태그</td><td></td></tr>
+<tr><td colspan="2"><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfo.do'">인포수정하기</button></td></tr>
+</table>
+</c:otherwise>
+</c:choose>
+
 <button id="btn-UserDel">회원탈퇴</button>
-</div>
+<!-- </div> -->
 
 <script src="${ctx}/js/user/userContent.js"> </script>
 <%@ include file="../../part/footer.jsp" %>

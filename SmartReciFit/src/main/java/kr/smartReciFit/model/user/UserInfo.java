@@ -70,6 +70,11 @@ public class UserInfo {
 	public void setEatTime(String eatTime) {
 		this.eatTime = eatTime;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "UserInfo [userNum=" + userNum + ", userMealSize=" + userMealSize + ", ingredient=" + ingredient
+				+ ", cookingStyle=" + cookingStyle + ", cookingMethod=" + cookingMethod + ", eatTime=" + eatTime + "]";
+	}
 	
 }
