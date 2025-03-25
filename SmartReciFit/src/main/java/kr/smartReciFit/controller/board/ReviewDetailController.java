@@ -55,11 +55,17 @@ import kr.smartReciFit.model.recipe.RecipeDAO;
                  imagePaths = gson.fromJson(review.getReviewBoardImg(), List.class);
              } catch (JsonSyntaxException e) {
                  imagePaths = new ArrayList<>();
-                 imagePaths.add(review.getReviewBoardImg()); // 단일 이미지로 처리
+                 if(review.getReviewBoardImg() != null) {
+                 	imagePaths.add(review.getReviewBoardImg()); 
+                 }
              } catch (Exception e) {
                  imagePaths = new ArrayList<>();
                  System.err.println("JSON 파싱 오류: " + e.getMessage());
              }
+              if (imagePaths == null || imagePaths.isEmpty()) {
+                 imagePaths = new ArrayList<>(); 
+              }
+
 
              boolean isLiked = false;
              if (userNum != null) {

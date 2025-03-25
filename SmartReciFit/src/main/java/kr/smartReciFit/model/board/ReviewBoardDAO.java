@@ -34,6 +34,17 @@ public class ReviewBoardDAO {
 		}
 		return list;
 	}
+	
+	public ArrayList<ReviewBoard> getTop3RecipesByLike() {
+		ArrayList<ReviewBoard> list = new ArrayList<ReviewBoard>();
+		try (SqlSession session = Config.getSession().openSession()) {
+			list = (ArrayList) session.selectList("getTop3RecipesByLike");
+		} catch (Exception e) {
+			System.out.println("getTop3RecipesByLike() 에러");
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	// 리뷰 관련
 

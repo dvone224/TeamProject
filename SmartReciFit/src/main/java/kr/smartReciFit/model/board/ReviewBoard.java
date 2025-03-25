@@ -11,8 +11,37 @@ public class ReviewBoard {
 	private int reviewBoardLikes;
 	private String reviewBoardCreatedAt;
 	
+	private Integer recipeNum;
+	private String recipeName;
+	private String recipeThumbnail;
 	
 	
+	
+	
+	public String getRecipeThumbnail() {
+		return recipeThumbnail;
+	}
+
+	public void setRecipeThumbnail(String recipeThumbnail) {
+		this.recipeThumbnail = recipeThumbnail;
+	}
+
+	public Integer getRecipeNum() {
+		return recipeNum;
+	}
+
+	public void setRecipeNum(Integer recipeNum) {
+		this.recipeNum = recipeNum;
+	}
+
+	public String getRecipeName() {
+		return recipeName;
+	}
+
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
+	}
+
 	public int getReviewBoardRecipeId() {
 		return reviewBoardRecipeId;
 	}

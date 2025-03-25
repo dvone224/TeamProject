@@ -17,8 +17,11 @@ public class RankingController implements Controller {
 			throws ServletException, IOException {
 		System.out.println("랭킹컨트롤러");
 		ReviewBoardDAO dao = ReviewBoardDAO.getInstance();
-	    List<ReviewBoard> topRecipes = dao.getTop3RecipesByViews();
-	    request.setAttribute("topRecipes", topRecipes);
+	    List<ReviewBoard> topRecipesByViews = dao.getTop3RecipesByViews();
+	    List<ReviewBoard> topRecipesByLike = dao.getTop3RecipesByLike();
+	    
+	    request.setAttribute("topRecipesByViews", topRecipesByViews);
+	    request.setAttribute("topRecipesByLike", topRecipesByLike);
 	    return "ranking";
 		
 		
