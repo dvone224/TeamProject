@@ -36,7 +36,6 @@ public class RecipeFilterController implements Controller {
 		System.out.println("fliterMap = " + recipeList);
 		Gson gson = new GsonBuilder().serializeNulls().create();
         String jsonString = gson.toJson(recipeList);
-		// JSON-Simple을 사용하여 JSON으로 변환
 		
 
 //		request.setAttribute(cookingStyles, jsonObject);

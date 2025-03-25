@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-\
 import socket
-from google import genai
-from PIL import Image
 from youtube_transcript_api import YouTubeTranscriptApi
+from google import genai
 
 def main():
     host = '127.0.0.1'
@@ -22,8 +19,7 @@ def main():
     data = client_socket.recv(1024).decode('utf-8').strip()  # 줄바꿈 문자 제거
 
     message = getAiRecipe(data)
-
-    # 데이터 전송
+    
     client_socket.sendall(message.encode('utf-8') + b'\n')  # 데이터 전송
 
     client_socket.close()
