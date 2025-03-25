@@ -1,202 +1,212 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ include file="../../part/header.jsp"%>
 
 
 <style>
 .review-detail {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
+	max-width: 800px;
+	margin: 20px auto;
+	padding: 20px;
 }
 
 .review-detail img {
-    display: block;
-    margin: 20px auto;
+	display: block;
+	margin: 20px auto;
 }
 
 .comment-list {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .comment-item {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
 }
 
 .like-button {
-    background: none;
-    border: none;
-    padding: 0;
-    font-size: 20px;
-    color: red;
-    cursor: pointer;
+	background: none;
+	border: none;
+	padding: 0;
+	font-size: 20px;
+	color: red;
+	cursor: pointer;
 }
 
 .like-button.active {
-    color: darkred;
+	color: darkred;
 }
 
 .paging {
-    text-align: center;
-    margin-top: 20px;
+	text-align: center;
+	margin-top: 20px;
 }
 
 .paging a {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 3px;
-    border: 1px solid #ccc;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease; /* 추가 */
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0 3px;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	color: #333;
+	transition: background-color 0.3s ease, color 0.3s ease; /* 추가 */
 }
 
 .paging a.current {
-    background-color: #2E8B57;
-    color: white;
-    border-color: #007bff;
- 	
-   
+	background-color: #2E8B57;
+	color: white;
+	border-color: #007bff;
 }
 
 .paging a:hover {
-    background-color: #3CB371;
-    color: white;
+	background-color: #3CB371;
+	color: white;
 }
 
 .paging span {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 3px;
-    color: #999;
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0 3px;
+	color: #999;
 }
 
 /* 슬라이더 스타일 */
 .slick-slide {
-    margin: 10px;
+	margin: 10px;
 }
 
 .slick-slide img {
-    width: 100%;
-    border: 1px solid #ccc;
+	width: 100%;
+	border: 1px solid #ccc;
 }
 
-.slick-prev:before,
-.slick-next:before {
-    color: black;
+.slick-prev:before, .slick-next:before {
+	color: black;
 }
 </style>
 
 <div class="review-detail">
-    <h1>${review.reviewBoardTitle}</h1>
-    <p>글쓴이: ${userNickname}</p>
+	<h1>${review.reviewBoardTitle}</h1>
+	<p>글쓴이: ${userNickname}</p>
 
-    <!-- 이미지 슬라이더 -->
-    <div class="image-slider">
-    <c:if test="${not empty imagePaths}">
-        <c:forEach var="imagePath" items="${imagePaths}">
-            <div><img src="${ctx}/img/${imagePath}" alt="${review.reviewBoardTitle}"></div>
-        </c:forEach>
-    </c:if>
-</div>
+	<!-- 이미지 슬라이더 -->
+	<c:if test="${not empty imagePaths}">
+		<div class="image-slider">
+			<c:forEach var="imagePath" items="${imagePaths}">
+				<div>
+					<img src="${ctx}/img/${imagePath}" alt="${review.reviewBoardTitle}">
+				</div>
+			</c:forEach>
+		</div>
+	</c:if>
+	<c:if test="${empty imagePaths}">
+		<p>후기 이미지가 없습니다.</p>
+	</c:if>
 
-    <p>내용: ${review.reviewBoardContent}</p>
-    <p>조회수: ${review.reviewBoardViews}</p>
-    <p>
-        좋아요: <span id="like-count">
-            ${totalLikes}
-        </span>
-        <button class="like-button" onclick="toggleLike(${review.reviewBoardNum})">
-            <c:choose>
-                <c:when test="${liked}">
+	<p>내용: ${review.reviewBoardContent}</p>
+	<p>조회수: ${review.reviewBoardViews}</p>
+	<p>
+		좋아요: <span id="like-count"> ${totalLikes} </span>
+		<button class="like-button"
+			onclick="toggleLike(${review.reviewBoardNum})">
+			<c:choose>
+				<c:when test="${liked}">
                     ❤️
                 </c:when>
-                <c:otherwise>
+				<c:otherwise>
                     🤍
                 </c:otherwise>
-            </c:choose>
-        </button>
-    </p>
-    <c:if test="${recipe == null}">
-    <h3>참고 레시피</h3>
-    <p>참고한 레시피가 없습니다</p>
+			</c:choose>
+		</button>
+	</p>
+	<c:if test="${recipe == null}">
+		<h3>참고 레시피</h3>
+		<p>참고한 레시피가 없습니다</p>
 	</c:if>
 	<c:if test="${recipe != null}">
-    <c:if test="${recipe.recipeNum != 0}">
-        <h3>참고 레시피</h3>
-        <a href="${ctx}/recipeContent.do?rn=${recipe.recipeNum}"><!--나중에 레시피 디테일 나오면 그쪽으로 연결할거임-->
-            ${recipe.recipeName}
-        </a>
-    </c:if>
-</c:if>
-	
-    <p>작성일: ${review.reviewBoardCreated}</p>
-    <c:if test="${review.userNum == userNum}">
-    <div class="review-update-delete">
-    	<button onclick="location.href='${ctx}/reviewUpdate.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}'">수정하기</button>
-    	<button onclick="location.href='${ctx}/reviewDelete.do?reviewBoardNum=${review.reviewBoardNum}'">삭제하기</button>
-    </div>
-    </c:if>
-    <h3>댓글</h3>
-    <div class="comment-form">
-        <form action="${ctx}/commentAdd.do" method="post">
-			<input type="hidden" name="userNickname" value="${userNickname}">      
-            <input type="hidden" name="boardNum" value="${review.reviewBoardNum}">
-            <textarea name="commentContent" placeholder="댓글을 입력하세요" required
-                      style="height: 100px; width: 610px; resize: none"></textarea>
-            <button type="submit">댓글 작성</button>
-        </form>
-        	<button class="review-list-btn" onclick="location.href='${ctx}/reviews.do?page=1'">목록</button>
-    </div>
+		<c:if test="${recipe.recipeNum != 0}">
+			<h3>참고 레시피</h3>
+			<a href="${ctx}/recipeContent.do?rn=${recipe.recipeNum}">
+				${recipe.recipeName}
+			</a>
+		</c:if>
+	</c:if>
 
-    <div class="comment-list">
-        <c:forEach var="comment" items="${comments}">
-            <div class="comment-item" id="comment-item-${comment.commentNum}">
-                <div class="comment-div" id="comment-div-${comment.commentNum}">${comment.commentContent}</div>
-                <small>작성자: ${comment.userNickname}, 작성일:
-                        ${comment.commentCreated}</small>
-                <c:if test="${userNum eq comment.userNum or userNum eq 1}">
-                    <button class="comment-btn" id="comment-btn-${comment.commentNum}"
-                            onclick="showEdit(${comment.commentNum}, ${review.reviewBoardNum})">수정</button>
-                    <form action="${ctx}/commentDelete.do" method="post"
-                          style="display: inline;">
-                        <input type="hidden" name="commentNum"
-                               value="${comment.commentNum}">
-                        <input type="hidden" name="boardNum"
-                               value="${review.reviewBoardNum}">
-                        <input type="hidden" name="userNickname" value="${userNickname}">
-                        <button type="submit">삭제</button>
-                    </form>
-                </c:if>
-            </div>
-        </c:forEach>
-    </div>
- <div class="paging">
-    <c:if test="${commentPage > 1}">
-        <a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${commentPage - 1}">< 이전</a>
-    </c:if>
-    <c:if test="${commentPage <= 1}">
-        <span>< 이전</span>
-    </c:if>
-    <c:forEach var="i" begin="${startPage}" end="${endPage}">
-        <c:choose>
-            <c:when test="${i == commentPage}">
-                <a class="current" href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${i}">${i}</a>
-            </c:when>
-            <c:otherwise>
-                <a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${i}">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
-    <c:if test="${commentPage < totalCommentPages}">
-        <a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${commentPage + 1}">다음 ></a>
-    </c:if>
-    <c:if test="${commentPage >= totalCommentPages}">
-        <span>다음 ></span>
-    </c:if>
-</div>
+	<p>작성일: ${review.reviewBoardCreated}</p>
+	<c:if test="${review.userNum == userNum}">
+		<div class="review-update-delete">
+			<button
+				onclick="location.href='${ctx}/reviewUpdate.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}'">수정하기</button>
+			<button
+				onclick="location.href='${ctx}/reviewDelete.do?reviewBoardNum=${review.reviewBoardNum}'">삭제하기</button>
+		</div>
+	</c:if>
+	<h3>댓글</h3>
+	<div class="comment-form">
+		<form action="${ctx}/commentAdd.do" method="post">
+			<input type="hidden" name="userNickname" value="${userNickname}">
+			<input type="hidden" name="boardNum" value="${review.reviewBoardNum}">
+			<textarea name="commentContent" placeholder="댓글을 입력하세요" required
+				style="height: 100px; width: 610px; resize: none"></textarea>
+			<button type="submit">댓글 작성</button>
+		</form>
+		<button class="review-list-btn"
+			onclick="location.href='${ctx}/reviews.do?page=1'">목록</button>
+	</div>
+
+	<div class="comment-list">
+		<c:forEach var="comment" items="${comments}">
+			<div class="comment-item" id="comment-item-${comment.commentNum}">
+				<div class="comment-div" id="comment-div-${comment.commentNum}">${comment.commentContent}</div>
+				<small>작성자: ${comment.userNickname}, 작성일:
+					${comment.commentCreated}</small>
+				<c:if test="${userNum eq comment.userNum or userNum eq 1}">
+					<button class="comment-btn" id="comment-btn-${comment.commentNum}"
+						onclick="showEdit(${comment.commentNum}, ${review.reviewBoardNum})">수정</button>
+					<form action="${ctx}/commentDelete.do" method="post"
+						style="display: inline;">
+						<input type="hidden" name="commentNum"
+							value="${comment.commentNum}"> <input type="hidden"
+							name="boardNum" value="${review.reviewBoardNum}"> <input
+							type="hidden" name="userNickname" value="${userNickname}">
+						<button type="submit">삭제</button>
+					</form>
+				</c:if>
+			</div>
+		</c:forEach>
+	</div>
+	<div class="paging">
+		<c:if test="${commentPage > 1}">
+			<a
+				href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${commentPage - 1}"><
+				이전</a>
+		</c:if>
+		<c:if test="${commentPage <= 1}">
+			<span>< 이전</span>
+		</c:if>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<c:choose>
+				<c:when test="${i == commentPage}">
+					<a class="current"
+						href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${i}">${i}</a>
+				</c:when>
+				<c:otherwise>
+					<a
+						href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${i}">${i}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${commentPage < totalCommentPages}">
+			<a
+				href="${ctx}/reviewDetail.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}&commentPage=${commentPage + 1}">다음
+				></a>
+		</c:if>
+		<c:if test="${commentPage >= totalCommentPages}">
+			<span>다음 ></span>
+		</c:if>
+	</div>
 </div>
 
+<script src="${ctx}/js/board/slider.js"></script>
 <script src="${ctx}/js/board/comment.js"></script>
 <%@ include file="../../part/footer.jsp"%>

@@ -32,15 +32,15 @@
             </tr>
             <tr class="write-row">
                 <th>이미지 1</th>
-                <td><input type="file" name="img1" accept="image/*" required class="input-field"></td>
+                <td><input type="file" name="img1" accept="image/*" class="input-field"></td>
             </tr>
             <tr class="write-row">
             	<th>이미지2</th>
-                <td><input type="file" name="img2" accept="image/*" required class="input-field"></td>
+                <td><input type="file" name="img2" accept="image/*" class="input-field"></td>
             </tr>
             <tr class="write-row">
             	<th>이미지3</th>
-                <td><input type="file" name="img3" accept="image/*" required class="input-field"></td>
+                <td><input type="file" name="img3" accept="image/*" class="input-field"></td>
             </tr>
             <tr class="write-row">
                 <td colspan="2" class="write-Allbtn">
