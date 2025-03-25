@@ -25,14 +25,13 @@ public class JavaServer {
 			System.out.println("fullPath = " + fullPath);
 
 			File currentDir = new File(fullPath);
-			System.out.println("Current Directory: " + currentDir);
 
 			// Python 파일 실행
 			ProcessBuilder processBuilder = new ProcessBuilder("python", "PythonClient.py");
 			processBuilder.directory(currentDir); // 작업 디렉토리 설정
 			processBuilder.redirectErrorStream(true); // 오류 스트림을 표준 출력과 함께 출력
 			processBuilder.start();
-
+			
 			// 소켓 연결 대기
 			socket = serverSocket.accept();
 			reader = new InputStreamReader(socket.getInputStream(), java.nio.charset.StandardCharsets.UTF_8);
@@ -78,7 +77,15 @@ public class JavaServer {
 	public void reconnectSocket() {
 		try {
 			if (socket != null && socket.isClosed()) {
-				ProcessBuilder processBuilder = new ProcessBuilder("python", "./PythonClient.py");
+				String path = this.getClass().getClassLoader().getResource("").getPath();
+				String fullPath = java.net.URLDecoder.decode(path, "UTF-8") + "kr/smartReciFit/soketServer";
+				System.out.println("fullPath = " + fullPath);
+
+				File currentDir = new File(fullPath);
+
+				// Python 파일 실행
+				ProcessBuilder processBuilder = new ProcessBuilder("python", "PythonClient.py");
+				processBuilder.directory(currentDir); // 작업 디렉토리 설정
 				processBuilder.redirectErrorStream(true); // 오류 스트림을 표준 출력과 함께 출력
 				processBuilder.start();
 				// 소켓 연결 대기

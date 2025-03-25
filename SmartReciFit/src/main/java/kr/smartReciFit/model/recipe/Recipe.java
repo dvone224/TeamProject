@@ -11,6 +11,9 @@ import kr.smartReciFit.model.recipe.tags.RecipeType;
 /**
  * 
  */
+/**
+ * 
+ */
 public class Recipe {
 	protected int recipeNum;
 	protected String recipeName;
@@ -85,6 +88,22 @@ public class Recipe {
 
 	public CookingStyle getCookingStyle() {
 		return cookingStyle;
+	}
+
+	public void setRecipeThumbnail(String recipeThumbnail) {
+		this.recipeThumbnail = recipeThumbnail;
+	}
+
+	public void setRecipeType(RecipeType recipeType) {
+		this.recipeType = recipeType;
+	}
+
+	@Override
+	public String toString() {
+		return "Recipe [recipeNum=" + recipeNum + ", recipeName=" + recipeName + ", recipeType=" + recipeType
+				+ ", recipeIngredient=" + recipeIngredient + ", recipeSeasoning=" + recipeSeasoning + ", recipeManual="
+				+ recipeManual + ", recipeThumbnail=" + recipeThumbnail + ", cookingMethods=" + cookingMethods
+				+ ", ingredients=" + ingredients + ", eatTime=" + eatTime + ", cookingStyle=" + cookingStyle + "]";
 	}
 
 }
