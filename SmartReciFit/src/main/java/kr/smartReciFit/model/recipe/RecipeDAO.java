@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
-import kr.smartReciFit.server.JavaServer;
+import kr.smartReciFit.soketServer.JavaServer;
 import kr.smartReciFit.util.Config;
 
 public class RecipeDAO {

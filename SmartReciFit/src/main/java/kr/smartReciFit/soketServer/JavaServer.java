@@ -1,4 +1,4 @@
-package kr.smartReciFit.server;
+package kr.smartReciFit.soketServer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -22,7 +22,7 @@ public class JavaServer {
 	private JavaServer() {
 		try {
 			serverSocket = new ServerSocket(8000);
-			Runtime.getRuntime().exec("cmd /k start C:/KMK/python/PythonClient.bat");
+			Runtime.getRuntime().exec("cmd /k start ./PythonClient.bat");
 			socket = serverSocket.accept();
 			reader = new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8);
 			writer = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
