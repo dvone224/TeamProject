@@ -9,7 +9,7 @@
 <body>
 <script>
 	let contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));
-	location.href=contextPath+"/main.do";	
+	location.href=contextPath+"/main.do";
 </script>
 
 	<h1> home </h1>

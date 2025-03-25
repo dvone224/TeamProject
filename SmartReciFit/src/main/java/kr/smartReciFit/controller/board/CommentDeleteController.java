@@ -16,8 +16,6 @@ public class CommentDeleteController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String userId = (String) request.getSession().getAttribute("user");
-		System.out.println("userId?="+userId);
 		int commentNum = Integer.parseInt(request.getParameter("commentNum"));
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		String userNickname = request.getParameter("userNickname");
