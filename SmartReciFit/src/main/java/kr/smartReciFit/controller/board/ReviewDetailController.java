@@ -4,6 +4,9 @@ package kr.smartReciFit.controller.board;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 import jakarta.servlet.ServletException;
     import jakarta.servlet.http.HttpServletRequest;
     import jakarta.servlet.http.HttpServletResponse;
@@ -44,6 +47,19 @@ import kr.smartReciFit.model.recipe.RecipeDAO;
              ReviewBoardDAO dao = ReviewBoardDAO.getInstance();
              dao.viewCount(reviewBoardNum); // 조회수 증가
              ReviewBoard review = dao.getReviewById(reviewBoardNum);
+             
+             Gson gson = new Gson();
+             List<String> imagePaths;
+             
+             try {
+                 imagePaths = gson.fromJson(review.getReviewBoardImg(), List.class);
+             } catch (JsonSyntaxException e) {
+                 imagePaths = new ArrayList<>();
+                 imagePaths.add(review.getReviewBoardImg()); // 단일 이미지로 처리
+             } catch (Exception e) {
+                 imagePaths = new ArrayList<>();
+                 System.err.println("JSON 파싱 오류: " + e.getMessage());
+             }
 
              boolean isLiked = false;
              if (userNum != null) {
@@ -84,6 +100,7 @@ import kr.smartReciFit.model.recipe.RecipeDAO;
              request.setAttribute("totalCommentPages", totalCommentPages);
              request.setAttribute("startPage", startPage);
              request.setAttribute("endPage", endPage);
+             request.setAttribute("imagePaths", imagePaths);
              
              Recipe recipe = null;
              int recipeNum = review.getReviewBoardRecipeId();

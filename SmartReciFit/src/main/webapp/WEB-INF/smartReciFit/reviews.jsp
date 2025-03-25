@@ -16,60 +16,61 @@
 
 .review-item img {
 	cursor: pointer;
-    width: 100px;  /* 이미지 크기 조정 */
-    height: 100px;
-    object-fit: cover; /* 이미지 비율 유지 */
+	width: 100px; /* 이미지 크기 조정 */
+	height: 100px;
+	object-fit: cover; /* 이미지 비율 유지 */
 }
+
 .paging {
-    text-align: center;
-    margin-top: 20px;
+	text-align: center;
+	margin-top: 20px;
 }
 
 .paging a {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 3px;
-    border: 1px solid #ccc;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s ease, color 0.3s ease; /* 추가 */
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0 3px;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	color: #333;
+	transition: background-color 0.3s ease, color 0.3s ease; /* 추가 */
 }
 
 .paging a.current {
-    background-color: #2E8B57;
-    color: white;
-    border-color: #007bff;
+	background-color: #2E8B57;
+	color: white;
+	border-color: #007bff;
 }
 
 .paging a:hover {
-    background-color: #3CB371;
-    color: white;
+	background-color: #3CB371;
+	color: white;
 }
 
 .paging span {
-    display: inline-block;
-    padding: 5px 10px;
-    margin: 0 3px;
-    color: #999;
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0 3px;
+	color: #999;
 }
+
 .search-area {
-    text-align: center;
-    margin-top: 20px;
+	text-align: center;
+	margin-top: 20px;
 }
 
 .search-area-input {
-    padding: 5px;
-    border: 1px solid #ccc;
+	padding: 5px;
+	border: 1px solid #ccc;
 }
 
 .search-btn {
-    padding: 5px 10px;
-    background-color: #3CB371;
-    color: white;
-    border: none;
-    cursor: pointer;
+	padding: 5px 10px;
+	background-color: #3CB371;
+	color: white;
+	border: none;
+	cursor: pointer;
 }
-
 </style>
 
 <div class="review-list">
@@ -90,8 +91,16 @@
 			<c:forEach var="review" items="${reviews}">
 				<tr>
 					<td>${review.review_board_num}</td>
-					<td><img src="${ctx}/img/${review.review_board_img}"
-						alt="userReview-Image" width=100 height="100"></td>
+					<td><c:choose>
+							<c:when test="${not empty review.review_board_img}">
+								<img src="${ctx}/img/${review.review_board_img}"
+									alt="userReview-Image" width="100" height="100">
+							</c:when>
+							<c:otherwise> 
+								이미지 없음
+							</c:otherwise>
+						</c:choose>
+						</td>
 					<td><a
 						href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}&userNickname=${review.user_nickname}">
 							${review.review_board_title}</a></td>
@@ -103,9 +112,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-		<div class="post-area">
+	<div class="post-area">
 		<button type="button" class="review-write"
-		onclick="location.href='${ctx}/reviewWrite.do?user=${user}'">글쓰기</button>
+			onclick="location.href='${ctx}/reviewWrite.do?user=${user}'">글쓰기</button>
 	</div>
 	<div class="paging">
 		<c:if test="${page > 1}">
@@ -114,16 +123,16 @@
 		<c:if test="${page <= 1}">
 			<span>< 이전</span>
 		</c:if>
-		 <c:forEach var="i" begin="${startPage}" end="${endPage}">
-        <c:choose>
-            <c:when test="${i == page}">
-                <a class="current" href="${ctx}/reviews.do?page=${i}">${i}</a>
-            </c:when>
-            <c:otherwise>
-                <a href="${ctx}/reviews.do?page=${i}">${i}</a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<c:choose>
+				<c:when test="${i == page}">
+					<a class="current" href="${ctx}/reviews.do?page=${i}">${i}</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${ctx}/reviews.do?page=${i}">${i}</a>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
 		<c:if test="${page < totalPages}">
 			<a href="${ctx}/reviews.do?page=${page + 1}">다음 ></a>
 		</c:if>
@@ -132,15 +141,14 @@
 		</c:if>
 	</div>
 	<div class="search-area">
-	<form action="${ctx}/searchReviewBoard.do" method="post">
-	<select name="searchName">
-		<option value="title" selected>제목</option>
-		<option value="titleAndContent">제목+내용</option>
-	</select>
-	<input type="text" name="keyword" class="search-area-input">
-	<button type="submit" class="search-btn">검색</button>
-	
-	</form>
+		<form action="${ctx}/searchReviewBoard.do" method="post">
+			<select name="searchName">
+				<option value="title" selected>제목</option>
+				<option value="titleAndContent">제목+내용</option>
+			</select> <input type="text" name="keyword" class="search-area-input">
+			<button type="submit" class="search-btn">검색</button>
+
+		</form>
 	</div>
 </div>
 
