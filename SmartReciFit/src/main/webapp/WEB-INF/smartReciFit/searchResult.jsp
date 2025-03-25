@@ -91,7 +91,16 @@
                 <c:forEach var="review" items="${searchResults}">
                     <tr>
                         <td>${review.review_board_num}</td>
-                        <td><img src="${ctx}/img/${review.review_board_img}" alt="User Review Image" width="100" height="100"></td>
+                        <td><c:choose>
+							<c:when test="${not empty review.review_board_img}">
+								<img src="${ctx}/img/${review.review_board_img}"
+									alt="userReview-Image" width="100" height="100">
+							</c:when>
+							<c:otherwise> 
+								이미지 없음
+							</c:otherwise>
+						</c:choose>
+						</td>
                         <td><a href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}&userNickname=${review.user_nickname}">${review.review_board_title}</a></td>
                         <td>${review.user_nickname}</td>
                         <td>${review.review_board_created_at}</td>

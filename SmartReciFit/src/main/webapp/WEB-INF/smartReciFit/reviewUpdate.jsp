@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../../part/header.jsp"%>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.util.List" %>
 
 <div class="review-page">
 	<form action="${ctx}/reviewUpdateProcess.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}" method="post"
@@ -18,15 +20,24 @@
 						style="height: 100px; width: 610px; resize: none;">${review.reviewBoardContent}</textarea></td>
 			</tr>
 			<tr class="update-row">
-				<th>이미지</th>
-				<td>
-				<div class="review-image">
-					<img src="${ctx}/img/${review.reviewBoardImg}">
-				</div>
-				<input type="file" name="img" accept="image/*" class="input-field">
-				<input type="hidden" name="reiveImg" value="${review.reviewBoardImg}">
-				</td>
-			</tr>
+    <th>이미지</th>
+    <td>
+        <!-- 기존 이미지 표시 -->
+        <div class="review-image">
+            <c:if test="${not empty imagePaths}">
+                <c:forEach var="imagePath" items="${imagePaths}" varStatus="status">
+                    <div>
+                        <img id="previewImg${status.index + 1}" src="${ctx}/img/${imagePath}" alt="Image ${status.index + 1}" style="width: 100px; height: 100px; object-fit: cover; margin: 5px;">
+                        <input type="file" name="img${status.index + 1}"
+                               accept="image/*" class="input-field" onchange="previewImage(this, ${status.index + 1})">
+                        <input type="hidden" name="existingImg${status.index + 1}"
+                               value="${imagePath}">
+                    </div>
+                </c:forEach>
+            </c:if>
+        </div>
+    </td>
+</tr>
 			<tr class="write-row">
 				<td colspan="2" class="update-Allbtn">
 					<button type="submit" class="update-btn">수정하기</button>
@@ -39,5 +50,5 @@
 </div>
 
 	
-
+<script src="${ctx}/js/board/updateReview.js"></script>
 <%@ include file="../../part/footer.jsp"%>

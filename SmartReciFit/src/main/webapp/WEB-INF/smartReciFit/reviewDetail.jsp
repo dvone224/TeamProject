@@ -1,38 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ include file="../../part/header.jsp"%>
+
+
 <style>
 .review-detail {
-	max-width: 800px;
-	margin: 20px auto;
-	padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
 }
 
 .review-detail img {
-	display: block;
-	margin: 20px auto;
+    display: block;
+    margin: 20px auto;
 }
 
 .comment-list {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .comment-item {
-	border-bottom: 1px solid #ddd;
-	padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
 }
 
 .like-button {
-	background: none;
-	border: none;
-	padding: 0;
-	font-size: 20px;
-	color: red;
-	cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
 }
 
 .like-button.active {
-	color: darkred;
+    color: darkred;
 }
 
 .paging {
@@ -69,12 +71,36 @@
     margin: 0 3px;
     color: #999;
 }
+
+/* 슬라이더 스타일 */
+.slick-slide {
+    margin: 10px;
+}
+
+.slick-slide img {
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
 </style>
 
 <div class="review-detail">
     <h1>${review.reviewBoardTitle}</h1>
     <p>글쓴이: ${userNickname}</p>
-   <img src="${ctx}/img/${review.reviewBoardImg}" alt="${review.reviewBoardTitle}" width="400">
+
+    <!-- 이미지 슬라이더 -->
+    <div class="image-slider">
+    <c:if test="${not empty imagePaths}">
+        <c:forEach var="imagePath" items="${imagePaths}">
+            <div><img src="${ctx}/img/${imagePath}" alt="${review.reviewBoardTitle}"></div>
+        </c:forEach>
+    </c:if>
+</div>
+
     <p>내용: ${review.reviewBoardContent}</p>
     <p>조회수: ${review.reviewBoardViews}</p>
     <p>
@@ -171,7 +197,6 @@
     </c:if>
 </div>
 </div>
-
 
 <script src="${ctx}/js/board/comment.js"></script>
 <%@ include file="../../part/footer.jsp"%>

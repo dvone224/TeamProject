@@ -38,6 +38,7 @@ public class ReviewBoard {
 		this.reviewBoardContent = reviewBoardContent;
 	}
 
+	
 	public void setReviewBoardImg(String reviewBoardImg) {
 		this.reviewBoardImg = reviewBoardImg;
 	}
