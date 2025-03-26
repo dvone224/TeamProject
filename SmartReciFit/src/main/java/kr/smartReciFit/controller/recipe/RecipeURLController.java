@@ -15,7 +15,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
-import kr.smartReciFit.model.recipe.Recipe;
+import kr.smartReciFit.model.recipe.AiRecipe;
 import kr.smartReciFit.model.recipe.RecipeDAO;
 import kr.smartReciFit.model.recipe.tags.RecipeType;
 
@@ -28,48 +28,31 @@ public class RecipeURLController implements Controller {
 		if (url == null || url.length() == 0) {
 			return "recipes";
 		}
+		boolean isExist = true;
 		RecipeDAO dao = RecipeDAO.getInstance();
-
-		URI uri = null;
-		try {
-			uri = new URI(url);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		String videoId = null;
-
-		if (uri.getHost().equals("youtu.be")) {
-			String[] pathParts = uri.getPath().split("\\?");
-			videoId = pathParts[0].replaceFirst("/", "");
-		} else if (uri.getQuery() != null && uri.getQuery().contains("v=")) {
-			// v= 형식의 URL에서 비디오 ID 추출
-			String[] params = uri.getQuery().split("&");
-			for (String param : params) {
-				if (param.startsWith("v=")) {
-					videoId = URLDecoder.decode(param.substring(2), "UTF-8");
-				}
-			}
-		}
+		AiRecipe recipe = null;
+		String videoId = dao.getVideoId(url);
 		System.out.println("videoId = " + videoId);
+		recipe = dao.getAiRecipeByUrl(videoId);
+		if (recipe == null) {
+			String aiRecipe = dao.getRecipe(videoId);
+			Gson gson = new GsonBuilder().create();
+			recipe = gson.fromJson(aiRecipe, AiRecipe.class);
+			isExist = false;
+		}
 		request.setAttribute("rn", 1400);
-		String aiRecipe = dao.getRecipe(videoId);
-		System.out.println("aiRecipe = " + aiRecipe);
-		Gson gson = new GsonBuilder().create();
-		Recipe recipe = gson.fromJson(aiRecipe, Recipe.class);
-		String thumbnailUrl = "https://img.youtube.com/vi/" + videoId + "/maxresdefault.jpg";
-		recipe.setRecipeThumbnail(thumbnailUrl);
+
+		if (recipe.isAiRecipeBoolean()) {
+			String thumbnailUrl = "https://img.youtube.com/vi/" + videoId + "/maxresdefault.jpg";
+			recipe.setRecipeThumbnail(thumbnailUrl);
+			request.setAttribute("timeStamp", dao.getRecipeTimeStamp(recipe.getRecipeManualTimeStamp()));
+		}
+		if(!isExist) {
+			recipe.setAiRecipeUrl(videoId);
+			dao.insertAiRecipe(recipe);
+		}
 		recipe.setRecipeType(RecipeType.AI);
 		request.setAttribute("recipe", recipe);
-		String[] temp = recipe.getRecipeManual().split("\\|");
-		ArrayList<String> timeStamp = new ArrayList<String>();
-		Pattern pattern = Pattern.compile("\\(*\\)");
-		for (String step : temp) {
-			Matcher matcher = pattern.matcher(step);
-			if (matcher.find()) {
-				timeStamp.add(matcher.group(0).replace("(", "").replace(")", "").split("-")[0]);
-			}
-		}
-		request.setAttribute("timeStamp", timeStamp);
 		request.setAttribute("videoId", videoId);
 		return "recipeContent";
 	}

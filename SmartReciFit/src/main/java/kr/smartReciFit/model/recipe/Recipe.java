@@ -17,6 +17,7 @@ import kr.smartReciFit.model.recipe.tags.RecipeType;
 public class Recipe {
 	protected int recipeNum;
 	protected String recipeName;
+	protected double recipeMealSize = 1.0;
 	protected RecipeType recipeType;
 	protected String recipeIngredient;
 	protected String recipeSeasoning;
@@ -96,6 +97,14 @@ public class Recipe {
 
 	public void setRecipeType(RecipeType recipeType) {
 		this.recipeType = recipeType;
+	}
+
+	public void setRecipeNum(int recipeNum) {
+		this.recipeNum = recipeNum;
+	}
+
+	public double getRecipeMealSize() {
+		return recipeMealSize;
 	}
 
 	@Override

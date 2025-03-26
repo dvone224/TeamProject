@@ -22,6 +22,7 @@ import kr.smartReciFit.controller.board.ReviewUpdateProcessController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
 import kr.smartReciFit.controller.recipe.RecipeContentController;
+import kr.smartReciFit.controller.recipe.RecipeConverterController;
 import kr.smartReciFit.controller.board.SearchRecipesController;
 import kr.smartReciFit.controller.board.SearchReviewBoardController;
 import kr.smartReciFit.controller.recipe.RecipeFilterController;
@@ -91,6 +92,7 @@ public class HandlerMapping {
 		mappings.put("/recipeFilter.do", new RecipeFilterController());
 		mappings.put("/recipeURL.do", new RecipeURLController());
 		mappings.put("/recipeContent.do", new RecipeContentController());
+		mappings.put("/recipeConverter.do", new RecipeConverterController());
 		
 	}
 

@@ -198,9 +198,10 @@ public class ApiRecipeRawDataDAO {
 	public static void main(String[] args) {
 		ApiRecipeRawDataDAO dao = new ApiRecipeRawDataDAO();
 		ArrayList<ApiRecipeRawData> rawDataList = dao.getApiRecipeRawDataList();
-//		dao.refinerRecipeRawData(rawDataList);
+		dao.refinerRecipeRawData(rawDataList);
 		dao.updateRecipeImgs();
 //		dao.printInsertData();
+		
 
 	}
 

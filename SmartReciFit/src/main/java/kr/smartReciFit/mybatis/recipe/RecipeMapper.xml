@@ -6,7 +6,7 @@
 <mapper namespace="kr.smartReciFit.mybatis.recipe.RecipeMapper">
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into recipe
-		values(#{recipeNum},#{recipeName},#{recipeIngredient},#{recipeSeasoning},#{recipeManual},null);
+		values(null,#{recipeName},#{recipeMealSize},#{recipeIngredient},#{recipeSeasoning},#{recipeManual},null);
 	</insert>
 
 	<insert id="insertApiRecipe" parameterType="apiRecipe">
@@ -18,6 +18,11 @@
 	<insert id="insertTag" parameterType="recipe">
 		insert into tag
 		values(#{recipeNum},#{recipeType},#{eatTime},#{ingredients},#{cookingStyle},#{cookingMethods})
+	</insert>
+	
+	<insert id="insertAiRecipe" parameterType="aiRecipe">
+		INSERT INTO ai_recipe
+		VALUES(#{recipeNum},#{aiRecipeUrl},#{recipeManualTimeStamp},#{aiRecipeBoolean})
 	</insert>
 
 	<resultMap type="recipe" id="recipeResultMap">
@@ -58,6 +63,15 @@
 		<!-- ApiRecipe 클래스의 고유 필드 매핑 -->
 		<result property="apiRecipeNum" column="api_recipe_num" />
 		<result property="apiRecipeImg" column="api_recipe_img" />
+	</resultMap>
+	
+	<resultMap type="aiRecipe" id="AiRecipeResultMap"
+		extends="recipeResultMap">
+
+		<!-- AiRecipe 클래스의 고유 필드 매핑 -->
+		<result property="aiRecipeUrl" column="ai_recipe_url" />
+		<result property="recipeManualTimeStamp" column="recipe_manual_timeStamp" />
+		<result property="aiRecipeBoolean" column="ai_recipe_boolean" />
 	</resultMap>
 
 	<update id="updateEnumTag" parameterType="HashMap">
@@ -175,4 +189,22 @@
 		ON r.recipe_num = t.tag_recipe_id
 		WHERE recipe_num = ${recipeNum}
 	</select>
+	
+	<select id="getAiRecipeByUrl" parameterType="String" resultMap="AiRecipeResultMap">
+		SELECT *
+		FROM recipe r
+		INNER JOIN ai_recipe ar
+		ON
+		r.recipe_num=
+		ar.ai_recipe_num
+		INNER JOIN tag t
+		ON t.tag_recipe_id =
+		r.recipe_num
+		WHERE
+		ai_recipe_url = #{url}
+	</select>
+	
+	<select id="getLastInsertedId" resultType="int">
+        SELECT LAST_INSERT_ID()
+    </select>
 </mapper>
