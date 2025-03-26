@@ -1,6 +1,7 @@
 package kr.smartReciFit.controller.user;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import jakarta.servlet.ServletException;
@@ -51,9 +52,35 @@ public class UserContentController implements Controller {
 			String voEatTime=voInfo.getEatTime();
 			System.out.println(voIngredient);
 			
+			String[] voIngredientList = null;
+			String[] voCookingStyleList = null;
+			String[] voCookingMethodList = null;
+			String[] voEatTimeList = null;
+			
+			ArrayList<String> totalInfo=new ArrayList<String>(); 
+			
 			//문자열을 배열로 쪼개기
-			String[] voIngredientList = voIngredient.split("\\|");
-			System.out.println("voIngredientList: "+Arrays.toString(voIngredientList));
+			if(voIngredient!=null) {
+				voIngredientList = voIngredient.split("\\|");
+				System.out.println("voIngredientList: "+Arrays.toString(voIngredientList));
+			}
+			if(voCookingStyle!=null) {
+				voCookingStyleList = voCookingStyle.split("\\|");
+				System.out.println("voCookingStyleList: "+Arrays.toString(voCookingStyleList));
+			}
+			if(voCookingMethod!=null) {
+				voCookingMethodList = voCookingMethod.split("\\|");
+				System.out.println("voCookingMethodList: "+Arrays.toString(voCookingMethodList));
+			}
+			if(voEatTime!=null) {
+				voEatTimeList = voEatTime.split("\\|");
+				System.out.println("voEatTimeList: "+Arrays.toString(voEatTimeList));
+			}
+			
+			
+			
+			
+			
 			request.setAttribute("userInfoIngredient", voIngredientList);
 			
 			return "userContent";
