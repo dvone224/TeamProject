@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 
@@ -20,7 +21,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <header>
 	<div class="header-container">
@@ -44,6 +45,8 @@
 				</li>
 			</ul>
 		</nav>
+		
+		
 		<div class="user-actions">
 			<c:choose>
 				<c:when
@@ -55,6 +58,7 @@
 				</c:when>
 				<c:otherwise>
 					<!-- 로그인 상태일 때 -->
+					<button class="btn-create-recipe" onclick="location.href='${ctx}/createRecipe.do'">레시피등록</button>
 					<a href="${ctx}/logout.do" class="logout-btn">로그아웃</a>
 					<c:if test="${not empty sessionScope.user.userNickName}">
 						<a href="${ctx}/userContent.do?num=${sessionScope.log}">${sessionScope.user.userNickName}님</a>
