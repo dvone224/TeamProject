@@ -23,6 +23,11 @@
 	<select id="numGetUserInfo" parameterType="Integer" resultMap="userInfoResultMap">
 		select * from user_info where user_num=#{num2}
 	</select>
+	
+	<!-- num으로 유저인포 삭제하기 -->
+	<delete id="delUserInfobyUserNum" parameterType="integer">
+	delete from user_info where user_num=#{userNum};
+	</delete>
     
 	
 </mapper>

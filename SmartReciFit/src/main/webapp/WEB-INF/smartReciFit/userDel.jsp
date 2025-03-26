@@ -4,14 +4,17 @@
 <!DOCTYPE html>
 
 <!-- 예쁜 알람창용 스크립트 -->
+<%@ include file="../../part/header.jsp" %>
+<link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<table>
-<tr><td><h2>정말 탈퇴하시겠습니까?</h2></td></tr>
-<tr><td><p> 탈퇴를 원하신다면 다시 한 번 비밀번호를 입력해주세요.</p></td></tr>
-<tr><td><input type="text" name="pw-del" id="pw-del" /></td></tr>
-<tr><td><button class="btn-submit" name="btn-submit" id="btn-submit">탈퇴</button></td></tr>
-</table>
+<h2>정말 탈퇴하시겠습니까?</h2>
+<p> 회원탈퇴를 진행하면 기존에 작성했던 글과 덧글은 삭제, 수정할 수 없습니다.</p>
+<p> 원하신다면 탈퇴 전에 삭제, 수정해주세요.</p>
+<!-- <form id="userInfoForm" method="post" action="userDel.do"> -->
+<input type="checkbox" id="confirmCheckbox"> 확인했습니다
+<button class="btn-submit" name="btn-submit" id="btn-submit" disabled>탈퇴</button>
+<!-- </form> -->
 <script src="${ctx}/js/user/userDel.js"> </script>
 <%@ include file="../../part/footer.jsp" %>

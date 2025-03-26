@@ -60,7 +60,7 @@ public class MailSend implements Controller {
 		String timeLimitTimeForm = timeLimitTime.format(timeFormatter);
 		
 		//String subject = request.getParameter("subject");
-		String subject ="SmartReciFit 회원가입용 인증번호 "+num;
+		String subject ="SmartReciFit에서 발송한 인증번호입니다 "+num;
 		String content2 = "<table style='border-collapse: collapse; width: 100%;'>" +
 		        "<tr><td style='padding: 8px;'>인증번호</td><td style='padding: 8px;'>" + num + "</td></tr>" +
 		        "<tr><td style='padding: 8px;'>발송 시간</td><td style='padding: 8px;'>" + dayForm + " " + timeForm + "</td></tr>" +

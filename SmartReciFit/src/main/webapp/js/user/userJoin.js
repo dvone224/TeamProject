@@ -183,6 +183,7 @@ function validateField(input) {
             if (!value) {
                 message = '아아디는 영문 대소문자, 숫자, 기호로 이루어신 6-16자 사이로 입력해주세요';
                 isValid = false;
+				isIdValid=-1;
             }else if (!value.match(/^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{4,14}$/)) {
 			message = '올바른 아이디 형식이 아닙니다';
 			isValid = false;
@@ -228,8 +229,6 @@ function validateField(input) {
 
 		case 'phone':
 			if (!value) {
-			    message = '전화번호를 입력해주세요';
-			    isValid = false;
 		    } else if (!value.match(/^010-\d{3,4}-\d{4}$/)) {
 		        message = '전화번호 형식(010-XXXX-XXXX)이 맞지 않습니다';
 		        isValid = false;

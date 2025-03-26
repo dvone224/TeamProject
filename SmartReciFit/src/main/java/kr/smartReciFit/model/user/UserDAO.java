@@ -201,6 +201,28 @@ public class UserDAO {
 		        session.close();
 		    }
 		}
+
+	public Integer checkPw(String pw) {
+		SqlSession session = Config.getSession().openSession();
+		Integer num = session.selectOne("pwGetUserNum", pw);
+		session.close();
+		System.out.println("비밀번호 체크 num=" + num);
+		return num;
+	}
+
+	public void delUserbyUserNum(int userNum) {
+		SqlSession session = Config.getSession().openSession();
+		session.selectOne("delUserbyUserNum", userNum);
+		session.close();
+		System.out.println("유저 삭제");
+	}
+
+	public void delSocialbyUserNum(int userNum) {
+		SqlSession session = Config.getSession().openSession();
+		session.selectOne("delSocialbyUserNum", userNum);
+		session.close();
+		System.out.println("소셜 삭제");
+	}
 	 
 	 public boolean linkSocialAccount(int userNum, String platform, String email) {
 		    SqlSession session = Config.getSession().openSession();
