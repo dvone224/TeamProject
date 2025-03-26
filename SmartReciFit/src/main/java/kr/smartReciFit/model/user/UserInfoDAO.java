@@ -40,6 +40,13 @@ public class UserInfoDAO {
 		
 		return voInfo;
 	}
+
+	public void delUserInfobyUserNum(int userNum) {
+		SqlSession session = Config.getSession().openSession();
+		session.selectOne("delUserInfobyUserNum", userNum);
+		session.close();
+		System.out.println("인포 삭제");
+	}
 	
 	
 }

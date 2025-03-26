@@ -9,7 +9,7 @@
 
 <%@ include file="../../part/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
-	<h1> 회원가입 </h1>
+	<h1> 회원가입 </h1> 
 	
 	<form id="userJoinForm" action="${ctx}/userJoin.do" method="post"  enctype="multipart/form-data">
 	<table>
@@ -35,7 +35,7 @@
 	<td><button class="btn-checkNickName" name="btn-checkNickName" id="btn-checkNickName">닉네임 중복검사</button></td>
 	</tr>
 	<tr>
-	<td>이메일</td>
+	<td>이메일*</td>
 	<td><input type="text" name="email" id="email"></td>
 	<td><button class="btn-checkEmail" name="btn-checkEmail" id="btn-checkEmail" onclick="email_ok(email.value)">이메일인증</button></td>
 	</tr>

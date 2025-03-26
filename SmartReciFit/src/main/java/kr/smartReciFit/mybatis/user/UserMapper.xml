@@ -120,6 +120,23 @@
 		#{userNum}
 	</update>
 	
+		<!-- num으로 이름찾기 -->
+	<select id="pwGetUserNum" parameterType="String" resultType="integer">
+		select user_num from user where user_pw=#{pw}
+	</select>
+	
+	<!-- num으로 유저 삭제하기 -->
+	<delete id="delUserbyUserNum" parameterType="integer">
+	delete from user where user_num=#{userNum};
+	</delete>
+	
+		<!-- num으로 유저 삭제하기 -->
+	<delete id="delSocialbyUserNum" parameterType="integer">
+	delete from social where user_num=#{userNum};
+	</delete>
+	
+	
+	
 	
 
 	<update id="updateUser" parameterType="user">

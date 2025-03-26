@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="jakarta.tags.core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
 <div class="modal login-modal">
 	<div class="modal-content">
 		<button class="btn-close login-close">&times;</button> 
@@ -30,6 +33,9 @@
   data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left">
 </div>		<!-- 구글 로그인 버튼 노출 영역 -->
 		</div>
+	<div>
+         <a href="${ctx}/userFind.do">아이디 찾기</a> | <a href="${ctx}/userFind.do">비밀번호 찾기</a>
+      </div>
 
 	</div>
 </div>

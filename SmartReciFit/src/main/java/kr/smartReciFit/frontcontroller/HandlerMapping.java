@@ -35,6 +35,9 @@ import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.MainController;
 import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
 import kr.smartReciFit.controller.user.UserContentController;
+import kr.smartReciFit.controller.user.UserDelController;
+import kr.smartReciFit.controller.user.UserFindController;
+import kr.smartReciFit.controller.user.UserFixController;
 import kr.smartReciFit.controller.user.UserInfoController;
 
 
@@ -53,6 +56,10 @@ public class HandlerMapping {
 		//마이페이지 관련 맵핑
 		mappings.put("/userContent.do",  new UserContentController());
 		mappings.put("/userInfo.do",  new UserInfoController());
+		mappings.put("/userFix.do",  new UserFixController());
+		mappings.put("/userDel.do",  new UserDelController());
+		
+		mappings.put("/userFind.do",  new UserFindController());
 		
 		
 		// 로그인 관련 작업 (나경)

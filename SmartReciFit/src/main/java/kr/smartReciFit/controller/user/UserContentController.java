@@ -63,25 +63,33 @@ public class UserContentController implements Controller {
 			if(voIngredient!=null) {
 				voIngredientList = voIngredient.split("\\|");
 				System.out.println("voIngredientList: "+Arrays.toString(voIngredientList));
+		        for (String info : voIngredientList) {
+		            totalInfo.add(info);
+		        }
 			}
 			if(voCookingStyle!=null) {
 				voCookingStyleList = voCookingStyle.split("\\|");
 				System.out.println("voCookingStyleList: "+Arrays.toString(voCookingStyleList));
+		        for (String info : voCookingStyleList) {
+		            totalInfo.add(info);
+		        }
 			}
 			if(voCookingMethod!=null) {
 				voCookingMethodList = voCookingMethod.split("\\|");
 				System.out.println("voCookingMethodList: "+Arrays.toString(voCookingMethodList));
+		        for (String info : voCookingMethodList) {
+		            totalInfo.add(info);
+		        }
 			}
 			if(voEatTime!=null) {
 				voEatTimeList = voEatTime.split("\\|");
 				System.out.println("voEatTimeList: "+Arrays.toString(voEatTimeList));
+				for (String info : voEatTimeList) {
+		            totalInfo.add(info);
+		        }
 			}
-			
-			
-			
-			
-			
-			request.setAttribute("userInfoIngredient", voIngredientList);
+			System.out.println("totalInfo: " + totalInfo.toString());
+			request.setAttribute("totalInfo", totalInfo);
 			
 			return "userContent";
 			
