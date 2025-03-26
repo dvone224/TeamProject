@@ -18,6 +18,7 @@ public class LinkSocialLoginController implements Controller {
 
 	    HttpSession session = request.getSession();
 	    User user = (User) session.getAttribute("user");
+	    System.out.println(user);
 
 	    if (user == null) {
 	    	// 로그인하지 않은 경우, 메시지를 세션에 저장하고 main 페이지로 리다이렉트
@@ -27,6 +28,8 @@ public class LinkSocialLoginController implements Controller {
 
 	    String platform = request.getParameter("platform");
 	    String email = request.getParameter("email");
+	    System.out.println(platform);
+	    System.out.println(email);
 
 	    boolean linked = UserDAO.getInstance().linkSocialAccount(user.getUserNum(), platform, email);
 
@@ -36,7 +39,7 @@ public class LinkSocialLoginController implements Controller {
 	        session.setAttribute("message", "이미 연동된 계정입니다.");
 	    }
 
-	    return "main";
+	    return "userContent";
 	}
 	
 }

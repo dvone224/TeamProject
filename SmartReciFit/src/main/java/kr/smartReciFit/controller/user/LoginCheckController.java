@@ -33,17 +33,26 @@ public class LoginCheckController implements Controller {
 	        	  HttpSession session = request.getSession();
 	        	  String nickName = UserDAO.getInstance().getNickName(id);
 	        	   int userNum=(int)UserDAO.getInstance().checkId(id);
+	        	   user = UserDAO.getInstance().numGetUser(userNum);
+	        	   
 	        	   session.setAttribute("user", user); // User 객체를 세션에 저장
+	        	   System.out.println(user);
+	        	   System.out.println("------------------------");
 	        	   session.setAttribute("log", userNum); // 로그에 사용자 num 저장
 	        	   session.setAttribute("nickName", nickName);
 	        	   System.out.println(session.getAttribute("nickName"));
 	        	   System.out.println(session.getAttribute("log"));
-	            response.getWriter().write("success");
-	        } else {
-	            response.getWriter().write("failure");
-	        }
-	        return null; // 응답을 직접 보냈으므로 뷰를 반환하지 않음
-	    }
-	}
+	        	// 관리자 로그인 확인
+	               if ("admin".equals(user.getUserId())) {
+	                   response.getWriter().write("admin_success"); // 관리자 로그인 성공
+	               } else {
+	                   response.getWriter().write("success"); // 일반 로그인 성공
+	               }
+	           } else {
+	               response.getWriter().write("failure"); // 로그인 실패
+	           }
+	           return null; // 응답을 직접 보냈으므로 뷰를 반환하지 않음
+	       }
+	   }
 
 

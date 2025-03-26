@@ -37,7 +37,7 @@ public class SaveSocialLoginInfo implements Controller {
 
 	        // ✅ social 테이블에서 이메일 확인 (기존 소셜 계정인지 체크)
 	        SocialDTO existingSocial = userDAO.getSocialByEmail(email);
-	        System.out.println(existingSocial);
+	        System.out.println(existingSocial); // NULL이면 신규, NULL이 아니면 기존
 	        response.setContentType("text/plain");
 	        PrintWriter out = response.getWriter();
 	        
@@ -51,6 +51,9 @@ public class SaveSocialLoginInfo implements Controller {
 	                request.setAttribute("platform", platform);
 	                request.setAttribute("email", email);
 	                request.setAttribute("nickname", nickname);
+	                session.setAttribute("platform", platform);
+	                session.setAttribute("email", email);
+	                System.out.println("닉네임 중복 if문");
 	                out.print("닉네임 중복");
 	                out.close();
 	                return null; // 닉네임 입력 폼으로 이동
@@ -76,7 +79,7 @@ public class SaveSocialLoginInfo implements Controller {
 	            userDAO.InsertSocialInfo(socialDTO);
 	            
 	        }
-
+            System.out.println("세션 저장하는 곳");
 	        // ✅ 세션 저장 (로그인 처리)
 	        User loggedInUser = userDAO.getUserByNum(userNum);
 	        System.out.println(loggedInUser);
@@ -85,8 +88,6 @@ public class SaveSocialLoginInfo implements Controller {
 	        session.setAttribute("nickName", loggedInUser.getUserNickName());
 
 	        System.out.println("세션 저장 완료: " + session.getAttribute("log") + " / " + session.getAttribute("nickName"));
-	        out.print("유저 생성 성공");
-	        out.close();
-	        return null;//fdsjkgljfd//
+	        return "main";
 	    }
 	}
