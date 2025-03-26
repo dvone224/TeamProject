@@ -61,51 +61,38 @@
 </table>
 </c:if>
 
-<!-- 소셜 로그인일때 테이블 -->
-<%-- <c:if test="${userContent.platformK==true||userContent.platformN==true||userContent.platformG==true}">
-<table>
-
-<c:if test="${userContent.platformK==true}"> <tr><td colspan="2">카카오 로그인 계정입니다</td><td><button id="btn-socialOutK">연동해제</button></td></tr></c:if>
-<c:if test="${userContent.platformN==true}"> <tr><td colspan="2">네이버 로그인 계정입니다</td><td><button id="btn-socialOutN">연동해제</button></td></tr></c:if>
-<c:if test="${userContent.platformG==true}"> <tr><td colspan="2">구글 로그인 계정입니다</td><td><button id="btn-socialOutG">연동해제</button></td></tr></c:if>
-
-<tr>
-<td colspan="3"> <button name="fixImg" id="fixImg">수정</button> </td>
-</tr>
-<tr>
-<td colspan="3">
-<div class="userContentImg">
-<c:if test="${not empty userContent.userImg}">
-<img src="${ctx}/img/${userContent.userImg}" class="photo" id="userImg"/>
-</c:if>
-<c:if test="${empty userContent.userImg}">
-<img src="${ctx}/img/ProfileBasicImg.png" class="photo" id="default"/>
-</c:if>
-</div>
-</td>
-</tr>
-<tr>
-<td colspan="3"><button name="fixImg" id="fixImg">수정</button></td>
-</tr>
+<table border="1">
+    <tr>
+        <td>카카오 계정 연동</td>
+        <td>
+            <form action="${ctx}/linkSocial.do" method="POST">
+                <input type="hidden" name="platform" value="kakao">
+                <input type="hidden" name="email" value="${sessionScope.socialLogin.kakao}">
+                <button type="submit">연동</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>네이버 계정 연동</td>
+        <td>
+            <form action="${ctx}/linkSocial.do" method="POST">
+                <input type="hidden" name="platform" value="naver">
+                <input type="hidden" name="email" value="${sessionScope.socialLogin.naver}">
+                <button type="submit">연동</button>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>구글 계정 연동</td>
+        <td>
+            <form action="${ctx}/linkSocial.do" method="POST">
+                <input type="hidden" name="platform" value="google">
+                <input type="hidden" name="email" value="${sessionScope.socialLogin.google}">
+                <button type="submit">연동</button>
+            </form>
+        </td>
+    </tr>
 </table>
-</c:if>
-
-<!-- 일만 로그인만 있을때: 소셜로그인 연동 시도 버튼/회원탈퇴 -->
-<!-- 소셜 로그인만 있을때: 회원가입 시도 버튼/회원탈퇴 -->
-<!-- 일반+소셜 로그인 있을때: 연동해제/회원탈퇴 -->
-<div class="btn-box">
-<c:choose>
-<c:when test="${userContent.platformK==false&&userContent.platformN==false&&userContent.platformG==false}">
-<button id="btn-socialInK">카카오 연동</button>
-<button id="btn-socialInN">네이버 연동</button>
-<button id="btn-socialInG">구글 연동</button>
-</c:when>
-<c:when test="${empty userContent.userId}">
-<button id="btn-UserJoin">회원가입</button>
-<!-- 기존 회원가입 페이지로 연결되는데, 로그인 상태인지 아닌지로 판단하기: 로그인 상태에서 넘어가면 추가로직으로, 아니면 가입로직으로 -->
-</c:when>
-</c:choose> --%>
-
 <c:choose>
 <c:when test="${empty voInfo}">
 <table>

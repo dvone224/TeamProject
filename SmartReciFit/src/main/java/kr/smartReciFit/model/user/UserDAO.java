@@ -207,7 +207,7 @@ public class UserDAO {
 		    boolean success = false;
 
 		    try {
-		        // 1️⃣ 기존 소셜 이메일이 이미 등록되어 있는지 확인
+		        // 1️ 기존 소셜 이메일이 이미 등록되어 있는지 확인
 		        Map<String, Object> params = new HashMap<>();
 		        params.put("email", email);
 		        int count = session.selectOne("checkExistingSocialEmail", params);
@@ -217,7 +217,7 @@ public class UserDAO {
 		            return false;
 		        }
 
-		        // 2️⃣ 기존 social 테이블에 user_num이 있는지 확인
+		        // 2️ 기존 social 테이블에 user_num이 있는지 확인
 		        params.put("userNum", userNum);
 		        int existingSocial = session.selectOne("checkExistingSocialByUserNum", userNum);
 
@@ -231,7 +231,7 @@ public class UserDAO {
 		                System.out.println("소셜 계정이 기존 유저 계정과 성공적으로 연동되었습니다.");
 		            }
 		        } else {
-		            // 4️⃣ 기존 데이터가 없으면 새로 INSERT
+		            // 4️ 기존 데이터가 없으면 새로 INSERT
 		            SocialDTO socialDTO = new SocialDTO();
 		            socialDTO.setUserNum(userNum);
 		            if ("kakao".equals(platform)) socialDTO.setKakao(email);
@@ -263,6 +263,21 @@ public class UserDAO {
 		    }
 		}
 	 
+	    public String findUserId(String name, String email) {
+	        SqlSession session = Config.getSession().openSession();
+	        User user = new User();
+	        user.setUserName(name);
+	        user.setUserEmail(email);
+
+	        String userId = session.selectOne("findUserId", user);
+	        session.close();
+	        return userId;
+	    }
+	    
+	    
+	    
+
+
 
 	 
 
