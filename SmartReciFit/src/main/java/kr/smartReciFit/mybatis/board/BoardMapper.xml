@@ -27,7 +27,7 @@
 			javaType="String" />
 		<result property="recipeNum" column="recipe_num" />
 		<result property="recipeName" column="recipe_name" />
-		<result property="recipeThumbnail" column="recipe_thumbnail"/>
+		<result property="recipeThumbnail" column="recipe_thumbnail" />
 	</resultMap>
 	<resultMap id="commentResultMap" type="comment">
 		<id property="commentNum" column="comment_num" />
@@ -41,6 +41,21 @@
 		<result property="commentCreated" column="comment_created_at" />
 
 		<result property="userNickname" column="user_nickname" />
+	</resultMap>
+	<resultMap id="eventMap"
+		type="kr.smartReciFit.model.board.Event">
+		<id property="eventId" column="event_id" />
+		<result property="eventTitle" column="event_title" />
+		<result property="eventImg" column="event_img" />
+		<result property="introductionText" column="introduction_text" />
+		<result property="startDate" column="start_date"
+			javaType="java.sql.Date" jdbcType="DATE" />
+		<result property="endDate" column="end_date"
+			javaType="java.sql.Date" jdbcType="DATE" />
+		<result property="selectionCriteria"
+			column="selection_criteria" />
+		<result property="winnerCount" column="winner_count" />
+		<result property="guidelines" column="guidelines" />
 	</resultMap>
 
 	<select id="getTop3RecipesByViews" resultMap="reviewBoardMap">
@@ -58,9 +73,11 @@
 		r.recipe_name,
 		r.recipe_thumbnail
 		FROM review_board rb
-		LEFT JOIN recipe r ON rb.review_board_recipe_id = r.recipe_num
+		LEFT JOIN recipe r ON
+		rb.review_board_recipe_id = r.recipe_num
 		ORDER
-		BY review_board_views DESC
+		BY review_board_views
+		DESC
 		LIMIT 3
 	</select>
 
@@ -76,13 +93,16 @@
 		review_board_img,
 		review_board_views,
 		review_board_likes,
-		date_format(CURRENT_TIMESTAMP, '%Y-%m-%d') as review_board_created_at,
+		date_format(CURRENT_TIMESTAMP,
+		'%Y-%m-%d') as review_board_created_at,
 		r.recipe_num,
 		r.recipe_name,
 		r.recipe_thumbnail
 		FROM review_board rb
-		LEFT JOIN recipe r ON rb.review_board_recipe_id = r.recipe_num
-		ORDER BY review_board_likes DESC
+		LEFT JOIN recipe r ON
+		rb.review_board_recipe_id = r.recipe_num
+		ORDER BY review_board_likes
+		DESC
 		LIMIT 3;
 	</select>
 
@@ -316,4 +336,19 @@
 
 	</select>
 
+	<select id="getEventById" parameterType="int"
+		resultMap="eventMap">
+		SELECT
+		event_id, 
+		event_title,
+		event_img,
+		introduction_text,
+		start_date,
+		end_date,
+		selection_criteria,
+		winner_count,
+		guidelines
+		FROM event
+		WHERE event_id = #{eventId}
+	</select>
 </mapper>

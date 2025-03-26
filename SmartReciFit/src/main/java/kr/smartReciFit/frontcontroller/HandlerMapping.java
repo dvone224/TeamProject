@@ -3,6 +3,7 @@ package kr.smartReciFit.frontcontroller;
 
 import java.io.IOException;
 
+
 import java.util.HashMap;
 
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.controller.board.CommentAddController;
 import kr.smartReciFit.controller.board.CommentDeleteController;
 import kr.smartReciFit.controller.board.CommentUpdateController;
+import kr.smartReciFit.controller.board.EventBoardController;
+import kr.smartReciFit.controller.board.EventDetailController;
 import kr.smartReciFit.controller.board.LikeController;
 import kr.smartReciFit.controller.board.RankingController;
 import kr.smartReciFit.controller.board.ReviewController;
@@ -21,12 +24,14 @@ import kr.smartReciFit.controller.board.ReviewUpdateController;
 import kr.smartReciFit.controller.board.ReviewUpdateProcessController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
+import kr.smartReciFit.controller.recipe.CreateRecipeController;
 import kr.smartReciFit.controller.recipe.RecipeContentController;
 import kr.smartReciFit.controller.board.SearchRecipesController;
 import kr.smartReciFit.controller.board.SearchReviewBoardController;
 import kr.smartReciFit.controller.recipe.RecipeFilterController;
 import kr.smartReciFit.controller.recipe.RecipeURLController;
 import kr.smartReciFit.controller.recipe.RecipesController;
+import kr.smartReciFit.controller.recipe.SaveRecipeController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.LoginSuccessController;
@@ -85,12 +90,17 @@ public class HandlerMapping {
 		mappings.put("/like.do", new LikeController());
 		mappings.put("/searchRecipes.do", new SearchRecipesController());
 		mappings.put("/searchReviewBoard.do", new SearchReviewBoardController());
+		mappings.put("/events.do", new EventBoardController());
+		mappings.put("/eventDetail.do", new EventDetailController());
+		mappings.put("/createRecipe.do", new CreateRecipeController());
 		
 		// 레시피 페이지
 		mappings.put("/recipes.do", new RecipesController());
 		mappings.put("/recipeFilter.do", new RecipeFilterController());
 		mappings.put("/recipeURL.do", new RecipeURLController());
 		mappings.put("/recipeContent.do", new RecipeContentController());
+		mappings.put("/saveRecipe.do", new SaveRecipeController());
+		
 		
 	}
 
