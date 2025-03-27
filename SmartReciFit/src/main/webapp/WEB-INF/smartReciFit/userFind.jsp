@@ -10,24 +10,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <h2>내 계정 찾기</h2>
-<p>회원정보에 등록된 이메일로 본인인증을 진행해주세요.</p>
+<p>회원정보에 등록된 이메일로 본인인증을 진행해주세요. 만약 이메일을 등록하지 않았다면 해당 메뉴는 사용할 수 없습니다.</p>
 <table>
     <tr>
-        <td><input type="text" id="findEmail"></td>
-        <td><button class="btn-submit" name="btn-submit" id="sendEmailButton" disabled>인증메일 발송</button></td>
+        <td><input type="text" name="email" id="email"></td></td>
+        <td><button class="btn-checkEmail" name="btn-checkEmail" id="btn-checkEmail" onclick="email_ok(email.value)">이메일인증</button></td>
     </tr>
     <tr>
-        <td><input type="text" id="verificationCode"></td>
-        <td><button class="btn-submit" name="btn-submit" id="verifyButton">인증확인</button></td>
+    <td colspan="2"><div class="foldCount" id="countdown" style="display: none;"></div></td>
+    </tr>
+    <tr>
+        <td><input type="text" name="checkEmailOk" id="checkEmailOk"  placeholder="인증번호를 입력해주세요"></td>
+        <td><button class="btn-checkEmailOk" name="btn-checkEmailOk" id="btn-checkEmailOk">인증완료</button></td>
     </tr>
 </table>
 
 <div class="foldBox" style="display: none;">
     <p>인증이 완료되었습니다. 원하는 메뉴를 선택하세요.</p>
-    <button class="btn-submit" name="btn-submit" id="findIdButton" disabled>아이디찾기</button>
-    <button class="btn-submit" name="btn-submit" id="resetPasswordButton" disabled>비밀번호 재설정</button>
+    <button class="btn-submit" name="btn-submit" id="btn-findId" onclick="location.href='${ctx}/userFindId.do'">아이디찾기</button>
+    <button class="btn-submit" name="btn-submit" id="btn-resetPw" onclick="location.href='${ctx}/userResetPw.do'" >비밀번호 재설정</button>
 </div>
-
 
 <script src="${ctx}/js/user/userFind.js"> </script>
 <%@ include file="../../part/footer.jsp" %>

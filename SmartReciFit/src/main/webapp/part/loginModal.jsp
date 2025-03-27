@@ -32,7 +32,7 @@
 </div>		<!-- 구글 로그인 버튼 노출 영역 -->
 		</div>
 	<div>
-         <a href="${ctx}/userFind.do">아이디 찾기</a> | <a href="${ctx}/userFind.do">비밀번호 찾기</a>
+         <a href="${ctx}/userFind.do">아이디 찾기 또는 비밀번호 찾기</a>
       </div>
 
 

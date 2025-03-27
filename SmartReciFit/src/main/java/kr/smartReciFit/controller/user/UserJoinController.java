@@ -80,14 +80,25 @@ public class UserJoinController implements Controller {
 			//유저 가입완료 알람창 + 정보 입력 할지
 			UserDAO.getInstance().UserJoin(id,pw,name,nickName,email,phone,profileImg);
 			System.out.println("회원 가입 성공");
-//			out.println("<script>alert('회원 가입 성공.'); location.href='" + ctx + "/userInfo.do';</script>");
 			out.println("<script>location.href='" + ctx + "/userInfo.do';</script>");
 			out.close();
+			
 //			return "redirect:" + ctx + "/userInfo.do";
 		}catch (Exception e) {
 			e.printStackTrace();
-			out.println("<script> alert('회원 가입 실패');");
-			out.println("history.go(-1); </script>"); 
+			out.println("<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>");
+			out.println("<script>");
+			out.println("window.onload = function() {");
+			out.println("  Swal.fire({");
+			out.println("title: '회원 가입 실패!',");
+			out.println("text: '오류가 발생했습니다',");
+			out.println("icon: 'error,");
+			out.println("confirmButtonText: '확인'}).then(function() {");
+			out.println("    history.go(-1);");
+			out.println("  });");
+			out.println("};");
+			out.println("</script>");
 			System.out.println("회원 가입 실패");
 			out.close();
 //			return "userJoin.do";
