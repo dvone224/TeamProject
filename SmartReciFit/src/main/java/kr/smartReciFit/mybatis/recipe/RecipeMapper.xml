@@ -207,4 +207,23 @@
 	<select id="getLastInsertedId" resultType="int">
         SELECT LAST_INSERT_ID()
     </select>
+    
+    <select id="getRecipeByStartEnd" parameterType="HashMap" resultMap="recipeResultMap">
+    	SELECT *
+		FROM recipe r
+		INNER JOIN tag t
+		ON r.recipe_num = t.tag_recipe_id
+		ORDER BY r.recipe_num
+		LIMIT #{limit} OFFSET #{start};
+    </select>
+    
+    <select id="getRecipeCount" resultType="int">
+    	SELECT COUNT(*)
+		FROM recipe;
+    </select>
+    
+    <delete id="deleteRecipeByRecipeNum" parameterType="int">
+    	DELETE FROM recipe
+    	WHERE recipe_num = #{recipeNum}
+    </delete>
 </mapper>

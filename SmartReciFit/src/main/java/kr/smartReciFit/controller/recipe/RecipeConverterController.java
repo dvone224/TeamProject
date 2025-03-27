@@ -2,9 +2,12 @@ package kr.smartReciFit.controller.recipe;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,8 +32,17 @@ public class RecipeConverterController implements Controller {
 			jsonData = gson.fromJson(jsonString, JsonObject.class);
 		}
 		String jsonString = gson.toJson(jsonData);
+
 		String result = RecipeDAO.getInstance().getRecipeConverter(jsonString);
 		System.out.println("result = "+result);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		// JSON 응답 전송
+		PrintWriter out = response.getWriter();
+        out.print(result);
+        out.flush();
+		
 		return null;
 	}
 

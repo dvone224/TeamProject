@@ -38,7 +38,9 @@ checkBoxList.forEach(e => e.addEventListener('change', function() {
 		let html = '';
 		data.forEach(e=> {
 			html += `<div class="recipe ${e["recipeNum"]}">`;
-			html += `<img class="recipe-img ${e["recipeNum"]}" src="${e["recipeThumbnail"]}" alt="" width="300px" height="300px">`;
+			html += '<div class="recipe-img">'
+			html += `<img class="img ${e["recipeNum"]}" src="${e["recipeThumbnail"]}" alt="" width="300px" height="auto">`;
+			html += '</div>'
 			html += `${e["recipeName"]}</div>`
 		})
 		recipeContainer.innerHTML = html;

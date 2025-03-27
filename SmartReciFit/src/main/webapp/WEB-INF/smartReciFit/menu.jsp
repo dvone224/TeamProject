@@ -11,7 +11,7 @@
     </ul>
     <h3>콘텐츠 관리</h3>
     <ul>
-        <li><a href="${ctx}/mainPage.do">레시피</a></li>
+        <li><a href="${ctx}/adminRecipe.do?page=1">레시피</a></li>
         <li><a href="${ctx}/playList.do">랭킹</a></li>
         <li><a href="${ctx}/trendInfo.do">후기</a></li>
         <li><a href="${ctx}/keyword.do">EVENT</a></li>

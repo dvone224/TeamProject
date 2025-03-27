@@ -1,15 +1,11 @@
 package kr.smartReciFit.frontcontroller;
 
-import java.io.IOException;
-
-
 import java.util.HashMap;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.controller.admin.AdminMainController;
+import kr.smartReciFit.controller.admin.AdminRecipeController;
+import kr.smartReciFit.controller.admin.AdminRecipeDeleteController;
 import kr.smartReciFit.controller.admin.AdminUserController;
 import kr.smartReciFit.controller.admin.DailyStatusController;
 import kr.smartReciFit.controller.admin.InquiryController;
@@ -33,25 +29,22 @@ import kr.smartReciFit.controller.board.ReviewUpdateController;
 import kr.smartReciFit.controller.board.ReviewUpdateProcessController;
 import kr.smartReciFit.controller.board.ReviewWriteController;
 import kr.smartReciFit.controller.board.ReviewWriteProcessController;
+import kr.smartReciFit.controller.board.SearchRecipesController;
+import kr.smartReciFit.controller.board.SearchReviewBoardController;
 import kr.smartReciFit.controller.recipe.CreateRecipeController;
 import kr.smartReciFit.controller.recipe.RecipeContentController;
 import kr.smartReciFit.controller.recipe.RecipeConverterController;
-import kr.smartReciFit.controller.board.SearchRecipesController;
-import kr.smartReciFit.controller.board.SearchReviewBoardController;
 import kr.smartReciFit.controller.recipe.RecipeFilterController;
 import kr.smartReciFit.controller.recipe.RecipeURLController;
 import kr.smartReciFit.controller.recipe.RecipesController;
 import kr.smartReciFit.controller.recipe.SaveRecipeController;
-import kr.smartReciFit.controller.user.LoginCheckController;
-import kr.smartReciFit.controller.user.MailSend;
-import kr.smartReciFit.controller.user.LoginSuccessController;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
 import kr.smartReciFit.controller.user.LinkSocialLoginController;
-import kr.smartReciFit.controller.user.UserJoinController;
-import kr.smartReciFit.controller.user.VaildIdAjaxController;
-
 import kr.smartReciFit.controller.user.LogOutController;
+import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.LoginSuccessController;
+import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.MainController;
 import kr.smartReciFit.controller.user.NicknameInputFormController;
 import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
@@ -60,6 +53,8 @@ import kr.smartReciFit.controller.user.UserDelController;
 import kr.smartReciFit.controller.user.UserFindController;
 import kr.smartReciFit.controller.user.UserFixController;
 import kr.smartReciFit.controller.user.UserInfoController;
+import kr.smartReciFit.controller.user.UserJoinController;
+import kr.smartReciFit.controller.user.VaildIdAjaxController;
 
 public class HandlerMapping {
 	private HashMap<String, Controller> mappings;
@@ -105,6 +100,8 @@ public class HandlerMapping {
 		mappings.put("/visitAnalysis.do", new VisitAnalysisController()); // 방문 분석
 		mappings.put("/userAnalysis.do", new UserAnalysisController()); // 사용자 분석
 		mappings.put("/viewRanking.do", new ViewRankingController()); // 조회수 순위
+		mappings.put("/adminRecipe.do", new AdminRecipeController());
+		mappings.put("/adminRecipeDelete.do", new AdminRecipeDeleteController()); // 레시피 삭제
 
 		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());

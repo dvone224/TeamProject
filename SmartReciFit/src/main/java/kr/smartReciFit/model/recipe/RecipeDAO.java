@@ -10,6 +10,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 
 import com.google.gson.JsonObject;
@@ -66,7 +67,7 @@ public class RecipeDAO {
 			while ((line = br.readLine()) != null) {
 				message += line + "\n";
 			}
-
+			server.closeSocket();
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 
@@ -89,7 +90,7 @@ public class RecipeDAO {
 			while ((line = br.readLine()) != null) {
 				message += line + "\n";
 			}
-
+			server.closeSocket();
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 
@@ -197,5 +198,41 @@ public class RecipeDAO {
 			e.printStackTrace();
 		}
 		return aiRecipe;
+	}
+	
+	public int getRecipeCount() {
+		int count = 0;
+		try (SqlSession session = Config.getSession().openSession()){
+			count = session.selectOne("getRecipeCount");
+		} catch (Exception e) {
+			System.out.println("getRecipeCount() 오류");
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public ArrayList<Recipe> getRecipeByStartEnd(int start, int limit) {
+		HashMap<String, Integer> parameter = new HashMap<String, Integer>();
+		parameter.put("start", start-1);
+		parameter.put("limit", limit);
+		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
+		try (SqlSession session = Config.getSession().openSession()){
+			recipeList = (ArrayList)session.selectList("getRecipeByStartEnd", parameter);
+		} catch (Exception e) {
+			System.out.println("getRecipeByStartEnd() 오류");
+			e.printStackTrace();
+		}
+		return recipeList;
+	}
+
+	public void deleteRecipeByRecipeNum(int recipeNum) {
+		try (SqlSession session = Config.getSession().openSession()){
+			session.delete("deleteRecipeByRecipeNum", recipeNum);
+			session.commit();
+		} catch (Exception e) {
+			System.out.println("deleteRecipeByRecipeNum() 오류");
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -1,8 +1,13 @@
-console.log("recipeConverter");
+const mealSize = document.querySelector('.meal-size');
+const ingredientList = [...document.querySelectorAll('.ingredient')];
+const seasoningList = [...document.querySelectorAll('.seasoning')];
+const manualList = [...document.querySelectorAll('.recipe-manual')];
+const targeMealSzie = document.querySelector('.output');
+const recipeType = document.querySelector('.recipe-type').value;
+const convertRecipe = document.querySelector('.recipe-convert');
+let timeoutId = null;
 
-document.addEventListener('DOMContentLoaded', function() {
-	console.log("addEventListener");
-	let recipeType = document.querySelector('.recipe-type').value;
+function getRecipeConverter() {
 	if (recipeType === 'AI') {
 		console.log("AI");
 		let aiRcipeBoolean = document.querySelector('.ai-recipe-boolean').value;
@@ -11,12 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 
-	let mealSize = document.querySelector('.meal-size');
-	let ingredientList = [...document.querySelectorAll('.ingredient')];
-	let seasoningList = [...document.querySelectorAll('.seasoning')];
-	let manualList = [...document.querySelectorAll('.recipe-manual')];
 	let jsonData = {
-		mealSize: mealSize.innerText,
+		mealSize: mealSize.value,
+		targeMealSzie: targeMealSzie.innerText,
 		ingredients: ingredientList.map(e => e.innerText),
 		seasonings: seasoningList.map(e => e.innerText),
 		manuals: manualList.map(e => e.innerText)
@@ -28,6 +30,36 @@ document.addEventListener('DOMContentLoaded', function() {
 			'Content-Type': 'application/json'
 		},
 		body: JSON.stringify(jsonData)
-	})
+	}).then(response => response.json())
+		.then(data => {
+			console.log(data["recipeIngredient"]);
+			let ingredients = data["recipeIngredient"].split("|");
+			let seasonings = data["recipeSeasoning"].split("|");
+
+			let html = '';
+			ingredients.forEach(e => {
+				html += `<div class="convert-ingredient">${e}</div>`;
+
+			});
+			seasonings.forEach(e => {
+				html += `<div class="convert-seasoning">${e}</div>`;
+			});
+			convertRecipe.innerHTML = html;
+		})
+		.catch(error => console.error('Error:', error));
+}
+
+document.addEventListener('DOMContentLoaded', getRecipeConverter);
+
+document.getElementById('range').addEventListener('input', function() {
+
+	// 이전에 설정된 타이머가 있다면 취소
+	if (timeoutId !== null) {
+		clearTimeout(timeoutId);
+	}
+
+	// 2초 후에 함수 실행
+	timeoutId = setTimeout(getRecipeConverter, 1000); // 2000ms = 2초
+
 });
 

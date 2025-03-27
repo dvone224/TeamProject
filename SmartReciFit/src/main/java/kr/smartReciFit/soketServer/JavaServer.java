@@ -47,14 +47,13 @@ public class JavaServer {
 			if (pythonProcess != null) {
 				pythonProcess.destroy(); // Python 프로세스 종료
 			}
-
-			instance = null;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void startServer(String pythonFile) {
+		closeSocket();
 		try {
 			if (socket == null || (socket != null && socket.isClosed())) {
 				serverSocket = new ServerSocket(8000);

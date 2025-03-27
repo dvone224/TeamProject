@@ -5,8 +5,8 @@
 <div class="recipe-content">
 	<input class="recipe-type" type="hidden" value="${recipe.recipeType}">
 	<c:if test="${recipe.recipeType eq 'API' or recipe.aiRecipeBoolean}">
+		<input class="meal-size" type="hidden" value="${recipe.recipeMealSize }"/>
 		<h1>${recipe.recipeName }</h1>
-		<div class="meal-size">${recipe.recipeMealSize}</div>
 		<br>
 		<img alt="" src="${recipe.recipeThumbnail }" />
 
@@ -19,6 +19,14 @@
 			var="seasoning">
 			<div class="seasoning">${seasoning}</div>
 		</c:forEach>
+		<div class="range-container">
+			<input type="range" name="range" id="range" value="1" min="0"
+				max="5" oninput="output.value = this.value" step="0.1">
+			<output type="number" id="output" class="output">1</output>
+		</div>
+		<div class="recipe-convert">
+			
+		</div>
 	</c:if>
 	<br>
 	<c:if test="${recipe.recipeType eq 'API'}">
@@ -32,7 +40,8 @@
 	</c:if>
 
 	<c:if test="${recipe.recipeType eq 'AI'}">
-		<input type="hidden" class="ai-recipe-boolean" value="${recipe.aiRecipeBoolean}">
+		<input type="hidden" class="ai-recipe-boolean"
+			value="${recipe.aiRecipeBoolean}">
 		<c:choose>
 			<c:when test="${recipe.aiRecipeBoolean}">
 				<c:set var="splitManual"
