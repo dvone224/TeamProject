@@ -6,7 +6,7 @@
 <mapper namespace="kr.smartReciFit.mybatis.recipe.RecipeMapper">
 	<insert id="insertRecipe" parameterType="recipe">
 		insert into recipe
-		values(null,#{recipeName},#{recipeMealSize},#{recipeIngredient},#{recipeSeasoning},#{recipeManual},null);
+		values(null,#{recipeName},#{recipeMealSize},#{recipeIngredient},#{recipeSeasoning},#{recipeManual},#{recipeThumbnail});
 	</insert>
 
 	<insert id="insertApiRecipe" parameterType="apiRecipe">
@@ -23,6 +23,13 @@
 	<insert id="insertAiRecipe" parameterType="aiRecipe">
 		INSERT INTO ai_recipe
 		VALUES(#{recipeNum},#{aiRecipeUrl},#{recipeManualTimeStamp},#{aiRecipeBoolean})
+	</insert>
+	
+	
+	<!--명보가 추가함 레시피등록할 때 쓰려고-->
+	<insert id="insertUserRecipe" parameterType="map">
+    INSERT INTO user_recipe (recipe_num, user_num, user_recipe_img)
+    VALUES (#{recipeNum}, #{userNum}, #{userRecipeImg})
 	</insert>
 
 	<resultMap type="recipe" id="recipeResultMap">

@@ -202,6 +202,7 @@ public class ApiRecipeRawDataDAO {
 		dao.updateRecipeImgs();
 //		dao.printInsertData();
 		
+		
 
 	}
 

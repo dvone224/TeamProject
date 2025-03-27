@@ -39,18 +39,16 @@
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	font-size: 1rem;
-	box-sizing: border-box; /* 패딩 포함 너비 계산 */
+	box-sizing: border-box; 
 }
 
-/* 일반 텍스트 영역 기본 높이 (요리 소개 등) */
 .form-group textarea {
 	min-height: 100px;
 	resize: vertical;
 }
 
-/* 파일 입력 필드는 숨김 */
 .form-group input[type="file"] {
-	display: none; /* 실제 input은 숨김 */
+	display: none; 
 }
 
 /* 파일 선택 버튼 스타일 */
@@ -62,7 +60,7 @@
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 0.9rem;
-	margin-top: 5px; /* 필요시 조정 */
+	margin-top: 5px; 
 }
 
 .form-group .file-label:hover {
@@ -83,12 +81,12 @@
 	flex-wrap: wrap;
 	gap: 15px;
 	align-items: center;
-	padding: 15px; /* 그룹 내부 여백 */
-    border: 1px solid #eee; /* 그룹 구분선 */
+	padding: 15px; 
+    border: 1px solid #eee; 
     border-radius: 4px;
 }
 
-.category-group > label { /* 카테고리 그룹의 메인 라벨 */
+.category-group > label { 
 	margin-bottom: 0;
 	width: 80px;
 	flex-shrink: 0;
@@ -101,20 +99,20 @@
 
 /* 체크박스 그룹 스타일 */
 .checkbox-group {
-    width: 100%; /* 한 줄 전체 사용 */
+    width: 100%; 
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 10px 15px; /* 세로, 가로 간격 */
     margin-top: 10px;
 }
-.checkbox-group > label { /* 그룹 내 라벨 (예: 방법:, 재료:) */
-    width: auto; /* 너비 자동 */
+.checkbox-group > label { 
+    width: auto; 
     margin-right: 5px;
     font-weight: normal;
     color: #777;
 }
-.checkbox-group label { /* 각 체크박스 라벨 */
+.checkbox-group label { 
     margin-right: 10px;
     font-weight: normal;
     cursor: pointer;
@@ -125,8 +123,14 @@
     margin-right: 5px;
 }
 
+.category-group label[for^="cooking-method-"],
+.category-group label[for^="ingredient-"] {
+    font-weight: normal; 
+    color: #555;
+    cursor: pointer; 
+}
 
-/* 재료 입력 아이템 */
+
 .ingredient-item {
 	display: flex;
 	gap: 10px;
@@ -139,7 +143,7 @@
 }
 
 
-/* 요리 순서 아이템 */
+
 .step-item {
     display: flex;
     gap: 15px;
@@ -148,7 +152,7 @@
     border: 1px solid #eee;
     padding: 15px;
     border-radius: 5px;
-    background-color: #fcfcfc; /* 약간의 배경색 */
+    background-color: #fcfcfc; 
 }
 
 .step-number {
@@ -156,20 +160,20 @@
     color: #2E8B57;
     margin-top: 10px;
     flex-shrink: 0;
-    width: 50px; /* 번호 영역 너비 확보 */
+    width: 50px; 
 }
 
 .step-content {
     flex-grow: 1;
     display: flex;
-    gap: 10px; /* 설명과 이미지 업로드 사이 간격 */
+    gap: 10px; 
     flex-direction: column;
 }
 
 /* 요리 순서 텍스트 영역 높이 조절 */
 .step-content textarea {
     width: 100%;
-    min-height: 100px; /* 원하는 높이로 설정 */
+    min-height: 100px; 
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -200,8 +204,9 @@
 	border-radius: 4px;
 	cursor: pointer;
 	font-size: 0.9rem;
-    margin-left: 5px; /* 버튼 왼쪽 여백 */
+    margin-left: 5px; 
 }
+
 
 .add-btn {
 	background-color: #2E8B57;
@@ -213,12 +218,12 @@
 	color: white;
 }
 
-/* 버튼 호버 효과 */
+
 .add-btn:hover { background-color: #256d45; }
 .remove-btn:hover { background-color: #c82333; }
 
 
-/* 등록 버튼 */
+
 .submit-btn {
 	display: block;
 	width: 100%;
@@ -282,13 +287,15 @@
 				<option value="기타">기타</option>
 			</select>
 			<c:forEach var="cookingMethod" items="${tagCookingMethod}">
-				${cookingMethod}<input type="checkbox" class="cooking-method"
+				<input type="checkbox" class="cooking-method" id="cooking-method-${cookingMethod}"
 					name="cooking-method" value="${cookingMethod}">
+				<label for="cooking-method-${cookingMethod}">${cookingMethod}</label>
 			</c:forEach>
 
 			<c:forEach var="ingredient" items="${tagIngredient}">
-				${ingredient}<input type="checkbox" class="ingredient"
+				<input type="checkbox" class="ingredient" id="ingredient-${ingredient}"
 					name="ingredient" value="${ingredient}">
+				<label for="ingredient-${ingredient}">${ingredient}</label>	
 			</c:forEach>
 
 		</div>
@@ -302,7 +309,6 @@
 						onclick="removeInput(this)">-</button>
 				</div>
 			</div>
-			<%-- 재료 입력 필드 추가 버튼 --%>
 			<button type="button" class="add-btn" onclick="addIngredientInput()">+</button>
 		</div>
 
@@ -311,7 +317,6 @@
 		<div class="form-group">
 			<label>요리 순서</label>
 			<div id="steps-list">
-				<%-- 초기 Step 1 아이템 구조 변경 --%>
 				<div class="step-item">
 					<span class="step-number">Step 1.</span>
 					<div class="step-content">

@@ -74,6 +74,6 @@ public class SearchReviewBoardController implements Controller {
         request.setAttribute("endPage", endPage);
         request.setAttribute("searchName", searchName);
         request.setAttribute("keyword", keyword);
-        return "searchResult";
+        return "searchAdminResult";
     }
 }

@@ -3,6 +3,7 @@ package kr.smartReciFit.frontcontroller;
 import java.io.IOException;
 
 
+
 import java.util.HashMap;
 
 import jakarta.servlet.ServletException;
@@ -15,6 +16,7 @@ import kr.smartReciFit.controller.admin.DailyStatusController;
 import kr.smartReciFit.controller.admin.InquiryController;
 import kr.smartReciFit.controller.admin.KeywordController;
 import kr.smartReciFit.controller.admin.PlayListController;
+import kr.smartReciFit.controller.admin.ReviewAdminDeleteController;
 import kr.smartReciFit.controller.admin.TrendInfoController;
 import kr.smartReciFit.controller.admin.UserAnalysisController;
 import kr.smartReciFit.controller.admin.ViewRankingController;
@@ -105,7 +107,13 @@ public class HandlerMapping {
 		mappings.put("/visitAnalysis.do", new VisitAnalysisController()); // 방문 분석
 		mappings.put("/userAnalysis.do", new UserAnalysisController()); // 사용자 분석
 		mappings.put("/viewRanking.do", new ViewRankingController()); // 조회수 순위
-
+		
+		
+		
+		
+		mappings.put("/reviewAdminDelete.do", new ReviewAdminDeleteController());
+		mappings.put("/searchReviewAdminBoard.do", new SearchReviewBoardController());
+		
 		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());
 		mappings.put("/reviews.do", new ReviewController());
