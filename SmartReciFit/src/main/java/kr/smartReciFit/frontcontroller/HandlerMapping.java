@@ -11,6 +11,7 @@ import kr.smartReciFit.controller.admin.DailyStatusController;
 import kr.smartReciFit.controller.admin.InquiryController;
 import kr.smartReciFit.controller.admin.KeywordController;
 import kr.smartReciFit.controller.admin.PlayListController;
+import kr.smartReciFit.controller.admin.ReviewAdminDeleteController;
 import kr.smartReciFit.controller.admin.TrendInfoController;
 import kr.smartReciFit.controller.admin.UserAnalysisController;
 import kr.smartReciFit.controller.admin.ViewRankingController;
@@ -120,6 +121,13 @@ public class HandlerMapping {
 		mappings.put("/adminRecipe.do", new AdminRecipeController());
 		mappings.put("/adminRecipeDelete.do", new AdminRecipeDeleteController()); // 레시피 삭제
 
+		
+		
+		
+		
+		mappings.put("/reviewAdminDelete.do", new ReviewAdminDeleteController());
+		mappings.put("/searchReviewAdminBoard.do", new SearchReviewBoardController());
+		
 		// 랭킹 후기 게시판 작업(명보)
 		mappings.put("/ranking.do", new RankingController());
 		mappings.put("/reviews.do", new ReviewController());

@@ -9,10 +9,13 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set; 
 
 import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import kr.smartReciFit.soketServer.JavaServer;
@@ -235,4 +238,52 @@ public class RecipeDAO {
 		}
 		
 	}
+
+	//명보가 추가함 레시피등록할때 밑에까지====================================================== 
+	public boolean insertUserRecipeData(Recipe recipe, int userNum, String userRecipeImg) {
+		 boolean success = false;
+		try (SqlSession session = Config.getSession().openSession(false)){
+			int insertedRowsRecipe = session.insert("insertRecipe", recipe);
+			 if (insertedRowsRecipe == 0) {
+	                throw new Exception("Recipe 테이블 삽입 실패 (0 rows affected)");
+	         }
+			 int lastId = session.selectOne("getLastInsertedId");
+	            recipe.setRecipeNum(lastId);
+	            int insertedRowsTag = session.insert("insertTag", recipe);
+	            if (insertedRowsTag == 0) {
+	                 throw new Exception("Tag 테이블 삽입 실패 (0 rows affected)");
+	             }
+	            Map<String, Object> userRecipeParams = new HashMap<>();
+	            userRecipeParams.put("recipeNum", lastId); 
+	            userRecipeParams.put("userNum", userNum); 
+	            userRecipeParams.put("userRecipeImg", userRecipeImg); 
+	            int insertedRowsUserRecipe = session.insert("insertUserRecipe", userRecipeParams);
+	            if (insertedRowsUserRecipe == 0) {
+	                throw new Exception("User Recipe 테이블 삽입 실패 (0 rows affected)");
+	            }
+	            session.commit();
+	            success = true; 
+	            System.out.println("사용자 레시피 저장 성공 (Recipe Num: " + lastId + ")");
+		} catch (Exception e) {
+				System.out.println("insertUserRecipeDate() 오류");
+				e.printStackTrace();
+		} 
+		return success;
+	}
+	
+	 private Map<String, Object> createTagParams(Recipe recipe) {
+		 	final Gson gson = new Gson();
+	        Map<String, Object> tagParams = new HashMap<>();
+	        tagParams.put("recipeNum", recipe.getRecipeNum()); 
+
+	        tagParams.put("recipeType", recipe.getRecipeType()); 
+	        tagParams.put("eatTime", recipe.getEatTime());       
+	        tagParams.put("cookingStyle", recipe.getCookingStyle()); 
+
+	        tagParams.put("ingredientsJson", recipe.getIngredients() != null ? gson.toJson(recipe.getIngredients()) : "[]");
+	        tagParams.put("cookingMethodsJson", recipe.getCookingMethods() != null ? gson.toJson(recipe.getCookingMethods()) : "[]");
+
+	        return tagParams; // 생성된 Map 반환
+	    }
+	
 }

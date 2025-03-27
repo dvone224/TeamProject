@@ -133,7 +133,7 @@
 	</c:if>
 
 	<p>작성일: ${review.reviewBoardCreated}</p>
-	<c:if test="${review.userNum == userNum}">
+	<c:if test="${review.userNum == userNum or userNum eq 1}">
 		<div class="review-update-delete">
 			<button
 				onclick="location.href='${ctx}/reviewUpdate.do?reviewBoardNum=${review.reviewBoardNum}&userNickname=${userNickname}'">수정하기</button>

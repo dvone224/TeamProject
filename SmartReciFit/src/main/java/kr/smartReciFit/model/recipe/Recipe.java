@@ -106,6 +106,43 @@ public class Recipe {
 	public double getRecipeMealSize() {
 		return recipeMealSize;
 	}
+	
+
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
+	}
+
+	public void setRecipeMealSize(double recipeMealSize) {
+		this.recipeMealSize = recipeMealSize;
+	}
+
+	public void setRecipeIngredient(String recipeIngredient) {
+		this.recipeIngredient = recipeIngredient;
+	}
+
+	public void setRecipeSeasoning(String recipeSeasoning) {
+		this.recipeSeasoning = recipeSeasoning;
+	}
+
+	public void setRecipeManual(String recipeManual) {
+		this.recipeManual = recipeManual;
+	}
+
+	public void setCookingMethods(Set<String> cookingMethods) {
+		this.cookingMethods = cookingMethods;
+	}
+
+	public void setIngredients(Set<String> ingredients) {
+		this.ingredients = ingredients;
+	}
+
+	public void setEatTime(EatTime eatTime) {
+		this.eatTime = eatTime;
+	}
+
+	public void setCookingStyle(CookingStyle cookingStyle) {
+		this.cookingStyle = cookingStyle;
+	}
 
 	@Override
 	public String toString() {
