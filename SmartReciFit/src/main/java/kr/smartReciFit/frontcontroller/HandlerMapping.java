@@ -2,7 +2,6 @@ package kr.smartReciFit.frontcontroller;
 
 import java.io.IOException;
 
-
 import java.util.HashMap;
 
 import jakarta.servlet.ServletException;
@@ -47,6 +46,7 @@ import kr.smartReciFit.controller.user.MailSend;
 import kr.smartReciFit.controller.user.LoginSuccessController;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
+import kr.smartReciFit.controller.user.GetSocialStatusController;
 import kr.smartReciFit.controller.user.LinkSocialLoginController;
 import kr.smartReciFit.controller.user.UserJoinController;
 import kr.smartReciFit.controller.user.VaildIdAjaxController;
@@ -55,6 +55,7 @@ import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.MainController;
 import kr.smartReciFit.controller.user.NicknameInputFormController;
 import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
+import kr.smartReciFit.controller.user.UnlinkSocialLoginController;
 import kr.smartReciFit.controller.user.UserContentController;
 import kr.smartReciFit.controller.user.UserDelController;
 import kr.smartReciFit.controller.user.UserFindController;
@@ -66,24 +67,23 @@ public class HandlerMapping {
 
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
-		
-		//회원가입 관련 맵핑
-		mappings.put("/userJoin.do",  new UserJoinController());
-		mappings.put("/checkId.do",  new CheckIdController());
-		mappings.put("/checkNickName.do",  new CheckNickNameController());
-		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
-		mappings.put("/mailSend.do",  new MailSend());
-		//마이페이지 관련 맵핑
-		mappings.put("/userContent.do",  new UserContentController());
-		mappings.put("/userInfo.do",  new UserInfoController());
-		mappings.put("/userFix.do",  new UserFixController());
-		mappings.put("/userDel.do",  new UserDelController());
-		
-		mappings.put("/userFind.do",  new UserFindController());
-		
-		
+
+		// 회원가입 관련 맵핑
+		mappings.put("/userJoin.do", new UserJoinController());
+		mappings.put("/checkId.do", new CheckIdController());
+		mappings.put("/checkNickName.do", new CheckNickNameController());
+		mappings.put("/vaildIdAjax.do", new VaildIdAjaxController());
+		mappings.put("/mailSend.do", new MailSend());
+		// 마이페이지 관련 맵핑
+		mappings.put("/userContent.do", new UserContentController());
+		mappings.put("/userInfo.do", new UserInfoController());
+		mappings.put("/userFix.do", new UserFixController());
+		mappings.put("/userDel.do", new UserDelController());
+
+		mappings.put("/userFind.do", new UserFindController());
+
 		// 로그인 관련 작업 (나경)
-		//로그인아웃 관련 맵핑
+		// 로그인아웃 관련 맵핑
 		mappings.put("/login.do", new LoginCheckController());
 		mappings.put("/logout.do", new LogOutController());
 		mappings.put("/main.do", new MainController());
@@ -91,7 +91,10 @@ public class HandlerMapping {
 		mappings.put("/saveSocialLoginInfo.do", new SaveSocialLoginInfo());
 		mappings.put("/linkSocial.do", new LinkSocialLoginController());
 		mappings.put("/nicknameInputForm.do", new NicknameInputFormController());
-		mappings.put("/nicknameInputForm.do", new NicknameInputFormController());
+		
+		
+		mappings.put("/getSocialStatus.do", new GetSocialStatusController()); // 추가
+		mappings.put("/unlinkSocial.do", new UnlinkSocialLoginController()); // 추가
 
 		// 관리자 게시판 (나경)
 		mappings.put("/adminMain.do", new AdminMainController());
@@ -124,7 +127,6 @@ public class HandlerMapping {
 		mappings.put("/events.do", new EventBoardController());
 		mappings.put("/eventDetail.do", new EventDetailController());
 		mappings.put("/createRecipe.do", new CreateRecipeController());
-		
 
 		// 레시피 페이지
 		mappings.put("/recipes.do", new RecipesController());
@@ -133,8 +135,6 @@ public class HandlerMapping {
 		mappings.put("/recipeContent.do", new RecipeContentController());
 		mappings.put("/recipeConverter.do", new RecipeConverterController());
 		mappings.put("/saveRecipe.do", new SaveRecipeController());
-		
-		
 
 	}
 

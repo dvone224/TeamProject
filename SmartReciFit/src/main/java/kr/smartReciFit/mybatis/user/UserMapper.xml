@@ -170,7 +170,7 @@
 
 
 	<!-- 기존 유저가 소셜 계정을 추가 연동 -->
-	<update id="linkSocialAccount" parameterType="map">
+<!-- 	<update id="linkSocialAccount" parameterType="map">
 		UPDATE social
 		SET
 		kakao = CASE WHEN #{platform} = 'kakao' THEN #{email} ELSE kakao END,
@@ -178,7 +178,7 @@
 		google = CASE WHEN #{platform} = 'google' THEN #{email} ELSE google
 		END
 		WHERE user_num = #{userNum}
-	</update>
+	</update> -->
 
 
 	<select id="getUserNumByEmail" parameterType="socialDTO"
@@ -196,6 +196,17 @@
 		VALUES (#{userNum}, #{kakao}, #{naver}, #{google})
 	</insert>
 
+	<!-- ============================================= -->
+	<select id="isSocialLinked" resultType="int" parameterType="map">
+    SELECT COUNT(*) FROM social WHERE user_num = #{userNum} AND platform = #{platform}
+</select>
 
+<insert id="linkSocialAccount" parameterType="map">
+    INSERT INTO social (user_num, platform, email) VALUES (#{userNum}, #{platform}, #{email})
+</insert>
+
+<delete id="unlinkSocialAccount" parameterType="map">
+    DELETE FROM social WHERE user_num = #{userNum} AND platform = #{platform}
+</delete>
 
 </mapper>

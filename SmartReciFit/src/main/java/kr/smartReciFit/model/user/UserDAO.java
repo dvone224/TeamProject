@@ -106,7 +106,7 @@ public class UserDAO {
 		System.out.println("가져온 User=" + vo);
 		return vo;
 	}
-	
+
 	// 소셜 로그인 시 social 테이블에 추가 ( userNum, email 넣는다 )
 	public void InsertSocialInfo(SocialDTO socialDTO) {
 		SqlSession session = Config.getSession().openSession();
@@ -124,83 +124,82 @@ public class UserDAO {
 			session.close(); // 세션 종료
 		}
 	}
-	//마지막 Num 가져오기
+
+	// 마지막 Num 가져오기
 	public int getLastUserNum() {
 		SqlSession session = Config.getSession().openSession();
-		Integer num=session.selectOne("getLastInsertuserNum");
-	    session.close();
-	    System.out.println("getLastUserNum()에서 가져온 num: "+num);
-		return (int)num;
+		Integer num = session.selectOne("getLastInsertuserNum");
+		session.close();
+		System.out.println("getLastUserNum()에서 가져온 num: " + num);
+		return (int) num;
 	}
-	
-	
-	
+
 	// 소셜 로그인 시 user 테이블에 추가 ( userNum , 닉네임만 넣는다 )
 	public int insertUserTableBySocial(User user) {
-	    SqlSession session = Config.getSession().openSession();
-	    try {
-	        session.insert("insertUserNickname", user);
-	        session.commit(); // 변경사항 저장
-	        System.out.println("user table에 신규멤버 저장 완료");
-	        // 마지막으로 삽입된 user_num 반환
-	        return session.selectOne("getLastInsertuserNum");
-	    } catch (Exception e) {
-	        System.out.println("소셜 로그인 정보 삽입 중 오류 발생: " + e.getMessage());
-	        return -1; // 오류 발생 시 -1 반환
-	    } finally {
-	        session.close(); // 세션 종료
-	    }
-	}
-	 
-	public SocialDTO getSocialByEmail(String email) {
-	    SqlSession session = Config.getSession().openSession();
-	    try {
-	        return session.selectOne("getSocialByEmail", email);
-	    } finally {
-	        session.close();
-	    }
-	}
-	
-	public User getUserByEmail(String email) {
-	    SqlSession session = Config.getSession().openSession();
-	    try {
-	        return session.selectOne("getUserByEmail", email);
-	    } finally {
-	        session.close();
-	    }
-	}
-	 
-	 public void updateSocialInfo(SocialDTO socialDTO) {
-		 SqlSession session = Config.getSession().openSession();
-		 try {
-			session.update("updateSocialInfo",socialDTO);
+		SqlSession session = Config.getSession().openSession();
+		try {
+			session.insert("insertUserNickname", user);
+			session.commit(); // 변경사항 저장
+			System.out.println("user table에 신규멤버 저장 완료");
+			// 마지막으로 삽입된 user_num 반환
+			return session.selectOne("getLastInsertuserNum");
 		} catch (Exception e) {
-	        System.out.println("소셜 정보 업데이트 중 오류 발생: " + e.getMessage());
-		}finally {
+			System.out.println("소셜 로그인 정보 삽입 중 오류 발생: " + e.getMessage());
+			return -1; // 오류 발생 시 -1 반환
+		} finally {
+			session.close(); // 세션 종료
+		}
+	}
+
+	public SocialDTO getSocialByEmail(String email) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			return session.selectOne("getSocialByEmail", email);
+		} finally {
 			session.close();
 		}
 	}
-	 
-	 public void updateUser(User user) {
-		    SqlSession session = Config.getSession().openSession();
-		    try {
-		        session.update("updateUser", user);
-		        session.commit(); // 변경사항 저장
-		    } catch (Exception e) {
-		        System.out.println("사용자 정보 업데이트 중 오류 발생: " + e.getMessage());
-		    } finally {
-		        session.close(); // 세션 종료
-		    }
+
+	public User getUserByEmail(String email) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			return session.selectOne("getUserByEmail", email);
+		} finally {
+			session.close();
 		}
-	 
-	 public User getUserById(int userNum) {
-		    SqlSession session = Config.getSession().openSession();
-		    try {
-		        return session.selectOne("getUserById", userNum);
-		    } finally {
-		        session.close();
-		    }
+	}
+
+	public void updateSocialInfo(SocialDTO socialDTO) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			session.update("updateSocialInfo", socialDTO);
+		} catch (Exception e) {
+			System.out.println("소셜 정보 업데이트 중 오류 발생: " + e.getMessage());
+		} finally {
+			session.close();
 		}
+	}
+
+	public void updateUser(User user) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			session.update("updateUser", user);
+			session.commit(); // 변경사항 저장
+		} catch (Exception e) {
+			System.out.println("사용자 정보 업데이트 중 오류 발생: " + e.getMessage());
+		} finally {
+			session.close(); // 세션 종료
+		}
+	}
+
+	public User getUserById(int userNum) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			return session.selectOne("getUserById", userNum);
+		} finally {
+			session.close();
+		}
+	}
 
 	public Integer checkPw(String pw) {
 		SqlSession session = Config.getSession().openSession();
@@ -223,85 +222,92 @@ public class UserDAO {
 		session.close();
 		System.out.println("소셜 삭제");
 	}
-	 
-	 public boolean linkSocialAccount(int userNum, String platform, String email) {
-		    SqlSession session = Config.getSession().openSession();
-		    boolean success = false;
 
-		    try {
-		        // 1️ 기존 소셜 이메일이 이미 등록되어 있는지 확인
-		        Map<String, Object> params = new HashMap<>();
-		        params.put("email", email);
-		        int count = session.selectOne("checkExistingSocialEmail", params);
-
-		        if (count > 0) {
-		            System.out.println("이미 연동된 소셜 계정입니다.");
-		            return false;
-		        }
-
-		        // 2️ 기존 social 테이블에 user_num이 있는지 확인
-		        params.put("userNum", userNum);
-		        int existingSocial = session.selectOne("checkExistingSocialByUserNum", userNum);
-
-		        if (existingSocial > 0) {
-		            // 3️⃣ 기존 데이터가 있으면 업데이트
-		            params.put("platform", platform);
-		            int updated = session.update("linkSocialAccount", params);
-		            if (updated > 0) {
-		                session.commit();
-		                success = true;
-		                System.out.println("소셜 계정이 기존 유저 계정과 성공적으로 연동되었습니다.");
-		            }
-		        } else {
-		            // 4️ 기존 데이터가 없으면 새로 INSERT
-		            SocialDTO socialDTO = new SocialDTO();
-		            socialDTO.setUserNum(userNum);
-		            if ("kakao".equals(platform)) socialDTO.setKakao(email);
-		            if ("naver".equals(platform)) socialDTO.setNaver(email);
-		            if ("google".equals(platform)) socialDTO.setGoogle(email);
-
-		            int inserted = session.insert("insertSocialLink", socialDTO);
-		            if (inserted > 0) {
-		                session.commit();
-		                success = true;
-		                System.out.println("새로운 소셜 계정이 추가되었습니다.");
-		            }
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    } finally {
-		        session.close();
-		    }
-
-		    return success;
+	/*
+	 * public boolean linkSocialAccount(int userNum, String platform, String email)
+	 * { SqlSession session = Config.getSession().openSession(); boolean success =
+	 * false;
+	 * 
+	 * try { // 1️ 기존 소셜 이메일이 이미 등록되어 있는지 확인 Map<String, Object> params = new
+	 * HashMap<>(); params.put("email", email); int count =
+	 * session.selectOne("checkExistingSocialEmail", params);
+	 * 
+	 * if (count > 0) { System.out.println("이미 연동된 소셜 계정입니다."); return false; }
+	 * 
+	 * // 2️ 기존 social 테이블에 user_num이 있는지 확인 params.put("userNum", userNum); int
+	 * existingSocial = session.selectOne("checkExistingSocialByUserNum", userNum);
+	 * 
+	 * if (existingSocial > 0) { // 3️⃣ 기존 데이터가 있으면 업데이트 params.put("platform",
+	 * platform); int updated = session.update("linkSocialAccount", params); if
+	 * (updated > 0) { session.commit(); success = true;
+	 * System.out.println("소셜 계정이 기존 유저 계정과 성공적으로 연동되었습니다."); } } else { // 4️ 기존
+	 * 데이터가 없으면 새로 INSERT SocialDTO socialDTO = new SocialDTO();
+	 * socialDTO.setUserNum(userNum); if ("kakao".equals(platform))
+	 * socialDTO.setKakao(email); if ("naver".equals(platform))
+	 * socialDTO.setNaver(email); if ("google".equals(platform))
+	 * socialDTO.setGoogle(email);
+	 * 
+	 * int inserted = session.insert("insertSocialLink", socialDTO); if (inserted >
+	 * 0) { session.commit(); success = true;
+	 * System.out.println("새로운 소셜 계정이 추가되었습니다."); } } } catch (Exception e) {
+	 * e.printStackTrace(); } finally { session.close(); }
+	 * 
+	 * return success; }
+	 */
+	public User getUserByNum(int userNum) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			return session.selectOne("getUserByNum", userNum);
+		} finally {
+			session.close();
 		}
-	 
-	 public User getUserByNum(int userNum) {
-		    SqlSession session = Config.getSession().openSession();
-		    try {
-		        return session.selectOne("getUserByNum", userNum);
-		    } finally {
-		        session.close();
-		    }
+	}
+
+	public String findUserId(String name, String email) {
+		SqlSession session = Config.getSession().openSession();
+		User user = new User();
+		user.setUserName(name);
+		user.setUserEmail(email);
+
+		String userId = session.selectOne("findUserId", user);
+		session.close();
+		return userId;
+	}
+
+	public boolean isSocialLinked(int userNum, String platform) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			int count = session.selectOne("isSocialLinked", Map.of("userNum", userNum, "platform", platform));
+			return count > 0;
+		} finally {
+			session.close();
 		}
-	 
-	    public String findUserId(String name, String email) {
-	        SqlSession session = Config.getSession().openSession();
-	        User user = new User();
-	        user.setUserName(name);
-	        user.setUserEmail(email);
+	}
 
-	        String userId = session.selectOne("findUserId", user);
-	        session.close();
-	        return userId;
-	    }
-	    
-	    
-	    
+	public boolean linkSocialAccount(int userNum, String platform, String email) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			int count = session.selectOne("isSocialLinked", Map.of("userNum", userNum, "platform", platform));
+			if (count > 0) {
+				return false; // 이미 연동된 경우
+			}
+			int rowsInserted = session.insert("linkSocialAccount",
+					Map.of("userNum", userNum, "platform", platform, "email", email));
+			session.commit();
+			return rowsInserted > 0;
+		} finally {
+			session.close();
+		}
+	}
 
-
-
-	 
-
+	public void unlinkSocialAccount(int userNum, String platform) {
+		SqlSession session = Config.getSession().openSession();
+		try {
+			session.delete("unlinkSocialAccount", Map.of("userNum", userNum, "platform", platform));
+			session.commit();
+		} finally {
+			session.close();
+		}
+	}
 
 }
