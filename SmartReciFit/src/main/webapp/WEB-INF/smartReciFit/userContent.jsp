@@ -58,6 +58,8 @@
 </table>
 </c:if>
 
+<button name="btn-userFix" id="btn-userFix" onclick="location.href='${ctx}/userFix.do'">회원정보수정</button>
+
 <table border="1">
     <tr>
         <td>카카오 계정 연동</td>
@@ -90,13 +92,13 @@
         </td>
     </tr>
 </table>
-<button name="btn-userFix" id="btn-userFix" onclick="location.href='${ctx}/userFix.do'">회원정보수정</button>
+
 
 <c:choose>
 <c:when test="${empty userInfoContent}">
 <table>
 <tr><td><p>아직 인포를 저장하지 않았습니다.</p></td></tr>
-<tr><td><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfo.do'">인포만들기</button></td></tr>
+<tr><td><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfoFix.do'">인포만들기</button></td></tr>
 
 </table>
 </c:when>
@@ -107,7 +109,7 @@
 <c:forEach var="info" items="${totalInfo}">${info}</c:forEach>
 </td></tr>
 <!-- 이거 이렇게 냅다 연결시키면 냅다 입력이 되니까 이거 막아주는거 하나 장치 마련하기  -->
-<tr><td colspan="2"><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfo.do'">인포수정하기</button></td></tr>
+<tr><td colspan="2"><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfoFix.do'">인포수정하기</button></td></tr>
 </table>
 </c:otherwise>
 </c:choose>

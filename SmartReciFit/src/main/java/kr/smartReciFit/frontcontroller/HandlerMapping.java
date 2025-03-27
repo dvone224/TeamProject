@@ -41,6 +41,18 @@ import kr.smartReciFit.controller.recipe.SaveRecipeController;
 import kr.smartReciFit.controller.user.CheckIdController;
 import kr.smartReciFit.controller.user.CheckNickNameController;
 import kr.smartReciFit.controller.user.LinkSocialLoginController;
+import kr.smartReciFit.controller.user.LoginCheckController;
+import kr.smartReciFit.controller.user.MailSend;
+import kr.smartReciFit.controller.user.LoginSuccessController;
+import kr.smartReciFit.controller.user.CheckEmailController;
+import kr.smartReciFit.controller.user.CheckEmailDoubleController;
+import kr.smartReciFit.controller.user.CheckIdController;
+import kr.smartReciFit.controller.user.CheckNickNameController;
+import kr.smartReciFit.controller.user.LinkSocialLoginController;
+import kr.smartReciFit.controller.user.UserJoinController;
+import kr.smartReciFit.controller.user.UserResetPwController;
+import kr.smartReciFit.controller.user.VaildIdAjaxController;
+
 import kr.smartReciFit.controller.user.LogOutController;
 import kr.smartReciFit.controller.user.LoginCheckController;
 import kr.smartReciFit.controller.user.LoginSuccessController;
@@ -51,6 +63,7 @@ import kr.smartReciFit.controller.user.SaveSocialLoginInfo;
 import kr.smartReciFit.controller.user.UserContentController;
 import kr.smartReciFit.controller.user.UserDelController;
 import kr.smartReciFit.controller.user.UserFindController;
+import kr.smartReciFit.controller.user.UserFindIdController;
 import kr.smartReciFit.controller.user.UserFixController;
 import kr.smartReciFit.controller.user.UserInfoController;
 import kr.smartReciFit.controller.user.UserJoinController;
@@ -75,6 +88,10 @@ public class HandlerMapping {
 		mappings.put("/userDel.do",  new UserDelController());
 		
 		mappings.put("/userFind.do",  new UserFindController());
+		mappings.put("/checkEmail.do",  new CheckEmailController());
+		mappings.put("/checkEmailDouble.do",  new CheckEmailDoubleController());
+		mappings.put("/userFindId.do",  new UserFindIdController());
+		mappings.put("/userResetPw.do",  new UserResetPwController());
 		
 		
 		// 로그인 관련 작업 (나경)

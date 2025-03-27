@@ -137,6 +137,15 @@
 	delete from social where user_num=#{userNum};
 	</delete>
 	
+	<!-- 이메일로 유저넘 찾기 -->
+	<select id="findUserNumByEmail" parameterType="String" resultType="Integer">
+	select user_num from user where user_email=#{email}
+	</select>
+	
+	<!-- 유저PW업데이트 -->
+	<update id="updatePwByUserNum" parameterType="Map">
+	update user set user_pwd=#{pw} where user_num=#{userNum}
+	</update>	
 	
 	
 	

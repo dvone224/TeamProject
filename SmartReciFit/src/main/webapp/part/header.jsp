@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib uri="jakarta.tags.fmt" prefix="fmt" %>
+
+
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 

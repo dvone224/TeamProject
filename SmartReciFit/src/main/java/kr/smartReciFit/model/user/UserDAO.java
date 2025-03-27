@@ -295,7 +295,30 @@ public class UserDAO {
 	        session.close();
 	        return userId;
 	    }
-	    
+
+	    //아이디비밀번호찾기용 유저이메일로 UserNum 찾기
+		public Integer checkEmail(String email) {
+			SqlSession session = Config.getSession().openSession();
+			Integer num= session.selectOne("findUserNumByEmail", email);
+			session.close();
+			System.out.println("유저 이메일 찾기");
+			return num;
+		}
+
+		public int updatePwByUserNum(int userNum, String pw) {
+			SqlSession session = Config.getSession().openSession();
+			Map<String, Object> userMap = new HashMap<>();
+			userMap.put("userNum", userNum);
+			userMap.put("pw", pw);
+			System.out.println(userMap);
+			
+			int cnt= session.update("updatePwByUserNum", userMap);
+			session.commit();
+			session.close();
+			System.out.println("유저 PW 업데이트 완료");
+			return cnt;
+		}
+
 	    
 	    
 
