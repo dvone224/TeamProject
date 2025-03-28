@@ -115,14 +115,7 @@ public class HandlerMapping {
 		mappings.put("/adminUser.do", new AdminManagerUserController()); // 관리자/운영 회원 목록
 		mappings.put("/deleteUser.do", new AdminUserController());
 		mappings.put("/adminUser.do", new AdminUserController()); // 관리자/운영 회원 목록
-		mappings.put("/inquiry.do", new InquiryController()); // 문의 내역
-		mappings.put("/playList.do", new PlayListController()); // 플레이리스트 관리
 		mappings.put("/adminReview.do", new AdminReviewController()); // 리뷰 정보 관리
-		mappings.put("/keyword.do", new KeywordController()); // 키워드 관리
-		mappings.put("/dailyStatus.do", new DailyStatusController()); // 일간 현황
-		mappings.put("/visitAnalysis.do", new VisitAnalysisController()); // 방문 분석
-		mappings.put("/userAnalysis.do", new UserAnalysisController()); // 사용자 분석
-		mappings.put("/viewRanking.do", new ViewRankingController()); // 조회수 순위
 		mappings.put("/adminRecipe.do", new AdminRecipeController());
 		mappings.put("/adminRecipeDelete.do", new AdminRecipeDeleteController()); // 레시피 삭제
 
