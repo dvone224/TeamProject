@@ -15,14 +15,12 @@
 
 /* --- 게시판 스타일 추가 --- */
 
-/* 전체 목록 컨테이너 */
 .review-list {
-    max-width: 1500px; /* 게시판 최대 너비 */
-    margin: 30px auto; /* 상하 여백 및 중앙 정렬 */
+    max-width: 1500px;
+    margin: 30px auto;
     padding: 20px;
 }
 
-/* 게시판 제목 */
 .review-list h2 {
     text-align: center;
     margin-bottom: 25px;
@@ -30,85 +28,90 @@
     color: #333;
 }
 
-/* 게시판 테이블 */
 .review-list table {
     width: 100%;
-    border-collapse: collapse; /* 테두리 합치기 */
-    border-top: 2px solid #333; /* 상단 굵은 테두리 */
-    margin-bottom: 20px; /* 테이블과 하단 요소 간격 */
+    border-collapse: collapse; /* 합치기 유지 */
+    border: none;
+    margin-bottom: 20px;
     font-size: 0.95rem;
+    border-spacing: 0;
 }
 
-/* 테이블 헤더 (thead th) */
 .review-list thead th {
-    background-color: #f8f9fa; /* 헤더 배경색 */
-    padding: 12px 10px;
-    border-bottom: 1px solid #ddd; /* 헤더 아래 구분선 */
+    background-color: #c4fbc150; /* 연한 회색 배경 */
+    padding: 15px 10px; /* 헤더 패딩 증가 */
+    border: none; /* 헤더의 모든 테두리 제거 */
+    border-bottom: 1px solid #dee2e6; /* 헤더 아래 구분선만 다시 추가 */
     text-align: center;
     font-weight: 600;
-    color: #495057;
-    white-space: nowrap; /* 줄바꿈 방지 */
+    color: #6c757d; /* 헤더 글자색 약간 연하게 */
+    white-space: nowrap;
+    font-size: 0.9rem;
 }
 
-/* 테이블 본문 (tbody td) */
+/* 모든 tbody td 스타일 변경 - 모든 선 제거! */
 .review-list tbody td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #eee; /* 각 행 아래 구분선 */
+    padding: 16px 10px; /* 상하 패딩 늘려서 행 간격 확보 */
+    border: none; /* 모든 테두리 제거! */
     text-align: center;
     vertical-align: middle;
-    color: #333;
-}
-
-/* 이미지 스타일 */
-.review-list tbody img {
-    max-width: 80px;
-    max-height: 80px;
-    object-fit: cover;
-    border-radius: 4px;
-    vertical-align: middle; /* 이미지가 셀 중앙에 오도록 */
-}
-.review-list tbody .no-image-text { /* '이미지 없음' 텍스트 스타일 */
-    color: #999;
-    font-size: 0.9em;
+    color: #343a40; /* 본문 글자색 약간 진하게 */
 }
 
 /* 제목 링크 스타일 */
-.review-list tbody td a {
-    color: #333;
+.review-title-link {
+    color: #343a40;
     text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
 }
-.review-list tbody td a:hover {
-    color: #2E8B57; /* 호버 시 색상 변경 */
+.review-title-link:hover {
+    color: #2E8B57;
     text-decoration: underline;
 }
-/* 제목 셀 왼쪽 정렬 */
-	.review-list tbody td:nth-child(3) { /* 제목이 3번째 컬럼일 경우 */
-	    text-align: left;
-	    padding-left: 15px; /* 왼쪽 여백 추가 */
-	}
 
-/* 글쓴이, 등록일, 조회수, 좋아요 텍스트 스타일 */
-.review-list tbody td:nth-child(4), /* 글쓴이 */
-.review-list tbody td:nth-child(5), /* 등록일 */
-.review-list tbody td:nth-child(6), /* 조회 */
-.review-list tbody td:nth-child(7) { /* 좋아요 */
-    color: #666;
+/* 특정 컬럼 스타일 */
+.review-list tbody td:nth-child(3), /* 글쓴이 */
+.review-list tbody td:nth-child(4), /* 등록일 */
+.review-list tbody td:nth-child(5), /* 조회 */
+.review-list tbody td:nth-child(6) { /* 좋아요 */
+    color: #6c757d;
     font-size: 0.9em;
 }
-/* 등록일 셀 줄바꿈 방지 */
-.review-list tbody td:nth-child(5) {
+.review-list tbody td:nth-child(4) { /* 등록일 */
      white-space: nowrap;
 }
 
-
-/* 글쓰기 버튼 영역 */
-.post-area {
-    text-align: right; /* 버튼 오른쪽 정렬 */
-    margin-bottom: 20px; /* 버튼과 페이징 사이 간격 */
+/* 이미지 아이콘 스타일 */
+.image-icon {
+    margin-right: 6px;
+    font-size: 1em;
+    vertical-align: -2px;
+    cursor: default;
+    display: inline-block;
+    opacity: 0.7;
 }
 
-/* 글쓰기 버튼 */
-button.review-write {
+/* 댓글 수 스타일 */
+.comment-count {
+    color: #2E8B57;
+    font-size: 0.85em;
+    margin-left: 6px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+/* 글쓰기 버튼 영역 */
+
+
+.action-buttons-area {
+    text-align: right; /* 버튼들을 오른쪽으로 정렬 */
+    margin-top: 20px; /* 테이블과의 간격 */
+    margin-bottom: 20px; /* 페이징과의 간격 */
+}
+
+/* 글쓰기 버튼 스타일 */
+.action-buttons-area .review-write { /* 선택자 구체화 */
     padding: 8px 15px;
     background-color: #2E8B57;
     color: white;
@@ -116,18 +119,54 @@ button.review-write {
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.95rem;
+    margin-left: 10px; /* 다른 버튼과의 간격 */
 }
-button.review-write:hover {
-    background-color: #3CB371;
+.action-buttons-area .review-write:hover { background-color: #3CB371; }
+
+/* 목록 버튼 스타일 */
+.action-buttons-area .list-btn { /* 클래스 이름 변경 또는 기존 .list-btn-area button 선택자 활용 */
+    padding: 8px 15px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-left: 10px; /* 글쓰기 버튼과의 간격 (글쓰기 없을 때도 적용됨) */
+}
+.action-buttons-area .list-btn:hover { background-color: #5a6268; }
+
+
+
+
+
+/* 이미지 미리보기 팝업 */
+#image-preview-popup {
+    display: none;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    max-width: 100px;
+    max-height: 100px;
+    overflow: hidden;
+}
+#image-preview-popup img {
+    display: block;
+    max-width: 100%;
+    max-height: 90px;
+    object-fit: contain;
 }
 
-/* 데이터 없을 때 스타일 */
+/* 데이터 없을 때 */
 .review-list tbody tr.no-data td {
     text-align: center;
     padding: 50px 0;
     color: #999;
     font-size: 1rem;
-    border-bottom: 1px solid #eee;
+    border: none; /* 데이터 없을 때도 테두리 없음 */
 }
 
 </style>
@@ -138,7 +177,6 @@ button.review-write:hover {
 		<thead>
 			<tr>
 				<th>번호</th>
-				<th>게시글 사진</th>
 				<th>제목</th>
 				<th>글쓴이</th>
 				<th>등록일</th>
@@ -150,19 +188,21 @@ button.review-write:hover {
 			<c:forEach var="review" items="${reviews}">
 				<tr>
 					<td>${review.review_board_num}</td>
-					<td><c:choose>
-							<c:when test="${not empty review.review_board_img}">
-								<img src="${ctx}/img/${review.review_board_img}"
-									alt="userReview-Image" width="100" height="100">
-							</c:when>
-							<c:otherwise> 
-								이미지 없음
-							</c:otherwise>
-						</c:choose>
-						</td>
-					<td><a
-						href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}&userNickname=${review.user_nickname}">
-							${review.review_board_title}</a></td>
+					
+					<td>
+					<c:if test="${not empty review.review_board_img}">
+						<span class="image-icon" title="이미지 있음">🖼️</span>
+					</c:if>
+					
+					<a
+						href="${ctx}/reviewDetail.do?reviewBoardNum=${review.review_board_num}&user=${user}&userNickname=${review.user_nickname}" class="review-title-link"
+						data-img-src="${not empty review.review_board_img ? review.review_board_img : ''}">
+							${review.review_board_title}
+							</a>
+						<c:if test="${review.comment_count > 0}">
+							<span class="comment-count">[${review.comment_count}]</span>
+						</c:if>
+					</td>
 					<td>${review.user_nickname}</td>
 					<td>${review.review_board_created_at}</td>
 					<td>${review.review_board_views}</td>
@@ -171,10 +211,15 @@ button.review-write:hover {
 			</c:forEach>
 		</tbody>
 	</table>
-	<div class="post-area">
-		<button type="button" class="review-write"
-			onclick="location.href='${ctx}/reviewWrite.do?user=${user}'">글쓰기</button>
-	</div>
+		
+       	<div class="action-buttons-area">
+			<c:if test="${not empty user}">
+           <button type="button" class="review-write"
+               onclick="location.href='${ctx}/reviewWrite.do?user=${user}'">글쓰기</button>
+  		 </c:if>
+       <button class="list-btn" onclick="location.href='${ctx}/reviews.do?page=1'">목록</button>
+       </div>
+
 	<div class="paging">
 		<c:if test="${page > 1}">
 			<a href="${ctx}/reviews.do?page=${page - 1}">< 이전</a>
@@ -211,4 +256,8 @@ button.review-write:hover {
 	</div>
 </div>
 
+<div id="image-preview-popup">
+    <img id="preview-image" src="" alt="미리보기">
+</div>
+<script src="${ctx}/js/board/previewImage.js"></script>
 <%@ include file="../../part/footer.jsp"%>

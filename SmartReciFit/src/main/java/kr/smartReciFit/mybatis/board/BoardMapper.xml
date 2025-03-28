@@ -234,7 +234,8 @@
 		review_board_views,
 		review_board_likes,
 		date_format(CURRENT_TIMESTAMP,'%Y-%m-%d') as review_board_created_at,
-		user_nickname
+		user_nickname,
+		COALESCE(cnt.comment_count, 0) AS comment_count
 		FROM (
 		SELECT
 		review_board_num,
@@ -248,11 +249,17 @@
 		review_board_created_at,
 		ROW_NUMBER() OVER (ORDER BY review_board_num
 		ASC) AS rn
-		FROM review_board
+		FROM
+		review_board
 		) rb
 		INNER JOIN user ON rb.user_num =
 		user.user_num
-		WHERE rn BETWEEN #{start} AND #{end}
+		LEFT
+		OUTER JOIN (select board_num, count(*) as comment_count from comment
+		group by board_num) cnt
+		ON cnt.board_num = rb.review_board_num
+		WHERE rn
+		BETWEEN #{start} AND #{end}
 		ORDER BY
 		review_board_num ASC;
 
@@ -318,10 +325,18 @@
 		review_board_likes,
 		date_format(review_board_created_at, '%Y-%m-%d') as
 		review_board_created_at,
-		user_nickname
+		user_nickname,
+		COALESCE(cnt.comment_count, 0) AS
+		comment_count
 		FROM review_board rb
 		INNER JOIN
-		user ON rb.user_num = user.user_num
+		user ON rb.user_num =
+		user.user_num
+		LEFT OUTER JOIN (
+		SELECT board_num, COUNT(*) AS comment_count
+		FROM comment
+		GROUP BY board_num
+		) cnt ON rb.review_board_num = cnt.board_num
 		<where>
 			<if test="searchName == 'title'">
 				review_board_title LIKE CONCAT('%', #{keyword}, '%')
@@ -339,7 +354,7 @@
 	<select id="getEventById" parameterType="int"
 		resultMap="eventMap">
 		SELECT
-		event_id, 
+		event_id,
 		event_title,
 		event_img,
 		introduction_text,
@@ -348,7 +363,8 @@
 		selection_criteria,
 		winner_count,
 		guidelines
-		FROM event
+		FROM
+		event
 		WHERE event_id = #{eventId}
 	</select>
 </mapper>

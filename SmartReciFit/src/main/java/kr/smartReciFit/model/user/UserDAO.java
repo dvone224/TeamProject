@@ -284,10 +284,6 @@ public class UserDAO {
 		}
 	}
 
-	        String userId = session.selectOne("findUserId", user);
-	        session.close();
-	        return userId;
-	    }
 
 	    //아이디비밀번호찾기용 유저이메일로 UserNum 찾기
 		public Integer checkEmail(String email) {
