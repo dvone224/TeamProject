@@ -25,7 +25,7 @@ public class ReviewAdminDeleteController implements Controller {
 		
 		String ctx = request.getContextPath();
 		response.setContentType("text/html; charset=UTF-8");
-		response.getWriter().println("<script>alert('게시물 삭제성공'); location.href='" + ctx + "/trendInfo.do';</script>");
+		response.getWriter().println("<script>alert('게시물 삭제성공'); location.href='" + ctx + "/adminReview.do';</script>");
 		response.getWriter().flush();
 		
 	    return null;

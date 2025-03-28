@@ -120,7 +120,7 @@
 	</table>
 	<div class="paging">
 		<c:if test="${page > 1}">
-			<a href="${ctx}/trendInfo.do?page=${page - 1}">< 이전</a>
+			<a href="${ctx}/adminReview.do?page=${page - 1}">< 이전</a>
 		</c:if>
 		<c:if test="${page <= 1}">
 			<span>< 이전</span>
@@ -128,15 +128,15 @@
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
 			<c:choose>
 				<c:when test="${i == page}">
-					<a class="current" href="${ctx}/trendInfo.do?page=${i}">${i}</a>
+					<a class="current" href="${ctx}/adminReview.do?page=${i}">${i}</a>
 				</c:when>
 				<c:otherwise>
-					<a href="${ctx}/trendInfo.do?page=${i}">${i}</a>
+					<a href="${ctx}/adminReview.do?page=${i}">${i}</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
 		<c:if test="${page < totalPages}">
-			<a href="${ctx}/trendInfo.do?page=${page + 1}">다음 ></a>
+			<a href="${ctx}/adminReview.do?page=${page + 1}">다음 ></a>
 		</c:if>
 		<c:if test="${page >= totalPages}">
 			<span>다음 ></span>

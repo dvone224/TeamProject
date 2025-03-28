@@ -13,7 +13,7 @@
     <ul>
         <li><a href="${ctx}/adminRecipe.do?page=1">레시피</a></li>
         <li><a href="${ctx}/playList.do">랭킹</a></li>
-        <li><a href="${ctx}/trendInfo.do">후기</a></li>
+        <li><a href="${ctx}/adminReview.do">후기</a></li>
         <li><a href="${ctx}/keyword.do">EVENT</a></li>
     </ul>
     <h3>인사이트 분석</h3>
