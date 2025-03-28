@@ -125,7 +125,7 @@
 </div>
 
 <div class="review-list-btn">
-	<button onclick="location.href='${ctx}/trendInfo.do?page=1'">목록</button>
+	<button onclick="location.href='${ctx}/adminReview.do?page=1'">목록</button>
 </div>
 
 

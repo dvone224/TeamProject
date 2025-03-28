@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.model.board.ReviewBoardDAO;
 
-public class TrendInfoController implements Controller {
+public class AdminReviewController implements Controller {
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
@@ -66,6 +66,6 @@ public class TrendInfoController implements Controller {
         request.setAttribute("user", user);	
         request.setAttribute("startPage", startPage);
         request.setAttribute("endPage", endPage);
-        return "trendInfo";
+        return "adminReview";
     }
 }
