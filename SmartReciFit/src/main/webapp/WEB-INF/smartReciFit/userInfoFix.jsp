@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Arrays" %>
 
 <!DOCTYPE html>
 
@@ -6,6 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <%@ include file="../../part/header.jsp"%>
+<% 
+	String[]list=(String[]) request.getAttribute("list");
+%>
 
 <div class="inner">
     <h2>내 태그 수정하기</h2>
@@ -85,7 +89,7 @@
 
 <script>
     $(document).ready(function() {
-        let selectedValues = ${list}; //전달받은 배열
+    	const list = "<%= Arrays.toString(list) %>"; //전달받은 배열
 
         // 모든 체크박스에 대해 반복하며 선택된 값과 비교하여 체크
         $('input:checkbox').each(function() {
