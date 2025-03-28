@@ -17,9 +17,11 @@
 <script src="https://accounts.google.com/gsi/client"></script>
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	
 <script src="https://cdn.jsdelivr.net/npm/js-base64@3.7.5/base64.min.js"></script>
 <!--명보 리뷰 슬릭슬라이더 api-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+<!--  -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
