@@ -37,6 +37,7 @@ public class AdminManagerUserController implements Controller {
 
 			// 페이징된 관리자 목록 조회
 			ArrayList<HashMap<String, Object>> adminList = dao.getPagedAdminList(page, pageSize);
+			
 
 			// 요청 속성에 데이터 추가
 			request.setAttribute("userList", adminList);
