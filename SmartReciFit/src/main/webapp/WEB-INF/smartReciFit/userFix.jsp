@@ -11,33 +11,33 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
 	<h1> 회원정보수정 </h1> 
 	
-	<form id="userJoinForm" action="${ctx}/userJoin.do" method="post"  enctype="multipart/form-data">
+	<form id="userFixForm" action="${ctx}/userFix.do" method="post"  enctype="multipart/form-data">
 	<table>
 	<tr>
 	<td colspan="3"><p>*표가 있는 항목은 필수 입력 항목입니다.</p></td>
 	</tr>
 	<tr>
 	<td>아이디*</td>
-	<td><input type="text" name="id-new" id="id-new"  value="${vo.userId}" required></td>
+	<td><input type="text" name="id-new" id="id-new"  value="${user.userId}" required><input type="hidden" id="originalIdHidden" data-original-id="${user.userId}"></td>
 	<td><button class="btn-checkId" name="btn-checkId" id="btn-checkId">아이디 중복검사</button></td>
 	</tr>
 	<tr>
 	<td>비밀번호*</td>
-	<td colspan="2"><input type="password" name="pw-new" id="pw-new" value="${vo.userPw}"  required></td>
+	<td colspan="2"><input type="password" name="pw-new" id="pw-new" value="${user.userPw}"  required></td>
 	</tr>
 	<tr>
 	<td>이름*</td>
-	<td colspan="2"><input type="text" name="name" id="name" value="${vo.userName}" required></td>
+	<td colspan="2"><input type="text" name="name" id="name" value="${user.userName}" required></td>
 	</tr>
 	<tr>
 	<td>닉네임*</td>
-	<td><input type="text" name="nickName" id="nickName" value="${vo.userNickName}" required></td>
+	<td><input type="text" name="nickName" id="nickName" value="${user.userNickName}" required><input type="hidden" id="originalNickNameHidden" data-original-id="${user.userNickName}"></td>
 	<td><button class="btn-checkNickName" name="btn-checkNickName" id="btn-checkNickName">닉네임 중복검사</button></td>
 	</tr>
 	<tr>
 	<td>이메일*</td>
-	<td><input type="text" name="email" id="email"></td>
-	<td><button class="btn-checkEmail" name="btn-checkEmail" id="btn-checkEmail" value="${vo.userEmail}"  onclick="email_ok(email.value)">이메일인증</button></td>
+	<td><input type="text" name="email" id="email"  value="${user.userEmail}"><input type="hidden" id="originalEmailHidden" data-original-id="${user.userEmail}"></td>
+	<td><button class="btn-checkEmail" name="btn-checkEmail" id="btn-checkEmail"  onclick="email_ok(email.value)">이메일인증</button></td>
 	</tr>
 	<tr>
 	<td><div id="countdown"></div></td>
@@ -46,20 +46,27 @@
 	</tr>
 	<tr>
 	<td>전화번호</td>
-	<td colspan="2"><input type="text" name="phone" id="phone" value="${vo.userPhone }"></td>
+	<td colspan="2"><input type="text" name="phone" id="phone" value="${user.userPhone }"></td>
 	</tr>
 
 	<tr>
 	<td>프로필 사진</td>
-	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*" value="${vo.userImg}" onchange="tryImgPreview(event)" ></td>
+	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*"  value="${user.userImg}" onchange="tryImgPreview(event)" >
+	<input type="hidden" id="originalImgHidden" data-original-id="${user.userImg}">
+	</td>
 	<td><button class="btn-imgDel" name="btn-imgDel" id="btn-imgDel">이미지삭제</button></td>
 	</tr>
 	<tr><td colspan="3"> <div id="imgPreview"></div> </td></tr>
 	<tr>
-	<td colspan="3"><button class="btn-submit" name="btn-submit" id="btn-submit">회원가입</button></td>
+	<td colspan="3"><button class="btn-submit" name="btn-submit" id="btn-submit">수정완료</button></td>
 	</tr>
 	</table>
 	</form>
+	
+<!-- 	<script>
+	let testId="${user.userPw}";
+	console.log("testId="+testId);
+	</script> -->
 
-<script src="${ctx}/js/user/userJoin.js"> </script>
+<script src="${ctx}/js/user/userFix.js"> </script>
 <%@ include file="../../part/footer.jsp" %>

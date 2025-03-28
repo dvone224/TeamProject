@@ -71,6 +71,7 @@ import kr.smartReciFit.controller.user.UserFixController;
 import kr.smartReciFit.controller.user.UserInfoController;
 import kr.smartReciFit.controller.user.UserJoinController;
 import kr.smartReciFit.controller.user.VaildIdAjaxController;
+import kr.smartReciFit.controller.user.UserInfoFixController;
 
 public class HandlerMapping {
 	private HashMap<String, Controller> mappings;
@@ -84,18 +85,20 @@ public class HandlerMapping {
 		mappings.put("/checkNickName.do",  new CheckNickNameController());
 		mappings.put("/vaildIdAjax.do",  new VaildIdAjaxController());
 		mappings.put("/mailSend.do",  new MailSend());
+		mappings.put("/userDel.do",  new UserDelController());
 		//마이페이지 관련 맵핑
 		mappings.put("/userContent.do",  new UserContentController());
-		mappings.put("/userInfo.do",  new UserInfoController());
 		mappings.put("/userFix.do",  new UserFixController());
-		mappings.put("/userDel.do",  new UserDelController());
+		mappings.put("/userInfo.do",  new UserInfoController());
+		mappings.put("/userInfoFix.do",  new UserInfoFixController());
+		//mappings.put("/userMyBoard.do",  new UserMyBoardController());
+		//mappings.put("/userMyComent.do",  new UserMyComentController());
 		
 		mappings.put("/userFind.do",  new UserFindController());
 		mappings.put("/checkEmail.do",  new CheckEmailController());
 		mappings.put("/checkEmailDouble.do",  new CheckEmailDoubleController());
 		mappings.put("/userFindId.do",  new UserFindIdController());
 		mappings.put("/userResetPw.do",  new UserResetPwController());
-		
 		
 		// 로그인 관련 작업 (나경)
 		// 로그인아웃 관련 맵핑

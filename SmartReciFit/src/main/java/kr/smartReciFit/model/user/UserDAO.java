@@ -332,5 +332,35 @@ public class UserDAO {
 			session.close();
 		}
 	}
+		public int UserUpdate(Integer userNum, String id, String pw, String name, String nickName, String email,
+				String phone, String profileImg) {
+			
+			SqlSession session = Config.getSession().openSession();
+			Map<String, Object> userMap = new HashMap<>();
+			userMap.put("userNum", userNum);
+			userMap.put("id", id);
+			userMap.put("pw", pw);
+			userMap.put("name", name);
+			userMap.put("nickName", nickName);
+			userMap.put("email",email);
+			userMap.put("phone", phone);
+			userMap.put("profileImg", profileImg);
+			System.out.println(userMap);
+			
+			int cnt= session.update("updateUserByUserNum", userMap);
+			session.commit();
+			session.close();
+			System.out.println("UserDAO.UserUpdate 완료");
+			return cnt;
+			
+		}
+
+	    
+	    
+
+
+
+	 
+
 
 }
