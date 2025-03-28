@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Enumeration;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,21 +23,19 @@ public class UserFixController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("유저 정보 수정 진입");
+		System.out.println("유저 정보 수정 컨트롤러 진입");
 		HttpSession session = request.getSession();
 		String ctx=request.getContextPath();
 		
-		Integer userNum=(Integer)session.getAttribute("log");
-		System.out.println("userNum="+userNum);
-		
-		if (session.getAttribute("firstIn")==null) {
-			System.out.println("값업음");
-			session.setAttribute("firstIn", "done");
-			return "userFix";
+		String num=request.getParameter("num");
+		if (num==null) {
+			num=(String) request.getAttribute("log");
 		}
-		
-		System.out.println("값있음");
-		session.setAttribute("firstIn", null);
+		System.out.println("userNum="+num);
+		Integer userNum=Integer.parseInt(num);
+		User vo=UserDAO.getInstance().numGetUser(userNum);
+//		System.out.println("테스트옹 vo: "+vo);
+		request.setAttribute("userFix", vo);
 		
 		//입력된 값 받아오기
 		String id=request.getParameter("id-new");
@@ -47,6 +46,18 @@ public class UserFixController implements Controller {
 		String nickName=request.getParameter("nickName");
 		System.out.println(nickName);
 		String email=request.getParameter("email");
+		
+		
+		if (email==null||session.getAttribute("firstInUserFix")==null||(Boolean)session.getAttribute("firstInUserFix")==false) {
+			System.out.println("값없음");
+			session.setAttribute("firstInUserFix", true);
+			return "userFix";
+		}
+		
+		System.out.println("값있음");
+		session.setAttribute("firstInUserFix", false);
+		
+
 		if (email.trim().equals("")) {
 			email=null;
 		}
@@ -58,6 +69,9 @@ public class UserFixController implements Controller {
 		System.out.println(phone);
 		
 		String profileImg=null;
+		String existingImg = request.getParameter("originalImgHidden");
+//		String existingImg = request.getParameter("imgChange");
+		System.out.println("existingImg="+existingImg);
 		
 		String saveDirectory = request.getServletContext().getRealPath("/img");
 		Path saveDirPath = Paths.get(saveDirectory);
@@ -70,15 +84,18 @@ public class UserFixController implements Controller {
 		String oFileName = null;
 		Part filePart = request.getPart("uploadFile");
         if (filePart != null && filePart.getSize() > 0) {
+        	System.out.println("파일 업로드 수정함");
          	oFileName = extractFileName(filePart);
             sFileName =  System.currentTimeMillis() +"_"+oFileName ;
             
             filePart.write(saveDirPath.resolve(sFileName).toString());
             String fileType = filePart.getContentType();
             System.out.println("fileType= " + fileType);
+            profileImg=sFileName;
+        } else {
+        	System.out.println("파일 업로드 수정 안함");
+            profileImg = existingImg; // 파일이 업로드되지 않았으면 기존 이미지 이름 사용
         }
-
-		profileImg=sFileName;
 		
 		PrintWriter out = response.getWriter();
 		response.setCharacterEncoding("utf-8");
