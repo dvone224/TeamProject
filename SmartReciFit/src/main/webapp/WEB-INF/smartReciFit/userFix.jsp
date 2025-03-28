@@ -51,12 +51,24 @@
 
 	<tr>
 	<td>프로필 사진</td>
-	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*"  value="${user.userImg}" onchange="tryImgPreview(event)" >
+	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*"  onchange="tryImgPreview(event)" >
 	<input type="hidden" id="originalImgHidden" data-original-id="${user.userImg}">
 	</td>
 	<td><button class="btn-imgDel" name="btn-imgDel" id="btn-imgDel">이미지삭제</button></td>
 	</tr>
-	<tr><td colspan="3"> <div id="imgPreview"></div> </td></tr>
+	<tr><td colspan="3"> <div id="imgPreview">
+
+	<c:choose>
+		<c:when test="${not empty user.userImg}">
+			<img src="${ctx}/img/${user.userImg}" class="photo"
+				id="userImg" />
+		</c:when>
+		<c:otherwise>
+			<img src="${ctx}/img/ProfileBasicImg.png" class="photo"
+				id="default" />
+		</c:otherwise>
+	</c:choose>
+	</div> </td></tr>
 	<tr>
 	<td colspan="3"><button class="btn-submit" name="btn-submit" id="btn-submit">수정완료</button></td>
 	</tr>

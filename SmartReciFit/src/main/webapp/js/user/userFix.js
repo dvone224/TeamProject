@@ -625,9 +625,8 @@ const fistImg = document.getElementById('originalImgHidden').dataset.originalId;
 /*이미지 삭제*/
 document.getElementById('btn-imgDel').addEventListener('click', function() {
   document.querySelector('input[name="uploadFile"]').value = '';
- imgPreview.empty();
+  $('#imgPreview').empty();
 });
-
 
 /*이미지 미리보기*/
 function tryImgPreview(event) {
@@ -635,7 +634,7 @@ function tryImgPreview(event) {
   let fileArr = Array.from(files);
 
   // 기존 이미지 미리보기 삭제
-  imgPreview.empty();
+  $('#imgPreview').empty();
 
   fileArr.forEach(function (f) {
     // 이미지만 가능
@@ -647,9 +646,8 @@ function tryImgPreview(event) {
     let reader = new FileReader();
     // reader.onload ==> 읽기가 완료되었을때
     reader.onload = function (e) {
-		let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
-//      let img_html = "<img src=\"" + fistImg + "\" style='width:30%; margin-right: 10px;' />";
-     imgPreview.append(img_html);
+      let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
+      $('#imgPreview').append(img_html);
     }
     // 이미지를 읽자
     reader.readAsDataURL(f);

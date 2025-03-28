@@ -78,76 +78,16 @@
 		</tr>
 	</table>
 </c:if>
-
-<button name="btn-userFix" id="btn-userFix" onclick="location.href='${ctx}/userFix.do'">회원정보수정</button>
-
-<table border="1">
-<%-- <table border="1">
-	<tr>
-		<td>카카오 계정 연동</td>
-		<td>
-			<form action="${ctx}/linkSocial.do" method="POST">
-				<input type="hidden" name="platform" value="kakao"> <input
-					type="hidden" name="email"
-					value="${sessionScope.user.userEmail}">
-				<button type="submit">연동</button>
-			</form>
-		</td>
-	</tr>
-	<tr>
-		<td>네이버 계정 연동</td>
-		<td>
-			<form action="${ctx}/linkSocial.do" method="POST">
-				<input type="hidden" name="platform" value="naver"> <input
-					type="hidden" name="email"
-					value="${sessionScope.user.userEmail}">
-				<button type="submit">연동</button>
-			</form>
-		</td>
-	</tr>
-	<tr>
-		<td>구글 계정 연동</td>
-		<td>
-			<form action="${ctx}/linkSocial.do" method="POST">
-				<input type="hidden" name="platform" value="google"> <input
-					type="hidden" name="email"
-					value="${sessionScope.user.userEmail}">
-				<button type="submit">연동</button>
-			</form>
-		</td>
-	</tr>
-</table>
-<p style="font-size: 12px; color: gray; margin-top: 5px;">
-	※ 현재 연동된 이메일 주소로 로그인하시면 기존 계정으로 접속됩니다.
-</p> --%>
-<table>
-    <tr>
-        <td>네이버</td>
-        <td id="naverStatus">
-            연동 중입니다. <button class="link-button" onclick="unlinkSocial('naver')">연동 해지</button>
-        </td>
-        <td>카카오</td>
-        <td id="kakaoStatus">
-            연동 중입니다. <button class="link-button" onclick="unlinkSocial('kakao')">연동 해지</button>
-        </td>
-    </tr>
-    <tr>
-        <td>구글</td>
-        <td id="googleStatus">
-            <button class="link-button" onclick="linkSocial('google')">계정 연동</button>
-        </td>
-    </tr>
-</table>
-
+<button name="btn-userFix" id="btn-userFix" onclick="location.href='${ctx}/userFix.do?num='${userContent.userNum}">회원정보수정</button>
 
 <c:choose>
 <c:when test="${empty userInfoContent}">
 <table>
 <tr><td><p>아직 인포를 저장하지 않았습니다.</p></td></tr>
 <tr><td><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfoFix.do'">인포만들기</button></td></tr>
-
 </table>
 </c:when>
+
 <c:otherwise>
 <table>
 <tr><td>나의 식사량</td><td>${userInfoMealSize}</td></tr>
@@ -158,124 +98,7 @@
 <tr><td colspan="2"><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfoFix.do'">인포수정하기</button></td></tr>
 </table>
 </c:otherwise>
-<%-- <%
-    String message = (String) session.getAttribute("message");
-    if (message != null) {
-%>
-    <script>
-        alert("<%= message %>");
-    </script>
-<%
-        session.removeAttribute("message"); // 메시지 삭제 (새로고침해도 alert 안 뜨게!)
-    }
-%> --%>
-<script type="text/javascript">
-function linkSocial(platform) {
-    // 소셜 계정 연동 로직
-    alert(platform + " 계정 연동 요청");
-}
-function unlinkSocial(platform) {
-    // 소셜 계정 연동 해제 로직
-    alert(platform + " 계정 연동 해제 요청");
-}
-
-
-document.addEventListener('DOMContentLoaded', function() {
-       loadSocialStatus();
-   });
-
-   function loadSocialStatus() {
-       fetch('${ctx}/getSocialStatus.do')
-           .then(response => response.json())
-           .then(data => {
-               displaySocialStatus('naver', data.naver);
-               displaySocialStatus('kakao', data.kakao);
-               displaySocialStatus('google', data.google);
-               displaySocialStatus('apple', data.apple);
-           })
-           .catch(error => console.error('Error:', error));
-   }
-
-   function displaySocialStatus(platform, isLinked) {
-       const statusElement = document.getElementById(platform + 'Status');
-       if (isLinked) {
-           statusElement.innerHTML = '연동 중입니다. <button class="link-button" onclick="unlinkSocial(\'' + platform + '\')">연동 해지</button>';
-       } else {
-           statusElement.innerHTML = '<button class="link-button" onclick="linkSocial(\'' + platform + '\')">계정 연동</button>';
-       }
-   }
-
-   function linkSocial(platform) {
-       fetch('${ctx}/linkSocial.do', {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/x-www-form-urlencoded',
-           },
-           body: 'platform=' + platform + '&email=${sessionScope.user.userEmail}'
-       })
-           .then(response => response.text())
-           .then(message => {
-               alert(message);
-               loadSocialStatus();
-           })
-           .catch(error => console.error('Error:', error));
-   }
-
-   function unlinkSocial(platform) {
-       fetch('${ctx}/unlinkSocial.do', {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/x-www-form-urlencoded',
-           },
-           body: 'platform=' + platform
-       })
-           .then(response => response.text())
-           .then(message => {
-               alert(message);
-               loadSocialStatus();
-           })
-           .catch(error => console.error('Error:', error));
-   }
-</script>
-<button name="btn-userFix" id="btn-userFix"
-	onclick="location.href='${ctx}/userFix.do'">회원정보수정</button>
-
-<c:choose>
-	<c:when test="${empty userInfoContent}">
-		<table>
-			<tr>
-				<td><p>아직 인포를 저장하지 않았습니다.</p></td>
-			</tr>
-			<tr>
-				<td><button name="btn-makeInfo" id="btn-makeInfo"
-						onclick="location.href='${ctx}/userInfo.do'">인포만들기</button></td>
-			</tr>
-
-		</table>
-	</c:when>
-	<c:otherwise>
-		<table>
-			<tr>
-				<td>나의 식사량</td>
-				<td>${userInfoMealSize}</td>
-			</tr>
-			<tr>
-				<td>나의 선호 TAG</td>
-				<td><c:forEach var="info" items="${totalInfo}">${info}</c:forEach>
-				</td>
-			</tr>
-			<!-- 이거 이렇게 냅다 연결시키면 냅다 입력이 되니까 이거 막아주는거 하나 장치 마련하기  -->
-			<tr>
-				<td colspan="2"><button name="btn-makeInfo" id="btn-makeInfo"
-						onclick="location.href='${ctx}/userInfo.do'">인포수정하기</button></td>
-			</tr>
-		</table>
-	</c:otherwise>
 </c:choose>
-<button name="btn-userDel" id="btn-userDel"
-	onclick="location.href='${ctx}/userDel.do'">회원탈퇴</button>
 
 <script src="${ctx}/js/user/userContent.js">
-	
-</script>
 <%@ include file="../../part/footer.jsp"%>

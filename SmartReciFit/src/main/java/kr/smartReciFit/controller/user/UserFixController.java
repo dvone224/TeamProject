@@ -22,21 +22,16 @@ public class UserFixController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("유저 정보 수정 진입");
+		System.out.println("유저 정보 수정 컨트롤러 진입");
 		HttpSession session = request.getSession();
 		String ctx=request.getContextPath();
 		
 		Integer userNum=(Integer)session.getAttribute("log");
 		System.out.println("userNum="+userNum);
 		
-		if (session.getAttribute("firstIn")==null) {
-			System.out.println("값업음");
-			session.setAttribute("firstIn", "done");
-			return "userFix";
-		}
-		
-		System.out.println("값있음");
-		session.setAttribute("firstIn", null);
+		User vo=UserDAO.getInstance().numGetUser(userNum);
+//		System.out.println("테스트옹 vo: "+vo);
+		request.setAttribute("user", vo);
 		
 		//입력된 값 받아오기
 		String id=request.getParameter("id-new");
@@ -47,6 +42,18 @@ public class UserFixController implements Controller {
 		String nickName=request.getParameter("nickName");
 		System.out.println(nickName);
 		String email=request.getParameter("email");
+		
+		
+		if (email==null||session.getAttribute("firstIn")==null||(Boolean)session.getAttribute("firstIn")==false) {
+			System.out.println("값업음");
+			session.setAttribute("firstIn", true);
+			return "userFix";
+		}
+		
+		System.out.println("값있음");
+		session.setAttribute("firstIn", false);
+		
+
 		if (email.trim().equals("")) {
 			email=null;
 		}

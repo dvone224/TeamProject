@@ -68,6 +68,7 @@ import kr.smartReciFit.controller.user.UserDelController;
 import kr.smartReciFit.controller.user.UserFindController;
 import kr.smartReciFit.controller.user.UserFindIdController;
 import kr.smartReciFit.controller.user.UserFixController;
+import kr.smartReciFit.controller.user.UserFixMoveController;
 import kr.smartReciFit.controller.user.UserInfoController;
 import kr.smartReciFit.controller.user.UserJoinController;
 import kr.smartReciFit.controller.user.VaildIdAjaxController;
@@ -88,6 +89,7 @@ public class HandlerMapping {
 		mappings.put("/userDel.do",  new UserDelController());
 		//마이페이지 관련 맵핑
 		mappings.put("/userContent.do",  new UserContentController());
+		mappings.put("/userFixMove.do",  new UserFixMoveController());
 		mappings.put("/userFix.do",  new UserFixController());
 		mappings.put("/userInfo.do",  new UserInfoController());
 		mappings.put("/userInfoFix.do",  new UserInfoFixController());
