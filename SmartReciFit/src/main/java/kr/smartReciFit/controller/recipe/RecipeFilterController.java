@@ -26,12 +26,14 @@ public class RecipeFilterController implements Controller {
 		String ingredients = request.getParameter("ingredients").trim();
 		String eatTimes = request.getParameter("eatTimes").trim();
 		String cookingStyles = request.getParameter("cookingStyles").trim();
-		HashMap<String, ArrayList<String>> filterMap = new HashMap<String, ArrayList<String>>();
+		HashMap<String, Object> filterMap = new HashMap<String, Object>();
 
 		filterMap.put("cookingMethods", splitString(cookingMethods));
 		filterMap.put("ingredients", splitString(ingredients));
 		filterMap.put("eatTimes", splitString(eatTimes));
 		filterMap.put("cookingStyles", splitString(cookingStyles));
+		filterMap.put("limit",24);
+		filterMap.put("offset", Integer.parseInt(request.getParameter("offset")));
 		ArrayList<Recipe> recipeList = RecipeDAO.getInstance().getRecipeByFilter(filterMap);
 		System.out.println("fliterMap = " + recipeList);
 		Gson gson = new GsonBuilder().serializeNulls().create();

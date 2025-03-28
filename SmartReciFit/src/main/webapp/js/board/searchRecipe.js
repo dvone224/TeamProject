@@ -23,17 +23,19 @@ function searchRecipes() {
    function displayResults(results) {
        var searchResultsDiv = document.getElementById("searchResults");
        searchResultsDiv.innerHTML = ""; // 이전 결과 지우기
+	   
 
        if (results && results.length > 0) {
            var ul = document.createElement("ul");
            results.forEach(function(recipe) {
+			   console.log(recipe);
                var li = document.createElement("li");
                var label = document.createElement("label");
                var input = document.createElement("input");
 
                input.type = "radio";
                input.name = "recipeNum";
-               input.value = recipe.apiRecipeNum;
+               input.value = recipe.recipeNum;
 
                label.appendChild(input);
                label.appendChild(document.createTextNode(recipe.recipeName + " (" + recipe.recipeIngredient + ")"));

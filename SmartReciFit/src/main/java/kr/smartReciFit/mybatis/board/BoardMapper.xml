@@ -297,13 +297,7 @@
 		DELETE FROM
 		comment WHERE board_num = #{reviewBoardNum}
 	</delete>
-	<!--참고한 레시피 찾기 -->
-	<select id="searchRecipes" parameterType="string"
-		resultType="hashmap">
-		SELECT * FROM recipe_raw_data
-		WHERE recipe_name LIKE
-		CONCAT('%', #{keyword}, '%') LIMIT 4
-	</select>
+
 	<!-- 검색한 리뷰 찾기 -->
 	<select id="searchReviewBoard" parameterType="Map"
 		resultType="hashmap">

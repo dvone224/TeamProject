@@ -35,7 +35,7 @@ public class AdminRecipeController implements Controller {
 
 		int start = (page - 1) * pageSize + 1;
 		int end = page * pageSize;
-		ArrayList<Recipe> recipes = dao.getRecipeByStartEnd(start,pageGroupSize);
+		ArrayList<Recipe> recipes = dao.getRecipeByLimitOffest(pageGroupSize,start);
 		System.out.println(recipes);
 
 		int startPage = ((page - 1) / pageGroupSize) * pageGroupSize + 1;

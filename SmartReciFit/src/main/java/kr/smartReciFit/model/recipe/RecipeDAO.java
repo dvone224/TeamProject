@@ -44,7 +44,7 @@ public class RecipeDAO {
 		return list;
 	}
 
-	public ArrayList<Recipe> getRecipeByFilter(HashMap<String, ArrayList<String>> parameter) {
+	public ArrayList<Recipe> getRecipeByFilter(HashMap<String, Object> parameter) {
 		ArrayList<Recipe> list = new ArrayList<Recipe>();
 		try (SqlSession sessoin = Config.getSession().openSession()) {
 			list = (ArrayList) sessoin.selectList("getRecipeListByFilter", parameter);
@@ -113,8 +113,8 @@ public class RecipeDAO {
 	}
 
 	// 후기글 작성중 레시피 검색 (명보)
-	public ArrayList<HashMap<String, Object>> searchRecipes(String keyword) {
-		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+	public ArrayList<Recipe> searchRecipes(String keyword) {
+		ArrayList<Recipe> list = new ArrayList<Recipe>();
 		try (SqlSession session = Config.getSession().openSession()) {
 			list = (ArrayList) session.selectList("searchRecipes", keyword);
 			System.out.println("검색결과" + list);
@@ -214,13 +214,13 @@ public class RecipeDAO {
 		return count;
 	}
 	
-	public ArrayList<Recipe> getRecipeByStartEnd(int start, int limit) {
+	public ArrayList<Recipe> getRecipeByLimitOffest(int limit, int offset) {
 		HashMap<String, Integer> parameter = new HashMap<String, Integer>();
-		parameter.put("start", start-1);
+		parameter.put("offset", offset-1);
 		parameter.put("limit", limit);
 		ArrayList<Recipe> recipeList = new ArrayList<Recipe>();
 		try (SqlSession session = Config.getSession().openSession()){
-			recipeList = (ArrayList)session.selectList("getRecipeByStartEnd", parameter);
+			recipeList = (ArrayList)session.selectList("getRecipeByLimitOffest", parameter);
 		} catch (Exception e) {
 			System.out.println("getRecipeByStartEnd() 오류");
 			e.printStackTrace();
