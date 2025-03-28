@@ -106,10 +106,6 @@ public class SaveSocialLoginInfo implements Controller {
 	        }
 
 	        session.setAttribute("linkedAccounts", linkedAccounts); // linkedAccounts 세션에 저장
-<<<<<<< Updated upstream
-=======
-	        System.out.println(session.getAttribute("linkedAccounts"));
->>>>>>> Stashed changes
 
 	        System.out.println("세션 저장 완료: " + session.getAttribute("log") + " / " + session.getAttribute("nickName"));
 	        return "main";

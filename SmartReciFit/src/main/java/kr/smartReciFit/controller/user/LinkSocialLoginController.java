@@ -2,11 +2,8 @@ package kr.smartReciFit.controller.user;
 
 import java.io.IOException;
 import java.util.Map;
-<<<<<<< Updated upstream
 
 import org.json.simple.JSONObject;
-=======
->>>>>>> Stashed changes
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,13 +19,16 @@ public class LinkSocialLoginController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		System.out.println(user);
+
+		if (user == null) {
+			// 로그인하지 않은 경우, 메시지를 세션에 저장하고 main 페이지로 리다이렉트
+			session.setAttribute("message", "로그인 후 소셜 계정을 연동할 수 있습니다.");
+			return "main"; // main.do로 리다이렉트
+		}
 
 		String platform = request.getParameter("platform");
 		String email = request.getParameter("email");
@@ -37,7 +37,6 @@ public class LinkSocialLoginController implements Controller {
 
 		boolean linked = UserDAO.getInstance().linkSocialAccount(user.getUserNum(), platform, email);
 
-<<<<<<< Updated upstream
 		if (linked) {
 		    Map<String, Boolean> linkedAccounts = UserDAO.getInstance().getLinkedSocialAccounts(user.getUserNum());
 		    session.setAttribute("linkedAccounts", linkedAccounts);
@@ -45,17 +44,6 @@ public class LinkSocialLoginController implements Controller {
 		}else {
 			session.setAttribute("message", "이미 연동된 계정입니다.");
 		}
-=======
-	    if (linked) {
-	        // ✅ 성공 메시지 설정
-	        session.setAttribute("message", platform + "와 연동되었습니다.");
-	        Map<String, Boolean> linkedAccounts = UserDAO.getInstance().getLinkedSocialAccounts(user.getUserNum());
-	        session.setAttribute("linkedAccounts", linkedAccounts);
-	    } else {
-	        // ✅ 실패 메시지 설정
-	        session.setAttribute("message", "이미 연동된 계정입니다.");
-	    }
->>>>>>> Stashed changes
 
 		return "userContent";
 	}

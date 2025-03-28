@@ -45,11 +45,7 @@ public class LoginCheckController implements Controller {
 	        	   System.out.println(session.getAttribute("nickName"));
 	        	   System.out.println(session.getAttribute("log"));
 	        	   
-<<<<<<< Updated upstream
 	               // 연동된 소셜 계정 상태 확인
-=======
-	        	   // 연동된 소셜 계정 상태 확인
->>>>>>> Stashed changes
 	               Map<String, Boolean> linkedAccounts = new HashMap<>();
 	               
 	               if (UserDAO.getInstance().isKakaoLinked(userNum)) {
@@ -64,11 +60,6 @@ public class LoginCheckController implements Controller {
 	               
 	               session.setAttribute("linkedAccounts", linkedAccounts); // linkedAccounts 세션에 저장
 	               
-<<<<<<< Updated upstream
-=======
-	               
-	        	   
->>>>>>> Stashed changes
 	        	// 관리자 로그인 확인
 	               if ("admin".equals(user.getUserId())) {
 	                   response.getWriter().write("admin_success"); // 관리자 로그인 성공
