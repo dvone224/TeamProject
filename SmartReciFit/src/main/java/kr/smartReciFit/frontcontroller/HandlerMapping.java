@@ -12,6 +12,7 @@ import kr.smartReciFit.controller.admin.InquiryController;
 import kr.smartReciFit.controller.admin.KeywordController;
 import kr.smartReciFit.controller.admin.PlayListController;
 import kr.smartReciFit.controller.admin.ReviewAdminDeleteController;
+import kr.smartReciFit.controller.admin.SearchReviewAdminBoardController;
 import kr.smartReciFit.controller.admin.TrendInfoController;
 import kr.smartReciFit.controller.admin.UserAnalysisController;
 import kr.smartReciFit.controller.admin.ViewRankingController;
@@ -154,7 +155,7 @@ public class HandlerMapping {
 		mappings.put("/events.do", new EventBoardController());
 		mappings.put("/eventDetail.do", new EventDetailController());
 		mappings.put("/createRecipe.do", new CreateRecipeController());
-
+		mappings.put("/searchReviewAdminBoard.do",new SearchReviewAdminBoardController());
 		// 레시피 페이지
 		mappings.put("/recipes.do", new RecipesController());
 		mappings.put("/recipeFilter.do", new RecipeFilterController());

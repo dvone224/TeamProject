@@ -1,4 +1,8 @@
-package kr.smartReciFit.controller.board;
+package kr.smartReciFit.controller.admin;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -9,13 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.model.board.ReviewBoardDAO;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-public class SearchReviewBoardController implements Controller {
-
+public class SearchReviewAdminBoardController implements Controller {
     @Override
     public String requestHandler(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,6 +73,6 @@ public class SearchReviewBoardController implements Controller {
         request.setAttribute("endPage", endPage);
         request.setAttribute("searchName", searchName);
         request.setAttribute("keyword", keyword);
-        return "searchResult";
+        return "searchAdminResult";
     }
 }
