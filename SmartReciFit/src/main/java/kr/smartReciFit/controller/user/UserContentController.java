@@ -7,6 +7,7 @@ import java.util.Arrays;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import kr.smartReciFit.controller.Controller;
 import kr.smartReciFit.model.user.User;
 import kr.smartReciFit.model.user.UserDAO;
@@ -20,7 +21,7 @@ public class UserContentController implements Controller {
 			throws ServletException, IOException {
 		//user 갖고 와서...
 		System.out.println(" 마이페이지 진입");
-		
+		HttpSession session = request.getSession();
 		String ctx=request.getContextPath();
 		
 		int num =-1;
@@ -44,7 +45,7 @@ public class UserContentController implements Controller {
 			System.out.println("voInfo 정보없음");
 			return "userContent";
 		}else {
-			int voMealSize=(int)voInfo.getUserMealSize();
+			Double voMealSize=(Double)voInfo.getUserMealSize();
 			request.setAttribute("userInfoMealSize", voMealSize);
 			String voIngredient=voInfo.getIngredient();
 			String voCookingStyle=voInfo.getCookingStyle();

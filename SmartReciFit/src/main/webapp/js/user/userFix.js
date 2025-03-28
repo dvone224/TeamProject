@@ -36,14 +36,57 @@ checkcheckEmailOkButton.disabled=true;
 	imgPreview.append(${ctx}/img/fistImg);
 }*/
 //기존 이미지를 임시에 띄워놓고
-let imgChange=0;
+
 //imgChange=0이면 이미지는 기존 값 저장
 //imgChange==1이면 이미지는 새로운 값 저장
 
+let imgChange=document.getElementById('originalImgHidden').dataset.originalId;;
+
+const elementImg = document.getElementById('originalImgHidden');
+const btnImgDel= document.querySelector('#btn-imgDel');
+
+//let isbtnClick = false;
+
+btnImgDel.addEventListener('click', (event) => {
+	console.log("버튼 클릭 전: "+ imgChange);
+	elementImg.setAttribute('data-original-id', null);
+	elementImg.value=null;
+	//imgChange=null;
+	//isbtnClick = true;
+	console.log("버튼 클릭 후: "+ imgChange);
+});
 
 //어떤 이벤트를 명시적으로 처리하지 않은 경우, 해당 이벤트에 대한 사용자 에이전트의 기본 동작을 실행하지 않도록 지정
 form.addEventListener('submit', (event) => {
 	event.preventDefault();
+	alert("버튼 클릭 제출되는 값: "+elementImg);
+	alert("버튼 클릭 제출되는 값: "+document.getElementById('originalImgHidden').dataset.originalId);
+	/*const formData = new FormData(form);
+	    formData.append('imgChange', imgChange); // imgChange 값 추가
+
+	    // 서버로 데이터 전송
+	    fetch('/userFix.do', { // 컨트롤러 URL
+	        method: 'POST',
+	        body: formData,
+	    })
+	    .then(response => {
+	        if (!response.ok) {
+	            throw new Error('Network response was not ok');
+	        }
+	        return response.text(); // 또는 response.json()
+	    })
+	    .then(data => {
+	        // 서버 응답 처리
+	        console.log(data);
+	        // 필요에 따라 페이지 이동 또는 다른 작업 수행
+	        document.open();
+	        document.write(data);
+	        document.close();
+	    })
+	    .catch(error => {
+	        console.error('There has been a problem with your fetch operation:', error);
+	    });*/
+	
 });
 
 submitButton.addEventListener('click', (event) => {
@@ -632,31 +675,42 @@ document.getElementById('btn-imgDel').addEventListener('click', function() {
 function tryImgPreview(event) {
   let files = event.target.files;
   let fileArr = Array.from(files);
+  const preview = $('#imgPreview');
+  const existingImage = preview.find('img'); // 기존 이미지 요소 찾기
 
-  // 기존 이미지 미리보기 삭제
-  $('#imgPreview').empty();
+  if (fileArr.length > 0) { // 파일이 선택되었을 때만 처리
+    // 기존 이미지 미리보기 삭제
+    preview.empty();
 
-  fileArr.forEach(function (f) {
-    // 이미지만 가능
-    if (!f.type.match("image.*")) {
-      alert("이미지 확장자만 가능합니다.");
-      return;
+    fileArr.forEach(function (f) {
+      // 이미지만 가능
+      if (!f.type.match("image.*")) {
+        alert("이미지 확장자만 가능합니다.");
+        return;
+      }
+      // 이미지를 읽을 객체
+      let reader = new FileReader();
+      // reader.onload ==> 읽기가 완료되었을때
+      reader.onload = function (e) {
+        let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
+        preview.append(img_html);
+		alert("e.target.result: "+e.target.result);
+		elementImg.setAttribute('data-original-id', e.target.result);
+		elementImg.value=e.target.result;
+      }
+      // 이미지를 읽자
+      reader.readAsDataURL(f);
+    });
+  } else {
+    // 파일 선택이 취소된 경우 기존 이미지 유지
+    if (existingImage.length === 0) {
+      // 기존 이미지가 없는 경우 기본 이미지 표시 (선택 사항)
+      preview.html('<img src="${ctx}/img/ProfileBasicImg.png" class="photo" id="default" />');
     }
-    // 이미지를 읽을 객체
-    let reader = new FileReader();
-    // reader.onload ==> 읽기가 완료되었을때
-    reader.onload = function (e) {
-      let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
-      $('#imgPreview').append(img_html);
-    }
-    // 이미지를 읽자
-    reader.readAsDataURL(f);
-  });
+  }
 }
 // input 요소에 change 이벤트 리스너 추가
 $('#imageInput').on('change', tryImgPreview);
-
-
 const style = document.createElement('style');
 style.textContent = `
     input[readonly] {

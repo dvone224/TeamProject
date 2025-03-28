@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+
 <script>
 
 	let contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf("/",2));

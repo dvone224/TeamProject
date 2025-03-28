@@ -47,6 +47,5 @@ public class UserInfoDAO {
 		session.close();
 		System.out.println("인포 삭제");
 	}
-	
-	
+
 }

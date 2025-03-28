@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css">
 	<h1> 회원정보수정 </h1> 
 	
-	<form id="userFixForm" action="${ctx}/userFix.do" method="post"  enctype="multipart/form-data">
+	<form id="userFixForm" action="${ctx}/userFix.do?num=${userFix.userNum}" method="post"  enctype="multipart/form-data">
 	<table>
 	<tr>
 	<td colspan="3"><p>*표가 있는 항목은 필수 입력 항목입니다.</p></td>
@@ -52,9 +52,14 @@
 	<tr>
 	<td>프로필 사진</td>
 	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*"  onchange="tryImgPreview(event)" >
-	<input type="hidden" id="originalImgHidden" data-original-id="${userFix.userImg}">
+	<input type="hidden" id="originalImgHidden" data-original-id="${userFix.userImg}" name="originalImgHidden" value="${userFix.userImg}">
 	</td>
 	<td><button class="btn-imgDel" name="btn-imgDel" id="btn-imgDel">이미지삭제</button></td>
+	
+	<script>
+
+	</script>
+	
 	</tr>
 	<tr><td colspan="3"> <div id="imgPreview">
 
