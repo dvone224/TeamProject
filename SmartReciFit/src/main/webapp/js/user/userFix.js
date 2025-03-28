@@ -1,15 +1,18 @@
-let isIdValid = 0;//아이디 검사
-let isNicknameValid = 0;//닉네임 검사
-let isPwValid = 0;//비밀번호 검사
-let isNameValid = 0;//이름 인증 검사 0 인증검사 전 -1 인증검사 중 1 인증검사 완료
-let isidentityValid = 0;//이메일 인증 검사 0 인증검사 전 -1 인증검사 중 1 인증검사 완료
+let isIdValid = 1;//아이디 검사
+let isNicknameValid = 1;//닉네임 검사
+let isPwValid = 1;//비밀번호 검사
+let isNameValid = 1;//이름 인증 검사 0 인증검사 전 -1 인증검사 중 1 인증검사 완료
+let isidentityValid = 1;//이메일 인증 검사 0 인증검사 전 -1 인증검사 중 1 인증검사 완료
 //나중에 이메일인증검사랑 소셜인증검사랑 분리해야할 것 같으면 소셜검사를 따로 빼야지
 let identityCode = null;//인증번호 저장
 let emailChickTimeout = null;//2분 카운트 저장
 
 //const form = document.querySelector('form');
-const form = document.querySelector('#userJoinForm');
+const form = document.querySelector('#userFixForm');
 const inputs = form.querySelectorAll('input');
+const imgPreview = document.querySelector('#imgPreview');
+
+
 
 const idInput = document.querySelector('#id-new');
 const nicknameInput = document.querySelector('#nickName');
@@ -26,6 +29,17 @@ checkIdButton.disabled=true;
 checkNickNameButton.disabled=true;
 checkEmailButton.disabled=true;
 checkcheckEmailOkButton.disabled=true;
+
+
+//처음 나타나는 이미지
+/*if(fistImg!=null){
+	imgPreview.append(${ctx}/img/fistImg);
+}*/
+//기존 이미지를 임시에 띄워놓고
+let imgChange=0;
+//imgChange=0이면 이미지는 기존 값 저장
+//imgChange==1이면 이미지는 새로운 값 저장
+
 
 //어떤 이벤트를 명시적으로 처리하지 않은 경우, 해당 이벤트에 대한 사용자 에이전트의 기본 동작을 실행하지 않도록 지정
 form.addEventListener('submit', (event) => {
@@ -91,6 +105,7 @@ submitButton.addEventListener('click', (event) => {
 	}
 });
 
+//input업데이트 될때마다 확인하는거
 inputs.forEach(input => {
     input.addEventListener('input', () => validateField(input));
 });
@@ -98,6 +113,22 @@ inputs.forEach(input => {
 //아이디 중복검사
 checkIdButton.addEventListener('click', async () => {
     const id = idInput.value.trim();
+	const originalId = document.getElementById('originalIdHidden').dataset.originalId;
+	
+	console.log("id="+id);
+	console.log("originalId="+originalId);
+	console.log("id===originalId="+(id===originalId));
+
+	if(id===originalId){
+		swal.fire({
+			text:"기존 아이디와 동일합니다",
+			confirmButtonColor: "#F7C525"
+		});
+		isIdValid = 1;//기존아이디랑 동일하니까 패스
+		checkIdButton.disabled=true;
+		return;
+	}
+	isIdValid = 0;//기존 아이디와 동일하지 않은 값을 넣었으니까 인증 취소하기
 
     if (!id) {
 		swal.fire({
@@ -141,6 +172,18 @@ checkIdButton.addEventListener('click', async () => {
 //닉네임 중복검사
 checkNickNameButton.addEventListener('click', async () => {
     const nickName = nicknameInput.value.trim();
+	const originalNickName = document.getElementById('originalNickNameHidden').dataset.originalId;; // 서버에서 전달받은 기존 닉네임
+
+	if(nickName===originalNickName){
+		swal.fire({
+			text:"기존 닉네임과 동일합니다",
+			confirmButtonColor: "#F7C525"
+		});
+		isNicknameValid = 1;//기존닉네임과 동일하니까 패스
+		checkNickNameButton.disabled=true;
+		return;
+	}
+	isNicknameValid = 0;//기존 닉네임과 동일하지 않은 값을 넣었으니까 인증 취소하기
 
     if (!nickName) {
 		swal.fire({
@@ -181,6 +224,7 @@ checkNickNameButton.addEventListener('click', async () => {
     }
 });
 
+//문구 적합성 검사
 function validateField(input) {
     const value = input.value.trim();
     let isValid = true;
@@ -318,8 +362,6 @@ function handleIdValidationResult(data) {
     }
 }
 
-
-
 function handleNickNameValidationResult(data) {
     switch (data) {
         case 'valid':
@@ -393,7 +435,7 @@ function startCountdown() {
     }, 1000);
 }
 
-let isEmailDupValid = 0; // 이메일 중복 검사 상태 변수 추가
+let isEmailDupValid = 1; // 이메일 중복 검사 상태 변수 추가
 
 function handleEmailDupValidationResult(data) {
     switch (data) {
@@ -431,6 +473,20 @@ function handleEmailDupValidationResult(data) {
 async function email_ok(str){
 	
 	console.log("str:"+str);
+	const originalEmail =  document.getElementById('originalEmailHidden').dataset.originalId; // 서버에서 전달받은 기존 닉네임
+
+		if(str===originalEmail){
+			swal.fire({
+				text:"기존 이메일과 동일합니다",
+				confirmButtonColor: "#F7C525"
+			});
+			isEmailDupValid=1;
+			isidentityValid = 1;//기존이메일과 동일하니까 패스
+			checkEmailButton.disabled=true;
+			return;
+		}
+		isEmailDupValid=0;
+		isidentityValid=0;//기존 이메일과 동일하지 않은 값을 넣었으니까 인증 취소하기
 	
 	try {
 	        const response = await fetch('checkEmailDouble.do', { // 이메일 중복 검사 URL
@@ -562,11 +618,16 @@ function showError(input, message) {
     errorElement.style.color = 'red';
 }
 
+
+//기존 이미지 주소 가져오기
+const fistImg = document.getElementById('originalImgHidden').dataset.originalId;
+
 /*이미지 삭제*/
 document.getElementById('btn-imgDel').addEventListener('click', function() {
   document.querySelector('input[name="uploadFile"]').value = '';
-  $('#imgPreview').empty();
+ imgPreview.empty();
 });
+
 
 /*이미지 미리보기*/
 function tryImgPreview(event) {
@@ -574,7 +635,7 @@ function tryImgPreview(event) {
   let fileArr = Array.from(files);
 
   // 기존 이미지 미리보기 삭제
-  $('#imgPreview').empty();
+  imgPreview.empty();
 
   fileArr.forEach(function (f) {
     // 이미지만 가능
@@ -586,8 +647,9 @@ function tryImgPreview(event) {
     let reader = new FileReader();
     // reader.onload ==> 읽기가 완료되었을때
     reader.onload = function (e) {
-      let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
-      $('#imgPreview').append(img_html);
+		let img_html = "<img src=\"" + e.target.result + "\" style='width:30%; margin-right: 10px;' />";
+//      let img_html = "<img src=\"" + fistImg + "\" style='width:30%; margin-right: 10px;' />";
+     imgPreview.append(img_html);
     }
     // 이미지를 읽자
     reader.readAsDataURL(f);

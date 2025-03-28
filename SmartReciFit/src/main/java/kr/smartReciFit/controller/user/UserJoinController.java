@@ -46,9 +46,6 @@ public class UserJoinController implements Controller {
 		}
 		System.out.println(phone);
 		
-		
-		
-		
 		String profileImg=null;
 		
 		String saveDirectory = request.getServletContext().getRealPath("/img");

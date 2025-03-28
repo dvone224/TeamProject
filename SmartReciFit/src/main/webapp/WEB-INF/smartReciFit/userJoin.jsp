@@ -61,5 +61,5 @@
 	</table>
 	</form>
 
-<script src="${ctx}/js/user/userFix.js"> </script>
+<script src="${ctx}/js/user/userJoin.js"> </script>
 <%@ include file="../../part/footer.jsp" %>

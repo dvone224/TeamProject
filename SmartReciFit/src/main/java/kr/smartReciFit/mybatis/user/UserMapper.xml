@@ -147,6 +147,20 @@
 	update user set user_pwd=#{pw} where user_num=#{userNum}
 	</update>	
 	
+		<!-- 유저업데이트 -->
+	<update id="updateUserByUserNum" parameterType="Map">
+	update user set
+	user_id=#{id},
+	user_pwd=#{pw},
+	user_name=#{name},
+	user_nickname=#{nickName},
+	user_email=#{email},
+	user_phone=#{phone},
+	user_img=#{profileImg}
+	where
+	user_num=#{userNum}
+	</update>	
+	
 	
 	
 
