@@ -6,9 +6,14 @@
 <%@ page import="kr.smartReciFit.model.user.User" %>
 <!DOCTYPE html>
 <%@ include file="../../part/header.jsp"%>
+<<<<<<< Updated upstream
 <c:if test="${userContent eq null}">
 	<c:redirect url="/userContent.do?num=${sessionScope.log}" />
 </c:if>
+=======
+
+
+>>>>>>> Stashed changes
 
 <h1>My Page</h1>
 
@@ -72,7 +77,11 @@
 		</tr>
 	</table>
 <!-- ============= 소셜 계정 연동 ================= -->
+<<<<<<< Updated upstream
  <%
+=======
+<%
+>>>>>>> Stashed changes
     // 로그인 상태인지 확인
     User user = (User) session.getAttribute("user");
     // 로그인된 상태일 때만 소셜 계정 연동 버튼 표시
@@ -126,6 +135,12 @@
     </tr>
 </table>
 
+<%
+    } else {
+        // 로그인 안 한 경우 소셜 계정 연동 버튼을 숨김
+        System.out.println("로그인되지 않은 사용자입니다. 버튼이 표시되지 않습니다.");
+    }
+%>
 
 <%
     // 세션에서 메시지 가져오기
@@ -139,6 +154,7 @@
 <%
         session.removeAttribute("message"); // 메시지 삭제 (새로고침 시 alert 안 뜨게)
     }
+<<<<<<< Updated upstream
     
 %>
 <% 
@@ -147,6 +163,10 @@
 <p style="font-size: 12px; color: #555; margin-top: 10px;">
    ⚠️ 회원가입한 이메일을 사용하는 계정을 연동해주세요. 연동시 기존 로그인으로 접속됩니다.
 </p> 
+=======
+%>
+<!-- ============= 소셜 계정 연동 ================= -->
+>>>>>>> Stashed changes
 
 </c:if>
 <button name="btn-userFix" id="btn-userFix" onclick="location.href='${ctx}/userFix.do'">회원정보수정</button>

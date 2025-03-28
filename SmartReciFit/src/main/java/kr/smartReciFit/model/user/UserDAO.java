@@ -223,6 +223,113 @@ public class UserDAO {
 		System.out.println("소셜 삭제");
 	}
 
+<<<<<<< Updated upstream
+=======
+//	public boolean linkSocialAccount(int userNum, String platform, String email) {
+//		SqlSession session = Config.getSession().openSession();
+//		boolean success = false;
+//
+//		try { // 1️ 기존 소셜 이메일이 이미 등록되어 있는지 확인
+//			Map<String, Object> params = new HashMap<>();
+//			params.put("email", email);
+//			int count = session.selectOne("checkExistingSocialEmail", params);
+//
+//			if (count > 0) {
+//				System.out.println("이미 연동된 소셜 계정입니다.");
+//				return false;
+//			}
+//
+//			// 2️ 기존 social 테이블에 user_num이 있는지 확인 params.put("userNum", userNum);
+//			int existingSocial = session.selectOne("checkExistingSocialByUserNum", userNum);
+//
+//			if (existingSocial > 0) { // 3️⃣ 기존 데이터가 있으면 업데이트
+//				params.put("platform", platform);
+//				int updated = session.update("linkSocialAccount", params);
+//				if (updated > 0) {
+//					session.commit();
+//					success = true;
+//					System.out.println("소셜 계정이 기존 유저 계정과 성공적으로 연동되었습니다.");
+//				}
+//			} else { // 4️ 기존
+//				// 데이터가 없으면 새로 INSERT
+//				SocialDTO socialDTO = new SocialDTO();
+//				socialDTO.setUserNum(userNum);
+//				if ("kakao".equals(platform))
+//					socialDTO.setKakao(email);
+//				if ("naver".equals(platform))
+//					socialDTO.setNaver(email);
+//				if ("google".equals(platform))
+//					socialDTO.setGoogle(email);
+//
+//				int inserted = session.insert("insertSocialLink", socialDTO);
+//				if (inserted > 0) {
+//					session.commit();
+//					success = true;
+//					System.out.println("새로운 소셜 계정이 추가되었습니다.");
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally {
+//			session.close();
+//		}
+//
+//		return success;
+//	}
+	public boolean linkSocialAccount(int userNum, String platform, String email) {
+	    SqlSession session = Config.getSession().openSession();
+	    boolean success = false;
+
+	    try {
+	        // 1️⃣ 현재 연동하려는 플랫폼을 제외한 기존 연동 여부 확인
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("userNum", userNum);
+	        params.put("platform", platform);
+	        int count = session.selectOne("checkExistingSocialEmail", params);
+
+	        if (count > 0) {
+	            System.out.println("이미 연동된 계정입니다.");
+	            return false;
+	        }
+
+	        // 2️⃣ 기존 social 테이블에 user_num이 있는지 확인
+	        int existingSocial = session.selectOne("checkExistingSocialByUserNum", userNum);
+
+	        if (existingSocial > 0) {
+	            // 3️⃣ 기존 데이터가 있으면 업데이트
+	            params.put("email", email);
+	            int updated = session.update("linkSocialAccount", params);
+	            if (updated > 0) {
+	                session.commit();
+	                success = true;
+	                System.out.println("소셜 계정이 기존 유저 계정과 성공적으로 연동되었습니다.");
+	            }
+	        } else {
+	            // 4️⃣ 기존 데이터가 없으면 새로 INSERT
+	            SocialDTO socialDTO = new SocialDTO();
+	            socialDTO.setUserNum(userNum);
+	            if ("kakao".equals(platform)) socialDTO.setKakao(email);
+	            if ("naver".equals(platform)) socialDTO.setNaver(email);
+	            if ("google".equals(platform)) socialDTO.setGoogle(email);
+
+	            int inserted = session.insert("insertSocialLink", socialDTO);
+	            if (inserted > 0) {
+	                session.commit();
+	                success = true;
+	                System.out.println("새로운 소셜 계정이 추가되었습니다.");
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        session.close();
+	    }
+
+	    return success;
+	}
+
+
+>>>>>>> Stashed changes
 	public User getUserByNum(int userNum) {
 		SqlSession session = Config.getSession().openSession();
 		try {
@@ -264,7 +371,10 @@ public class UserDAO {
 		System.out.println("유저 PW 업데이트 완료");
 		return cnt;
 	}
+<<<<<<< Updated upstream
 	
+=======
+>>>>>>> Stashed changes
 	public Map<String, Boolean> getLinkedSocialAccounts(int userNum) {
 	    SqlSession session = Config.getSession().openSession();
 	    Map<String, Boolean> linkedAccounts = new HashMap<>();
@@ -285,6 +395,7 @@ public class UserDAO {
 	    return linkedAccounts;
 	}
 	
+<<<<<<< Updated upstream
 	public boolean linkSocialAccount(int userNum, String platform, String email) {
 	    SqlSession session = Config.getSession().openSession();
 	    boolean success = false;
@@ -433,5 +544,30 @@ public class UserDAO {
             return 0;
         }
     }
+=======
+	public boolean isKakaoLinked(int userNum) {
+	    SqlSession session = Config.getSession().openSession();
+	    boolean isLinked = session.selectOne("isKakaoLinked", userNum);
+	    session.close();
+	    return isLinked;
+	}
+	
+	public boolean isNaverLinked(int userNum) {
+	    SqlSession session = Config.getSession().openSession();
+	    boolean isLinked = session.selectOne("isNaverLinked", userNum);
+	    session.close();
+	    return isLinked;
+	}
+	
+	public boolean isGoogleLinked(int userNum) {
+	    SqlSession session = Config.getSession().openSession();
+	    boolean isLinked = session.selectOne("isGoogleLinked", userNum);
+	    session.close();
+	    return isLinked;
+	}
+
+
+
+>>>>>>> Stashed changes
 
 }

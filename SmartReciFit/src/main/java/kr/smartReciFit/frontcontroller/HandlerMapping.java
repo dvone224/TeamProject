@@ -100,7 +100,10 @@ public class HandlerMapping {
 		mappings.put("/nicknameInputForm.do", new NicknameInputFormController());
 		
 		
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 		// 관리자 게시판 (나경)
 		
 		mappings.put("/adminMain.do", new AdminMainController());
