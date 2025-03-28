@@ -18,25 +18,25 @@
 	</tr>
 	<tr>
 	<td>아이디*</td>
-	<td><input type="text" name="id-new" id="id-new"  value="${user.userId}" required><input type="hidden" id="originalIdHidden" data-original-id="${user.userId}"></td>
+	<td><input type="text" name="id-new" id="id-new"  value="${userFix.userId}" required><input type="hidden" id="originalIdHidden" data-original-id="${userFix.userId}"></td>
 	<td><button class="btn-checkId" name="btn-checkId" id="btn-checkId">아이디 중복검사</button></td>
 	</tr>
 	<tr>
 	<td>비밀번호*</td>
-	<td colspan="2"><input type="password" name="pw-new" id="pw-new" value="${user.userPw}"  required></td>
+	<td colspan="2"><input type="password" name="pw-new" id="pw-new" value="${userFix.userPw}"  required></td>
 	</tr>
 	<tr>
 	<td>이름*</td>
-	<td colspan="2"><input type="text" name="name" id="name" value="${user.userName}" required></td>
+	<td colspan="2"><input type="text" name="name" id="name" value="${userFix.userName}" required></td>
 	</tr>
 	<tr>
 	<td>닉네임*</td>
-	<td><input type="text" name="nickName" id="nickName" value="${user.userNickName}" required><input type="hidden" id="originalNickNameHidden" data-original-id="${user.userNickName}"></td>
+	<td><input type="text" name="nickName" id="nickName" value="${userFix.userNickName}" required><input type="hidden" id="originalNickNameHidden" data-original-id="${userFix.userNickName}"></td>
 	<td><button class="btn-checkNickName" name="btn-checkNickName" id="btn-checkNickName">닉네임 중복검사</button></td>
 	</tr>
 	<tr>
 	<td>이메일*</td>
-	<td><input type="text" name="email" id="email"  value="${user.userEmail}"><input type="hidden" id="originalEmailHidden" data-original-id="${user.userEmail}"></td>
+	<td><input type="text" name="email" id="email"  value="${userFix.userEmail}"><input type="hidden" id="originalEmailHidden" data-original-id="${userFix.userEmail}"></td>
 	<td><button class="btn-checkEmail" name="btn-checkEmail" id="btn-checkEmail"  onclick="email_ok(email.value)">이메일인증</button></td>
 	</tr>
 	<tr>
@@ -46,21 +46,21 @@
 	</tr>
 	<tr>
 	<td>전화번호</td>
-	<td colspan="2"><input type="text" name="phone" id="phone" value="${user.userPhone }"></td>
+	<td colspan="2"><input type="text" name="phone" id="phone" value="${userFix.userPhone }"></td>
 	</tr>
 
 	<tr>
 	<td>프로필 사진</td>
 	<td><input type="file" name="uploadFile" id="uploadFile" accept="image/*"  onchange="tryImgPreview(event)" >
-	<input type="hidden" id="originalImgHidden" data-original-id="${user.userImg}">
+	<input type="hidden" id="originalImgHidden" data-original-id="${userFix.userImg}">
 	</td>
 	<td><button class="btn-imgDel" name="btn-imgDel" id="btn-imgDel">이미지삭제</button></td>
 	</tr>
 	<tr><td colspan="3"> <div id="imgPreview">
 
 	<c:choose>
-		<c:when test="${not empty user.userImg}">
-			<img src="${ctx}/img/${user.userImg}" class="photo"
+		<c:when test="${not empty userFix.userImg}">
+			<img src="${ctx}/img/${userFix.userImg}" class="photo"
 				id="userImg" />
 		</c:when>
 		<c:otherwise>

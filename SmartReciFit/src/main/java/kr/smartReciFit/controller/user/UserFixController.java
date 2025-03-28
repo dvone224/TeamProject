@@ -26,12 +26,12 @@ public class UserFixController implements Controller {
 		HttpSession session = request.getSession();
 		String ctx=request.getContextPath();
 		
-		Integer userNum=(Integer)session.getAttribute("log");
-		System.out.println("userNum="+userNum);
-		
+		String num=request.getParameter("num");
+		System.out.println("userNum="+num);
+		Integer userNum=Integer.parseInt(num);
 		User vo=UserDAO.getInstance().numGetUser(userNum);
 //		System.out.println("테스트옹 vo: "+vo);
-		request.setAttribute("user", vo);
+		request.setAttribute("userFix", vo);
 		
 		//입력된 값 받아오기
 		String id=request.getParameter("id-new");

@@ -78,13 +78,14 @@
 		</tr>
 	</table>
 </c:if>
-<button name="btn-userFix" id="btn-userFix" onclick="location.href='${ctx}/userFix.do?num='${userContent.userNum}">회원정보수정</button>
+
+<button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userFix.do?num='5'"">회원정보수정</button>
 
 <c:choose>
 <c:when test="${empty userInfoContent}">
 <table>
 <tr><td><p>아직 인포를 저장하지 않았습니다.</p></td></tr>
-<tr><td><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfoFix.do'">인포만들기</button></td></tr>
+<tr><td><button name="btn-makeInfo" id="btn-makeInfo" onclick="location.href='${ctx}/userInfoFix.do"">인포만들기</button></td></tr>
 </table>
 </c:when>
 
