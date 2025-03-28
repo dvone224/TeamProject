@@ -1,6 +1,8 @@
 package kr.smartReciFit.controller.user;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +44,22 @@ public class LoginCheckController implements Controller {
 	        	   session.setAttribute("nickName", nickName);
 	        	   System.out.println(session.getAttribute("nickName"));
 	        	   System.out.println(session.getAttribute("log"));
+	        	   
+	               // 연동된 소셜 계정 상태 확인
+	               Map<String, Boolean> linkedAccounts = new HashMap<>();
+	               
+	               if (UserDAO.getInstance().isKakaoLinked(userNum)) {
+	                   linkedAccounts.put("kakao", true);
+	               }
+	               if (UserDAO.getInstance().isNaverLinked(userNum)) {
+	                   linkedAccounts.put("naver", true);
+	               }
+	               if (UserDAO.getInstance().isGoogleLinked(userNum)) {
+	                   linkedAccounts.put("google", true);
+	               }
+	               
+	               session.setAttribute("linkedAccounts", linkedAccounts); // linkedAccounts 세션에 저장
+	               
 	        	// 관리자 로그인 확인
 	               if ("admin".equals(user.getUserId())) {
 	                   response.getWriter().write("admin_success"); // 관리자 로그인 성공

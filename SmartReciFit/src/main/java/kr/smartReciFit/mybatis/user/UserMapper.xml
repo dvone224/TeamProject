@@ -104,7 +104,8 @@
 		resultMap="socialResultMap">
 		SELECT *
 		FROM social
-		WHERE kakao = #{email} OR naver = #{email} OR google = #{email}
+		WHERE kakao = #{email} OR naver =
+		#{email} OR google = #{email}
 	</select>
 
 	<!-- 이메일로 사용자 조회 -->
@@ -121,34 +122,36 @@
 		WHERE user_num =
 		#{userNum}
 	</update>
-	
-		<!-- num으로 이름찾기 -->
-	<select id="pwGetUserNum" parameterType="String" resultType="integer">
+
+	<!-- num으로 이름찾기 -->
+	<select id="pwGetUserNum" parameterType="String"
+		resultType="integer">
 		select user_num from user where user_pw=#{pw}
 	</select>
-	
+
 	<!-- num으로 유저 삭제하기 -->
 	<delete id="delUserbyUserNum" parameterType="integer">
-	delete from user where user_num=#{userNum};
+		delete from user where user_num=#{userNum};
 	</delete>
-	
-		<!-- num으로 유저 삭제하기 -->
+
+	<!-- num으로 유저 삭제하기 -->
 	<delete id="delSocialbyUserNum" parameterType="integer">
-	delete from social where user_num=#{userNum};
+		delete from social where user_num=#{userNum};
 	</delete>
-	
+
 	<!-- 이메일로 유저넘 찾기 -->
-	<select id="findUserNumByEmail" parameterType="String" resultType="Integer">
-	select user_num from user where user_email=#{email}
+	<select id="findUserNumByEmail" parameterType="String"
+		resultType="Integer">
+		select user_num from user where user_email=#{email}
 	</select>
-	
+
 	<!-- 유저PW업데이트 -->
 	<update id="updatePwByUserNum" parameterType="Map">
-	update user set user_pwd=#{pw} where user_num=#{userNum}
-	</update>	
-	
-	
-	
+		update user set user_pwd=#{pw} where user_num=#{userNum}
+	</update>
+
+
+
 
 	<update id="updateUser" parameterType="user">
 		UPDATE user
@@ -164,31 +167,6 @@
 		FROM user WHERE user_num = #{userNum}
 	</select>
 
-	<!-- 소셜 테이블에 같은 이메일이 있는지 확인 -->
-	<select id="checkExistingSocialEmail" parameterType="String"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM social
-		WHERE kakao = #{email} OR naver = #{email} OR google = #{email}
-	</select>
-
-	<select id="checkExistingSocialByUserNum" parameterType="int"
-		resultType="int">
-		SELECT COUNT(*) FROM social WHERE user_num = #{userNum}
-	</select>
-
-
-	<!-- 기존 유저가 소셜 계정을 추가 연동 -->
-<!-- 	<update id="linkSocialAccount" parameterType="map">
-		UPDATE social
-		SET
-		kakao = CASE WHEN #{platform} = 'kakao' THEN #{email} ELSE kakao END,
-		naver = CASE WHEN #{platform} = 'naver' THEN #{email} ELSE naver END,
-		google = CASE WHEN #{platform} = 'google' THEN #{email} ELSE google
-		END
-		WHERE user_num = #{userNum}
-	</update> -->
-
 
 	<select id="getUserNumByEmail" parameterType="socialDTO"
 		resultType="user">
@@ -200,22 +178,97 @@
 		SELECT * FROM user WHERE user_num = #{userNum}
 	</select>
 
-	<insert id="insertSocialLink" parameterType="socialDTO">
-		INSERT INTO social (user_num, kakao, naver, google)
-		VALUES (#{userNum}, #{kakao}, #{naver}, #{google})
-	</insert>
+	<select id="getAdminList" resultType="Hashmap">
+		SELECT * FROM user WHERE
+		user_name = '관리자'
+	</select>
 
-	<!-- ============================================= -->
-	<select id="isSocialLinked" resultType="int" parameterType="map">
-    SELECT COUNT(*) FROM social WHERE user_num = #{userNum} AND platform = #{platform}
+	<delete id="deleteUser" parameterType="string">
+		DELETE FROM user WHERE
+		user_id = #{userId}
+	</delete>
+	<!-- 관리자 화면 페이징, 전체 회원수 -->
+
+	<select id="getUserCount" resultType="int">
+		SELECT COUNT(*) FROM user
+	</select>
+
+	<select id="getPagedUserList" parameterType="map"
+		resultType="Hashmap">
+		SELECT * FROM user LIMIT #{offset}, #{pageSize}
+	</select>
+
+	<select id="getPagedAdminList" parameterType="map"
+		resultType="Hashmap">
+		SELECT * FROM user WHERE user_name = '관리자' LIMIT #{offset}, #{pageSize}
+	</select>
+
+	<select id="getAdminCount" resultType="int">
+		SELECT COUNT(*) FROM user WHERE user_name = '관리자'
+	</select>
+	<!-- =================== 연동 관련 쿼리 ========================== -->
+	<select id="getSocialByUserNum" parameterType="int"
+		resultType="socialDTO">
+		SELECT * FROM social WHERE user_num = #{userNum}
+	</select>
+
+	<!-- 카카오 연동 여부 확인 -->
+	<select id="isKakaoLinked" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM
+		social
+		WHERE user_num = #{userNum} AND kakao IS NOT NULL
+	</select>
+
+	<!-- 네이버 연동 여부 확인 -->
+	<select id="isNaverLinked" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM
+		social
+		WHERE user_num = #{userNum} AND naver IS NOT NULL
+	</select>
+
+	<!-- 구글 연동 여부 확인 -->
+	<select id="isGoogleLinked" resultType="boolean">
+		SELECT COUNT(*) > 0
+		FROM
+		social
+		WHERE user_num = #{userNum} AND google IS NOT NULL
+	</select>
+
+<select id="checkExistingSocialEmail" parameterType="map" resultType="int">
+    SELECT COUNT(*) FROM social 
+    WHERE user_num = #{userNum} 
+    AND (
+        (#{platform} != 'kakao' AND kakao = #{email}) OR
+        (#{platform} != 'naver' AND naver = #{email}) OR
+        (#{platform} != 'google' AND google = #{email})
+    )
 </select>
 
-<insert id="linkSocialAccount" parameterType="map">
-    INSERT INTO social (user_num, platform, email) VALUES (#{userNum}, #{platform}, #{email})
-</insert>
+	<select id="checkExistingSocialByUserNum" parameterType="int"
+		resultType="int">
+		SELECT COUNT(*) FROM social WHERE user_num = #{userNum}
+	</select>
 
-<delete id="unlinkSocialAccount" parameterType="map">
-    DELETE FROM social WHERE user_num = #{userNum} AND platform = #{platform}
-</delete>
+
+	<!-- 기존 유저가 소셜 계정을 추가 연동 -->
+	<update id="linkSocialAccount" parameterType="map">
+		UPDATE social
+		SET
+		kakao = CASE WHEN #{platform} = 'kakao' THEN #{email} ELSE kakao END,
+		naver = CASE WHEN #{platform} = 'naver' THEN #{email} ELSE naver END,
+		google = CASE WHEN #{platform} = 'google' THEN #{email} ELSE google
+		END
+		WHERE user_num = #{userNum}
+	</update>
+	
+		<insert id="insertSocialLink" parameterType="socialDTO">
+		INSERT INTO social
+		(user_num, kakao, naver, google)
+		VALUES (#{userNum}, #{kakao},
+		#{naver}, #{google})
+	</insert>
+
 
 </mapper>

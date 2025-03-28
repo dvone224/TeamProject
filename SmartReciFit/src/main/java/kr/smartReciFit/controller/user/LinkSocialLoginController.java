@@ -1,6 +1,9 @@
 package kr.smartReciFit.controller.user;
 
 import java.io.IOException;
+import java.util.Map;
+
+import org.json.simple.JSONObject;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,7 +19,8 @@ public class LinkSocialLoginController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-/*		HttpSession session = request.getSession();
+
+		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		System.out.println(user);
 
@@ -34,34 +38,14 @@ public class LinkSocialLoginController implements Controller {
 		boolean linked = UserDAO.getInstance().linkSocialAccount(user.getUserNum(), platform, email);
 
 		if (linked) {
-			session.setAttribute("message", "소셜 계정이 연동되었습니다.");
-		} else {
+		    Map<String, Boolean> linkedAccounts = UserDAO.getInstance().getLinkedSocialAccounts(user.getUserNum());
+		    session.setAttribute("linkedAccounts", linkedAccounts);
+		    System.out.println("연동 성공");
+		}else {
 			session.setAttribute("message", "이미 연동된 계정입니다.");
 		}
 
 		return "userContent";
 	}
 
-}*/
-	       HttpSession session = request.getSession();
-	        User user = (User) session.getAttribute("user");
-
-	        if (user == null) {
-	            session.setAttribute("message", "로그인 후 소셜 계정을 연동할 수 있습니다.");
-	            return "main";
-	        }
-
-	        String platform = request.getParameter("platform");
-	        String email = request.getParameter("email");
-
-	        boolean linked = UserDAO.getInstance().linkSocialAccount(user.getUserNum(), platform, email);
-
-	        if (linked) {
-	            session.setAttribute("message", "소셜 계정이 연동되었습니다.");
-	        } else {
-	            session.setAttribute("message", "이미 연동된 계정입니다.");
-	        }
-
-	        return "userContent"; // userContent.jsp로 이동
-	    }
-	}
+}

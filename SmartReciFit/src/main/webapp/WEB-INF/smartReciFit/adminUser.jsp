@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>전체 회원 목록</title>
+    <title>관리자 목록</title>
     <link rel="stylesheet" type="text/css" href="${ctx}/css/adminStyle.css">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
@@ -17,8 +17,8 @@
             <jsp:include page="menu.jsp" />
         </div>
         <div class="user-list-content">
-            <h2>전체 회원 목록</h2>
-            <p>전체 회원 수: ${totalCount}</p>
+            <h2>관리자 목록</h2>
+            <p>전체 관리자 수: ${totalCount}</p>
             <table>
                 <thead>
                     <tr>
@@ -45,13 +45,13 @@
             </table>
             <div class="pagination">
                 <c:if test="${currentPage > 1}">
-                    <a href="${ctx}/userList.do?page=${currentPage - 1}">이전</a>
+                    <a href="${ctx}/adminUser.do?page=${currentPage - 1}">이전</a>
                 </c:if>
                 <c:forEach var="i" begin="1" end="${totalPages}">
-                    <a href="${ctx}/userList.do?page=${i}" ${currentPage == i ? 'class="active"' : ''}>${i}</a>
+                    <a href="${ctx}/adminUser.do?page=${i}" ${currentPage == i ? 'class="active"' : ''}>${i}</a>
                 </c:forEach>
                 <c:if test="${currentPage < totalPages}">
-                    <a href="${ctx}/userList.do?page=${currentPage + 1}">다음</a>
+                    <a href="${ctx}/adminUser.do?page=${currentPage + 1}">다음</a>
                 </c:if>
             </div>
         </div>
