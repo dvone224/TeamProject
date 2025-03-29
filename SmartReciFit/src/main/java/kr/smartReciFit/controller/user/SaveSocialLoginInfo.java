@@ -52,6 +52,7 @@ public class SaveSocialLoginInfo implements Controller {
 					session.setAttribute("message", "이미 연동된 계정입니다.");
 				}
 				out.close();
+				return null;
 			}
 
 	        UserDAO userDAO = UserDAO.getInstance();
