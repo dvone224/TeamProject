@@ -120,70 +120,68 @@
 	</c:otherwise>
 </c:choose>
 
-<script src="${ctx}/js/user/userContent.js">
+<%-- <script src="${ctx}/js/user/userContent.js"></script> --%>
 <!-- ============= 소셜 계정 연동 ================= -->
- <%
-    // 로그인 상태인지 확인
-    User user = (User) session.getAttribute("user");
-    // 로그인된 상태일 때만 소셜 계정 연동 버튼 표시
-    if (user != null) {
-        // 세션에서 'linkedAccounts' 가져오고, 없으면 빈 HashMap 생성
-        Map<String, Boolean> linkedAccounts = (Map<String, Boolean>) session.getAttribute("linkedAccounts");
-        if (linkedAccounts == null) {
-            linkedAccounts = new HashMap<>();
-        }
+<%
+// 로그인 상태인지 확인
+User user = (User) session.getAttribute("user");
+// 로그인된 상태일 때만 소셜 계정 연동 버튼 표시
+if (user != null) {
+	// 세션에서 'linkedAccounts' 가져오고, 없으면 빈 HashMap 생성
+	Map<String, Boolean> linkedAccounts = (Map<String, Boolean>) session.getAttribute("linkedAccounts");
+	if (linkedAccounts == null) {
+		linkedAccounts = new HashMap<>();
+	}
 %>
 
 <table border="1">
-    <tr>
-        <td>카카오 계정 연동</td>
-        <td>
-            <form action="${ctx}/linkSocial.do" method="POST">
-                <input type="hidden" name="platform" value="kakao">
-                <input type="hidden" name="email" value="${sessionScope.user.userEmail}">
-                <button type="submit" 
-                    <% if (linkedAccounts.getOrDefault("kakao", false)) { %> disabled <% } %>>
-                    <%= linkedAccounts.getOrDefault("kakao", false) ? "연동됨" : "연동" %>
-                </button>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>네이버 계정 연동</td>
-        <td>
-            <form action="${ctx}/linkSocial.do" method="POST">
-                <input type="hidden" name="platform" value="naver">
-                <input type="hidden" name="email" value="${sessionScope.user.userEmail}">
-                <button type="submit" 
-                    <% if (linkedAccounts.getOrDefault("naver", false)) { %> disabled <% } %>>
-                    <%= linkedAccounts.getOrDefault("naver", false) ? "연동됨" : "연동" %>
-                </button>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>구글 계정 연동</td>
-        <td>
-            <form action="${ctx}/linkSocial.do" method="POST">
-                <input type="hidden" name="platform" value="google">
-                <input type="hidden" name="email" value="${sessionScope.user.userEmail}">
-                <button type="submit" 
-                    <% if (linkedAccounts.getOrDefault("google", false)) { %> disabled <% } %>>
-                    <%= linkedAccounts.getOrDefault("google", false) ? "연동됨" : "연동" %>
-                </button>
-            </form>
-        </td>
-    </tr>
+	<tr>
+		<td>카카오 계정 연동</td>
+		<td>
+			<button onclick="kakaoLogin()"
+				<%if (linkedAccounts.getOrDefault("kakao", false)) {%> disabled
+				<%}%>>
+				<%=linkedAccounts.getOrDefault("kakao", false) ? "연동됨" : "연동"%>
+			</button> <a href="javascript:kakaoLogin()"><img
+				src="<c:url value='/img/kakao_login_large_wide.png'/>"
+				style="width: 200px <%=linkedAccounts.getOrDefault("kakao", false) ? "pointer-events: none; opacity: 0.5;" : ""%>"></a>
+		</td>
+	</tr>
+	<tr>
+		<td>네이버 계정 연동</td>
+		<td>
+			<button class="naver_social_connection"
+				<%if (linkedAccounts.getOrDefault("naver", false)) {%> disabled
+				<%}%>>
+				<%=linkedAccounts.getOrDefault("naver", false) ? "연동됨" : "연동"%>
+			</button>
+			<div id="naver_id_login"
+				<%=linkedAccounts.getOrDefault("naver", false) ? "style='pointer-events: none; opacity: 0.5;'" : ""%>></div>
+		</td>
+	</tr>
+	<tr>
+		<td>구글 계정 연동</td>
+		<td>
+			<div id="g_id_onload"
+				data-client_id="231194762579-nbasfr2j9k5nrb2nu78t6r6ou03c3btk.apps.googleusercontent.com"
+				data-login_uri="http://localhost:8084/SmartReciFit/main.do"
+				data-auto_prompt="false"></div>
+			<div class="g_id_signin" id="googleSignInButton" data-type="standard"
+				data-size="large" data-theme="outline" data-text="sign_in_with"
+				data-shape="rectangular" data-logo_alignment="left"
+				<%=linkedAccounts.getOrDefault("google", false) ? "style='pointer-events: none; opacity: 0.5;'" : ""%>></div>
+		</td>
+	</tr>
 </table>
 
 
 <%
-    // 세션에서 메시지 가져오기
-    String message = (String) session.getAttribute("message");
-    if (message != null && !message.isEmpty()) {
+// 세션에서 메시지 가져오기
+String message = (String) session.getAttribute("message");
+if (message != null && !message.isEmpty()) {
 %>
-    <script>
-        alert("<%= message %>");
+<script>
+        alert("<%=message%>");
     </script>
 
 <%
@@ -236,7 +234,12 @@ session.removeAttribute("message"); // 메시지 삭제 (새로고침 시 alert 
 <button name="btn-userDel" id="btn-userDel"
 	onclick="location.href='${ctx}/userDel.do'">회원탈퇴</button>
 
-<script src="${ctx}/js/user/userContent.js">
-   
+<%-- <script src="${ctx}/js/user/userContent.js"></script> --%>
+<script type="text/javascript">
+	document.querySelector('.naver_social_connection').addEventListener('click', function() {
+	    document.querySelector('#naver_id_login').querySelector('a').click();
+	});
+
 </script>
+
 <%@ include file="../../part/footer.jsp"%>

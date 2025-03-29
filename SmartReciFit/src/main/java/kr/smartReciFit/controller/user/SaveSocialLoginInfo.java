@@ -35,13 +35,32 @@ public class SaveSocialLoginInfo implements Controller {
 	        System.out.println("=============================");
 
 	        HttpSession session = request.getSession();
+	        
+	        User user = (User) session.getAttribute("user");
+	        PrintWriter out = response.getWriter();
+			if (user != null) {
+				System.out.println(platform);
+				System.out.println(email);
+
+				boolean linked = UserDAO.getInstance().linkSocialAccount(user.getUserNum(), platform, email);
+
+				if (linked) {
+				    Map<String, Boolean> linkedAccounts = UserDAO.getInstance().getLinkedSocialAccounts(user.getUserNum());
+				    session.setAttribute("linkedAccounts", linkedAccounts);
+				    System.out.println("연동 성공");
+				}else {
+					session.setAttribute("message", "이미 연동된 계정입니다.");
+				}
+				out.close();
+			}
+
 	        UserDAO userDAO = UserDAO.getInstance();
 
 	        // ✅ social 테이블에서 이메일 확인 (기존 소셜 계정인지 체크)
 	        SocialDTO existingSocial = userDAO.getSocialByEmail(email);
 	        System.out.println(existingSocial); // NULL이면 신규, NULL이 아니면 기존
 	        response.setContentType("text/plain");
-	        PrintWriter out = response.getWriter();
+	        
 	        
 	        int userNum;
 	        if (existingSocial != null) { // 소셜로그인 한번이라도 한 자면,
